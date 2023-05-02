@@ -1,0 +1,14 @@
+// this simply adds intellisense
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"]
+    }
+  },
+  //Add any build/compiled folders here to stop vscode searching those
+  "exclude": ["node_modules", "build"]
+}
