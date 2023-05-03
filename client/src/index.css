@@ -4,6 +4,9 @@
   * {
     @apply box-border;
   }
+  body {
+    @apply bg-blue-50;
+  }
   h1 {
     @apply text-2xl;
   }
@@ -19,4 +22,10 @@
 }
 
 @tailwind components;
+
+@layer components {
+  .btn {
+    @apply rounded border-b-2 border-solid border-white bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+  }
+}
 @tailwind utilities;
