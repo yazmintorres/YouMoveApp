@@ -2,7 +2,7 @@ import React from "react";
 
 const VideoCard = ({ sourceId, title, channel }) => {
   return (
-    <div>
+    <div className="">
       <iframe
         className="border-2 border-solid border-black
         "
