@@ -8,6 +8,7 @@ import Login from "./src/pages/Login/Login";
 import CreateWorkout from "./src/pages/CreateWorkout/CreateWorkout";
 import WorkoutCard from "./src/pages/WorkoutCard/WorkoutCard";
 import Navbar from "./src/components/Navbar.jsx/Navbar";
+import UserLanding from "./src/pages/UserLanding/UserLanding";
 
 const Layout = () => {
   return (
@@ -29,6 +30,7 @@ const Routes = (
     <Route path="login" element={<Login />} />
     <Route path="create" element={<CreateWorkout />} />
     <Route path="card/:id" element={<WorkoutCard />} />
+    <Route path="dashboard" element={<UserLanding />} />
   </Route>
 );
 
