@@ -7,7 +7,7 @@ import Register from "./src/pages/Register/Register";
 import Login from "./src/pages/Login/Login";
 import CreateWorkout from "./src/pages/CreateWorkout/CreateWorkout";
 import WorkoutCard from "./src/pages/WorkoutCard/WorkoutCard";
-import Navbar from "./src/components/Navbar.jsx/Navbar";
+import Navbar from "./src/components/Navbar/Navbar";
 import UserLanding from "./src/pages/UserLanding/UserLanding";
 
 const Layout = () => {
