@@ -9,10 +9,10 @@ const Navbar = () => {
   return (
     <nav className=" bg-gradient-to-r from-blue-600 to-violet-600 p-4 tracking-wider text-white ">
       <div className="m-auto flex w-11/12 flex-wrap items-center">
-        <h1 className="grow-[2] text-center text-3xl font-bold">
+        <h1 className="grow-[1] text-center text-3xl font-bold">
           Welcome to <span className="tracking-widest">YouMove</span>
         </h1>
-        <div className=" grow-[1] basis-48 text-center ">
+        <div className=" grow-[2] basis-48 text-center ">
           {location.pathname === "/" && (
             <Link
               className="w-10 border-b-2 border-solid border-white"
