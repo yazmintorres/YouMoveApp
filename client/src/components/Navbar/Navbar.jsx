@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   // get path
@@ -18,9 +18,21 @@ const Navbar = () => {
               Login
             </Link>
           )}
-          {location.pathname === "/login" && <NavLink to="/">Home</NavLink>}
-          {location.pathname === "/register" && <NavLink to="/">Home</NavLink>}
-          {/* {location.pathname === "/create" && <NavLink to="/create">Home</NavLink>} */}
+          {location.pathname === "/login" && (
+            <Link className="btn" to="/">
+              Home
+            </Link>
+          )}
+          {location.pathname === "/register" && (
+            <Link className="btn" to="/">
+              Home
+            </Link>
+          )}
+          {location.pathname === "/dashboard" && (
+            <Link className="btn" to="/">
+              Logout
+            </Link>
+          )}
         </div>
       </div>
     </nav>
