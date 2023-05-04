@@ -6,14 +6,14 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 
 const UserLanding = () => {
   return (
-    <div className=" grid-cols-2 sm:grid">
-      <h2>Find A New Workout</h2>
-      <form className="flex sm:order-1">
+    <div className=" grid-cols-5 gap-x-9 sm:grid">
+      <h2 className="col-start-1 col-end-3">Find A New Workout</h2>
+      <form className="col-start-1 col-end-3 flex sm:order-1">
         <label htmlFor="video-search" className="sr-only">
           Search
         </label>
         <input
-          className=" grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+          className="  grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
           type="search"
           placeholder="Search for a workout"
           id="video-search"
@@ -25,7 +25,7 @@ const UserLanding = () => {
           Search
         </button>
       </form>
-      <h2>Your Workout Playlist</h2>
+      <h2 className="col-start-3 col-end-6">Your Workout Playlist</h2>
       {/* <form>
         <label>Search</label>
         <input type="text" placeholder="search a workout" />
