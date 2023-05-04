@@ -21,6 +21,17 @@ const CreateWorkout = () => {
                 required
               >
                 <option value="full-body">Full Body</option>
+                <option value="upper-body">Upper Body</option>
+                <option value="lower-body">Lower Body</option>
+                <option value="arms">Arms</option>
+                <option value="abs">Abs</option>
+                <option value="back">Back</option>
+                <option value="chest">Chest</option>
+                <option value="shoulders">Shoulders</option>
+                <option value="legs">Legs</option>
+                <option value="glutes">Glutes</option>
+                <option value="calves">Calves</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3  ">
