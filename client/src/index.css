@@ -11,11 +11,15 @@
     @apply text-2xl;
   }
   h2 {
-    @apply text-xl;
+    @apply my-4 text-2xl text-xl font-bold tracking-wide;
   }
   h3 {
     @apply text-lg;
   }
+  iframe {
+    @apply aspect-video h-full w-full;
+  }
+
   /* a {
     @apply text-blue-600 underline;
   } */
