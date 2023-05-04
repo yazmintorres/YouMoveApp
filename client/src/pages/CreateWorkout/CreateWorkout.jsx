@@ -39,6 +39,12 @@ const CreateWorkout = () => {
                 name="seconds"
               ></input>
             </div>
+            <button
+              type="submit"
+              className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+              Add Workout
+            </button>
           </form>
         </div>
         <div className="flex w-full grow flex-col items-center">
