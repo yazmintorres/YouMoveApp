@@ -38,7 +38,7 @@ const UserLanding = () => {
     <div>
       <div className="md:flex">
         <div className="flex w-full grow flex-col gap-3">
-          <h2 className=" my-4  font-bold tracking-wide">Find A New Workout</h2>
+          <h2 className="mb-1   font-bold tracking-wide">Find A New Workout</h2>
           <div className="border border-solid border-gray-500"></div>
           <form
             onSubmit={handleSubmit}
@@ -67,7 +67,7 @@ const UserLanding = () => {
           {videos}
         </div>
         <div className="flex w-full grow flex-col items-center gap-3">
-          <h2 className="">Your Workout Playlist</h2>
+          <h2 className="mb-1">Your Workout Playlist</h2>
         </div>
       </div>
     </div>

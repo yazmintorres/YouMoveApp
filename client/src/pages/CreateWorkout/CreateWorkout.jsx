@@ -11,7 +11,11 @@ const CreateWorkout = () => {
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
       <div className="md:flex">
         <div className="flex w-full grow flex-col gap-3">
-          <VideoCard sourceId="YJPSR9dEQV8" />
+          <VideoCard
+            videoId="YJPSR9dEQV8"
+            channelTitle="channel name"
+            title="Video Name"
+          />
           <div className="border border-solid border-gray-500"></div>
           <form className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
