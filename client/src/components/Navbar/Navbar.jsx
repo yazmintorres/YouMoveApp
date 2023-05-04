@@ -14,7 +14,7 @@ const Navbar = () => {
     <nav className=" bg-gradient-to-r from-blue-600 to-violet-600 p-4 tracking-wider text-white ">
       <div className="m-auto flex w-11/12 flex-wrap items-center gap-3 sm:gap-0 ">
         <h1 className="grow-[1] text-center text-3xl font-bold sm:text-left">
-          Welcome to <span className="tracking-widest">YouMove</span>
+          Welcome to <span className="">YouMove</span>
         </h1>
         <div className=" flex  grow-[2] basis-52 justify-center gap-2 text-center sm:justify-end">
           {isAuthenticated && location.pathname !== "/dashboard" && (
