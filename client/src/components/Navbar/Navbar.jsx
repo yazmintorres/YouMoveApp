@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import LoginButton from "../LoginButton/LoginButton";
+import { LogoutButton } from "../LogoutButton/LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { isAuthenticated } = useAuth0();
   // get path
   const location = useLocation();
   console.log(location);
@@ -13,14 +16,21 @@ const Navbar = () => {
         <h1 className="grow-[1] text-center text-3xl font-bold sm:text-left">
           Welcome to <span className="tracking-widest">YouMove</span>
         </h1>
-        <div className=" flex  grow-[2] basis-52 justify-center text-center sm:justify-end ">
-          <LoginButton />
-
-          {location.pathname === "/dashboard" && (
-            <Link className="btn" to="/">
-              Logout
+        <div className=" flex  grow-[2] basis-52 justify-center gap-2 text-center sm:justify-end">
+          {isAuthenticated && location.pathname !== "/dashboard" && (
+            <Link className="btn" to="/dashboard">
+              Your Workouts
             </Link>
           )}
+          {/* {isAuthenticated && location.pathname !== "/" && (
+            <>
+              <Link className="btn" to="/">
+                Home Page
+              </Link>
+            </>
+          )} */}
+          {isAuthenticated && <LogoutButton />}
+          {!isAuthenticated && <LoginButton />}
         </div>
       </div>
     </nav>
