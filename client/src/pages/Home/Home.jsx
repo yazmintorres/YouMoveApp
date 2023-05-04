@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SignupButton from "@client/src/components/SignUpButton/SignUpButton";
 
 const Home = () => {
   return (
@@ -14,9 +15,7 @@ const Home = () => {
         <li>⭐️ Save the workout for easy future reference</li>
         {/* <li>⭐️ Create a personal playlist of awesome workouts</li> */}
       </ul>
-      <Link className="btn mt-1 drop-shadow-lg" to="/register">
-        Sign Up Now!
-      </Link>
+      <SignupButton />
     </div>
   );
 };

@@ -15,16 +15,7 @@ const Navbar = () => {
         </h1>
         <div className=" flex  grow-[2] basis-52 justify-center text-center sm:justify-end ">
           <LoginButton />
-          {location.pathname === "/login" && (
-            <Link className="btn" to="/">
-              Home
-            </Link>
-          )}
-          {location.pathname === "/register" && (
-            <Link className="btn" to="/">
-              Home
-            </Link>
-          )}
+
           {location.pathname === "/dashboard" && (
             <Link className="btn" to="/">
               Logout

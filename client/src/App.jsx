@@ -2,8 +2,6 @@ import { Routes, Route, Outlet } from "react-router-dom";
 // pages
 import Navbar from "./components/Navbar/Navbar";
 import Home from "@pages/Home/Home";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
 import CreateWorkout from "./pages/CreateWorkout/CreateWorkout";
 import WorkoutCard from "./pages/WorkoutCard/WorkoutCard";
 import UserLanding from "./pages/UserLanding/UserLanding";
@@ -26,8 +24,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
+        {/* <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} /> */}
         <Route path="create" element={<CreateWorkout />} />
         <Route path="card/:id" element={<WorkoutCard />} />
         <Route path="dashboard" element={<UserLanding />} />
