@@ -2,6 +2,7 @@ import React from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import AddExercise from "./components/AddExercise";
 import { useState } from "react";
+import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 
 const CreateWorkout = () => {
   const [exerciseAdded, setExerciseAdded] = useState(false);
@@ -62,7 +63,24 @@ const CreateWorkout = () => {
             )}
           </form>
         </div>
-        <div className="flex w-full grow flex-col items-center">
+        <div className="flex w-full grow flex-col items-center gap-3">
+          <ExerciseCard
+            number={1}
+            duration="this would be a duration (time)"
+            name="push-ups"
+            weight="bodyweight"
+            sets={2}
+            reps={10}
+          />
+          <ExerciseCard
+            number={1}
+            duration="this would be a duration (time)"
+            name="push-ups"
+            weight="bodyweight"
+            sets={2}
+            reps={10}
+          />
+
           <AddExercise />
         </div>
       </div>
