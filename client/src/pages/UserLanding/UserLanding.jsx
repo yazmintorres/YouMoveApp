@@ -8,7 +8,7 @@ import searchResponse from "@client/src/data/search-response";
 const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
+  const [searchResult, setSearchResult] = useState([]);
   console.log(searchTerm);
   console.log(searchResult);
 
@@ -20,8 +20,19 @@ const UserLanding = () => {
     // const searchResults = await response.json();
     // working with mock data
     const searchResults = searchResponse;
-    setSearchResult(searchResults);
+    setSearchResult(searchResults.items);
   };
+
+  const videos = searchResult.map((obj) => (
+    <VideoCard
+      key={obj.id.videoId}
+      videoId={obj.id.videoId}
+      title={obj.snippet.title}
+      channelTitle={obj.snippet.channelTitle}
+    />
+  ));
+
+  console.log(videos);
 
   return (
     <div className=" grid-cols-5 gap-x-9 sm:grid">
@@ -41,6 +52,7 @@ const UserLanding = () => {
           name="video-search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          required
         ></input>
         <button
           type="submit"
@@ -49,6 +61,7 @@ const UserLanding = () => {
           Search
         </button>
       </form>
+      {videos}
       <h2 className="col-start-3 col-end-6">Your Workout Playlist</h2>
     </div>
   );
