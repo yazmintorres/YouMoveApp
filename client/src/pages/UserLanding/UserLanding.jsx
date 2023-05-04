@@ -17,6 +17,7 @@ const UserLanding = () => {
           type="search"
           placeholder="Search for a workout"
           id="video-search"
+          name="video-search"
         ></input>
         <button
           type="submit"
@@ -26,10 +27,6 @@ const UserLanding = () => {
         </button>
       </form>
       <h2 className="col-start-3 col-end-6">Your Workout Playlist</h2>
-      {/* <form>
-        <label>Search</label>
-        <input type="text" placeholder="search a workout" />
-      </form> */}
     </div>
   );
 };
