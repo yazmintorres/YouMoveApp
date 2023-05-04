@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 
 // notes
 // path element is the search icon
 
 const UserLanding = () => {
+  const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
+  const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchTerm}&type=video&maxResults=5`
+    );
+    const searchResults = await response.json();
+    console.log(searchResults);
+  };
+
   return (
     <div className=" grid-cols-5 gap-x-9 sm:grid">
       <h2 className="col-start-1 col-end-3">Find A New Workout</h2>
-      <form className="col-start-1 col-end-3 flex sm:order-1">
+      <form
+        onSubmit={handleSubmit}
+        className="col-start-1 col-end-3 flex sm:order-1"
+      >
         <label htmlFor="video-search" className="sr-only">
           Search
         </label>
@@ -18,6 +34,8 @@ const UserLanding = () => {
           placeholder="Search for a workout"
           id="video-search"
           name="video-search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         ></input>
         <button
           type="submit"
