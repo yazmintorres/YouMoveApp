@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import LoginButton from "../LoginButton/LoginButton";
 
 const Navbar = () => {
   // get path
@@ -13,11 +14,7 @@ const Navbar = () => {
           Welcome to <span className="tracking-widest">YouMove</span>
         </h1>
         <div className=" flex  grow-[2] basis-52 justify-center text-center sm:justify-end ">
-          {location.pathname === "/" && (
-            <Link className="btn" to="/login">
-              Login
-            </Link>
-          )}
+          <LoginButton />
           {location.pathname === "/login" && (
             <Link className="btn" to="/">
               Home
