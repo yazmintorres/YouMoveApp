@@ -1,8 +1,10 @@
 import React from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import AddExercise from "./components/AddExercise";
+import { useState } from "react";
 
 const CreateWorkout = () => {
+  const [exerciseAdded, setExerciseAdded] = useState(false);
   return (
     <div>
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
@@ -39,16 +41,17 @@ const CreateWorkout = () => {
                 name="seconds"
               ></input>
             </div>
-            <button
-              type="submit"
-              className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            >
-              Add Workout
-            </button>
+            {exerciseAdded && (
+              <button
+                type="submit"
+                className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              >
+                Add Workout
+              </button>
+            )}
           </form>
         </div>
         <div className="flex w-full grow flex-col items-center">
-          <p>Exercise cards will go here</p>
           <AddExercise />
         </div>
       </div>
