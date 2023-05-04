@@ -1,8 +1,5 @@
 import React from "react";
 
-import InputField from "@client/src/components/InputField/InputField";
-import { Form } from "react-router-dom";
-
 const AddExercise = () => {
   return (
     <div className="mt-4 w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
