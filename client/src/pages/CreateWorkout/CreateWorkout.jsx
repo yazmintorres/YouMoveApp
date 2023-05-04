@@ -10,8 +10,9 @@ const CreateWorkout = () => {
     <div>
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
       <div className="md:flex">
-        <div className="flex w-full grow flex-col gap-11">
+        <div className="flex w-full grow flex-col gap-3">
           <VideoCard sourceId="YJPSR9dEQV8" />
+          <div className="border border-solid border-gray-500"></div>
           <form className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="target-area">Target Area*</label>
@@ -30,12 +31,14 @@ const CreateWorkout = () => {
                 <option value="chest">Chest</option>
                 <option value="shoulders">Shoulders</option>
                 <option value="legs">Legs</option>
-                <option value="glutes">Glutes</option>
+                <opti on value="glutes">
+                  Glutes
+                </opti>
                 <option value="calves">Calves</option>
                 <option value="other">Other</option>
               </select>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3  ">
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="rest-interval">Rest Interval</label>
               <input
                 className="input-field w-20 basis-auto"
@@ -64,23 +67,6 @@ const CreateWorkout = () => {
           </form>
         </div>
         <div className="flex w-full grow flex-col items-center gap-3">
-          <ExerciseCard
-            number={1}
-            duration="this would be a duration (time)"
-            name="push-ups"
-            weight="bodyweight"
-            sets={2}
-            reps={10}
-          />
-          <ExerciseCard
-            number={1}
-            duration="this would be a duration (time)"
-            name="push-ups"
-            weight="bodyweight"
-            sets={2}
-            reps={10}
-          />
-
           <AddExercise />
         </div>
       </div>
