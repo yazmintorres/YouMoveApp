@@ -2,7 +2,7 @@ import React from "react";
 
 const VideoCard = ({ videoId, title, channelTitle }) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="order-2 flex flex-col ">
       <iframe
         className="border-2 border-solid border-black
         "
@@ -14,7 +14,7 @@ const VideoCard = ({ videoId, title, channelTitle }) => {
         allowFullScreen
       ></iframe>
       <h3 className="m-0 text-lg">{title}</h3>
-      <p>{channelTitle}</p>
+      <p className="text-sm font-bold">{channelTitle}</p>
     </div>
   );
 };
