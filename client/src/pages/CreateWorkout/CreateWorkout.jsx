@@ -1,10 +1,11 @@
 import React from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
+import AddExercise from "./components/AddExercise";
 
 const CreateWorkout = () => {
   return (
     <div>
-      <h2 className=" my-4 text-2xl font-bold tracking-wide">Add Workout</h2>
+      <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
       <div className="md:flex">
         <div className="flex w-full grow flex-col gap-11">
           <VideoCard sourceId="YJPSR9dEQV8" />
@@ -42,6 +43,7 @@ const CreateWorkout = () => {
         </div>
         <div className="flex w-full grow flex-col items-center">
           <p>Exercise cards will go here</p>
+          <AddExercise />
         </div>
       </div>
     </div>

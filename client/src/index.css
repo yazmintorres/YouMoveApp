@@ -8,13 +8,13 @@
     @apply bg-blue-50;
   }
   h1 {
-    @apply text-2xl;
+    @apply my-4 text-3xl;
   }
   h2 {
-    @apply my-4 text-2xl text-xl font-bold tracking-wide;
+    @apply my-4 text-2xl font-bold tracking-wide;
   }
   h3 {
-    @apply text-lg;
+    @apply my-4 text-xl;
   }
   iframe {
     @apply aspect-video h-full w-full;
