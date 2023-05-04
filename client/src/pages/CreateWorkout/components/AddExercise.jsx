@@ -5,7 +5,7 @@ import { Form } from "react-router-dom";
 
 const AddExercise = () => {
   return (
-    <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:w-4/5">
+    <div className="mt-4 w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto w-11/12 p-3">
         <h3 className=" my-4 text-lg font-bold ">Add Exercise</h3>
         <form className="flex flex-col gap-2">
