@@ -8,7 +8,7 @@ const Navbar = () => {
   const { isAuthenticated } = useAuth0();
   // get path
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   return (
     <nav className=" bg-gradient-to-r from-blue-600 to-violet-600  py-4 tracking-wider text-white ">

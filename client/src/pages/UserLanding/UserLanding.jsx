@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
+import searchResponse from "@client/src/data/search-response";
 
 // notes
 // path element is the search icon
@@ -7,15 +8,19 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
   console.log(searchTerm);
+  console.log(searchResult);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchTerm}&type=video&maxResults=5`
-    );
-    const searchResults = await response.json();
-    console.log(searchResults);
+    // const response = await fetch(
+    //   `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchTerm}&type=video&maxResults=5`
+    // );
+    // const searchResults = await response.json();
+    // working with mock data
+    const searchResults = searchResponse;
+    setSearchResult(searchResults);
   };
 
   return (
