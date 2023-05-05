@@ -24,14 +24,12 @@ const UserLanding = () => {
   };
 
   const videos = searchResult.map((obj) => (
-    <div key={obj.id.videoId} className="order-2 shadow-sm">
-      {/* <button>Add Workout</button> */}
-      <VideoCard
-        videoId={obj.id.videoId}
-        title={obj.snippet.title}
-        channelTitle={obj.snippet.channelTitle}
-      />
-    </div>
+    <VideoCard
+      key={obj.id.videoId}
+      videoId={obj.id.videoId}
+      title={obj.snippet.title}
+      channelTitle={obj.snippet.channelTitle}
+    />
   ));
 
   console.log(videos);
