@@ -1,7 +1,33 @@
 import React from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
+import { useState } from "react";
 
 const AddExercise = () => {
+  const [exercises, setExercises] = useState([]);
+  const [exercise, setExercise] = useState({
+    name: "",
+    // duration: { minutes: "", seconds: "" },
+    minutes: "",
+    seconds: "",
+    weight: "",
+    reps: "",
+    sets: "",
+  });
+
+  const handleChange = (e) => {
+    // if (e.target.name === "minutes" || e.target.name === "seconds") {
+    //   setExercise({
+    //     ...exercise,
+    //     duration: { ...exercise.duration, [e.target.name]: e.target.value },
+    //   });
+    // } else {
+    //   setExercise({ ...exercise, [e.target.name]: e.target.value });
+    // }
+    setExercise({ ...exercise, [e.target.name]: e.target.value });
+  };
+
+  console.log(exercise);
+
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
       <ExerciseCard
@@ -35,8 +61,10 @@ const AddExercise = () => {
               <input
                 className="input-field  "
                 type="text"
-                name="exercise-name"
-                id="exercise-name"
+                name="name"
+                id="name"
+                value={exercise.name}
+                onChange={handleChange}
                 required
               ></input>
             </div>
@@ -48,7 +76,11 @@ const AddExercise = () => {
                 className="input-field w-20 basis-auto"
                 type="number"
                 name="minutes"
+                min={0}
+                max={30}
                 placeholder="Minutes"
+                onChange={handleChange}
+                value={exercise.minutes}
                 id="duration"
               ></input>
               <p>:</p>
@@ -58,6 +90,10 @@ const AddExercise = () => {
                 placeholder="Seconds"
                 id="duration"
                 name="seconds"
+                value={exercise.seconds}
+                onChange={handleChange}
+                min={0}
+                max={60}
               ></input>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3  ">
@@ -69,6 +105,9 @@ const AddExercise = () => {
                 type="number"
                 name="weight"
                 id="weight"
+                value={exercise.weight}
+                onChange={handleChange}
+                min={0}
                 placeholder="Pounds"
               ></input>
             </div>
@@ -81,6 +120,9 @@ const AddExercise = () => {
                 type="number"
                 name="reps"
                 id="reps"
+                value={exercise.reps}
+                onChange={handleChange}
+                min={0}
               ></input>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3  ">
@@ -92,6 +134,9 @@ const AddExercise = () => {
                 type="number"
                 name="sets"
                 id="sets"
+                min={0}
+                value={exercise.sets}
+                onChange={handleChange}
               ></input>
             </div>
             <button
