@@ -1,30 +1,30 @@
-# YouMove -  A Fitness App
+ # YouMove -  A Fitness App 
 
-## Overview
+<!--- ## Overview --->
 
-## Table of Contents
+<!--- ## Table of Contents --->
 
-## User Story
+<!--- ## User Story --->
 
-## Difficulties/Unsolved Problems
+<!--- ## Difficulties/Unsolved Problems --->
 
-## Future Development
+<!--- ## Future Development --->
 
-## Demo
+<!--- ## Demo --->
 
-## Tools and Technology Used  // Techstack
+<!--- ## Tools and Technology Used  // Techstack --->
 
-## Database Diagram
+<!--- ## Database Diagram --->
 
-## Wireframe 
+<!--- ## Wireframe --->
 
-### Project Structure - Links for files and components
+<!--- ### Project Structure - Links for files and components --->
 
-## Installation
+<!--- ## Installation --->
 
-## Acknowledgement 
+<!--- ## Acknowledgement --->
 
-## Resources 
+<!--- ## Resources --->
 
 
 
