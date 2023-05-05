@@ -15,7 +15,7 @@ const VideoCard = ({ videoId, title, channelTitle, children }) => {
           allowFullScreen
         ></iframe>
         {children}
-        <h3 className="m-0 text-lg">{title}</h3>
+        <h3 className="m-0 mt-1 text-lg">{title}</h3>
         <p className="text-sm font-bold">{channelTitle}</p>
       </div>
     </div>
