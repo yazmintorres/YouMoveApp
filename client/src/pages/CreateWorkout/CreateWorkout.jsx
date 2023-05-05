@@ -45,7 +45,7 @@ const CreateWorkout = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            <div className="mb-2 flex flex-wrap items-center justify-between gap-3  ">
+            {/* <div className="mb-2 flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="rest-interval">Rest Interval</label>
               <input
                 className="input-field w-20 basis-auto"
@@ -62,7 +62,7 @@ const CreateWorkout = () => {
                 id="rest-interval"
                 name="seconds"
               ></input>
-            </div>
+            </div> */}
             {exerciseAdded && (
               <button
                 type="submit"
