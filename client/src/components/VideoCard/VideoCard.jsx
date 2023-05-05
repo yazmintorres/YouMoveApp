@@ -1,6 +1,6 @@
 import React from "react";
 
-const VideoCard = ({ videoId, title, channelTitle }) => {
+const VideoCard = ({ videoId, title, channelTitle, children }) => {
   return (
     <div className="order-2 shadow-sm">
       <div className="order-2  flex  flex-col   ">
@@ -14,6 +14,7 @@ const VideoCard = ({ videoId, title, channelTitle }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
+        {children}
         <h3 className="m-0 text-lg">{title}</h3>
         <p className="text-sm font-bold">{channelTitle}</p>
       </div>
