@@ -2,11 +2,11 @@ import React from "react";
 
 const VideoCard = ({ videoId, title, channelTitle }) => {
   return (
-    <div className="order-2  flex flex-col shadow-sm  ">
+    <div className="order-2   flex  flex-col   ">
       <iframe
         className="border-2 border-solid border-black
         "
-        src={`https://www.youtube.com/embed/${videoId}?modestbranding=1`}
+        src={`https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0`}
         title={`A workout video by ${channelTitle} titled ${title} `}
         // width={320}
         // height={180}

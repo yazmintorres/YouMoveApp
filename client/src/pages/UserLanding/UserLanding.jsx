@@ -24,26 +24,25 @@ const UserLanding = () => {
   };
 
   const videos = searchResult.map((obj) => (
-    <VideoCard
-      key={obj.id.videoId}
-      videoId={obj.id.videoId}
-      title={obj.snippet.title}
-      channelTitle={obj.snippet.channelTitle}
-    />
+    <div key={obj.id.videoId} className="order-2 shadow-sm">
+      {/* <button>Add Workout</button> */}
+      <VideoCard
+        videoId={obj.id.videoId}
+        title={obj.snippet.title}
+        channelTitle={obj.snippet.channelTitle}
+      />
+    </div>
   ));
 
   console.log(videos);
 
   return (
     <div>
-      <div className="gap-7 md:flex">
+      <div className="mb-7  gap-11 sm:flex">
         <div className="flex w-full grow flex-col gap-3">
           <h2 className="mb-1   font-bold tracking-wide">Find A New Workout</h2>
           <div className="border border-solid border-gray-500"></div>
-          <form
-            onSubmit={handleSubmit}
-            className="order-1 flex sm:order-1 sm:mb-4"
-          >
+          <form onSubmit={handleSubmit} className="order-1 flex sm:order-1 ">
             <label htmlFor="video-search" className="sr-only">
               Search
             </label>
@@ -64,7 +63,9 @@ const UserLanding = () => {
               Search
             </button>
           </form>
-          {videos}
+          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+            {videos}
+          </div>
         </div>
         <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
