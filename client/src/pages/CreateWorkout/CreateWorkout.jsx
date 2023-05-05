@@ -35,9 +35,7 @@ const CreateWorkout = () => {
                 <option value="chest">Chest</option>
                 <option value="shoulders">Shoulders</option>
                 <option value="legs">Legs</option>
-                <opti on value="glutes">
-                  Glutes
-                </opti>
+                <option value="glutes">Glutes</option>
                 <option value="calves">Calves</option>
                 <option value="other">Other</option>
               </select>
