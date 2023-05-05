@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import searchResponse from "@client/src/data/search-response";
+import { Link } from "react-router-dom";
 
 // notes
 // path element is the search icon
@@ -30,9 +31,13 @@ const UserLanding = () => {
       title={obj.snippet.title}
       channelTitle={obj.snippet.channelTitle}
     >
-      <button className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700">
+      <Link
+        to="/create"
+        state={obj.id.videoId}
+        className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
+      >
         Add
-      </button>
+      </Link>
     </VideoCard>
   ));
 
