@@ -6,7 +6,7 @@ const VideoCard = ({ videoId, title, channelTitle }) => {
       <iframe
         className="border-2 border-solid border-black
         "
-        src={`https://www.youtube.com/embed/${videoId}`}
+        src={`https://www.youtube.com/embed/${videoId}?modestbranding=1`}
         title={`A workout video by ${channelTitle} titled ${title} `}
         // width={320}
         // height={180}
