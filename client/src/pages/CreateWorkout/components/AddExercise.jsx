@@ -49,7 +49,10 @@ const AddExercise = () => {
       />
       <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
         <div className="m-auto w-11/12 p-3">
-          <h3 className=" my-4 text-lg font-bold ">Add Exercise</h3>
+          <div className="my-4">
+            <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
+            <p className="text-xs font-bold">(or a rest interval) </p>
+          </div>
           <form className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label
