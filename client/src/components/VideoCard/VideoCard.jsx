@@ -2,7 +2,7 @@ import React from "react";
 
 const VideoCard = ({ videoId, title, channelTitle }) => {
   return (
-    <div className="order-2 flex flex-col shadow-sm  ">
+    <div className="order-2  flex flex-col shadow-sm  ">
       <iframe
         className="border-2 border-solid border-black
         "

@@ -36,7 +36,7 @@ const UserLanding = () => {
 
   return (
     <div>
-      <div className="md:flex">
+      <div className="gap-7 md:flex">
         <div className="flex w-full grow flex-col gap-3">
           <h2 className="mb-1   font-bold tracking-wide">Find A New Workout</h2>
           <div className="border border-solid border-gray-500"></div>
@@ -66,8 +66,9 @@ const UserLanding = () => {
           </form>
           {videos}
         </div>
-        <div className="flex w-full grow flex-col items-center gap-3">
+        <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
+          <div className="border border-solid border-gray-500"></div>
         </div>
       </div>
     </div>
