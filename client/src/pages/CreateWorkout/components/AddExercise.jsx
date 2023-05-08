@@ -30,24 +30,23 @@ const AddExercise = () => {
     });
   };
 
-  // const exerciseCards = exercises.map((exercise, index) => (
-  //   <ExerciseCard
-  //     key={index + 1}
-  //     number={index + 1}
-  //     durationMinutes={durationMinutes}
-  //     durationSeconds={dur}
-  //     name={exercise.name}
-  //     weight={exercise.weight}
-  //     sets={exercise.sets}
-  //     reps={exercise.sets}
-  //   />
-  // ));
+  const exerciseCards = exercises.map((exercise, index) => (
+    <ExerciseCard
+      key={index + 1}
+      number={index + 1}
+      durationMinutes={exercise.durationMinutes}
+      durationSeconds={exercise.durationSeconds}
+      name={exercise.name}
+      weight={exercise.weight}
+      sets={exercise.sets}
+      reps={exercise.reps}
+    />
+  ));
   console.log(exercise);
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
-      {/* {exerciseCards} */}
-
+      {exerciseCards}
       <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
         <div className="m-auto w-11/12 p-3">
           <div className="my-4">
@@ -119,20 +118,7 @@ const AddExercise = () => {
                 placeholder="Pounds"
               ></input>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3  ">
-              <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
-                Reps
-              </label>
-              <input
-                className="input-field "
-                type="number"
-                name="reps"
-                id="reps"
-                value={exercise.reps}
-                onChange={handleChange}
-                min={0}
-              ></input>
-            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="sets" className="w-1/5 basis-auto  text-left">
                 Sets
@@ -145,6 +131,20 @@ const AddExercise = () => {
                 min={0}
                 value={exercise.sets}
                 onChange={handleChange}
+              ></input>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-3  ">
+              <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
+                Reps
+              </label>
+              <input
+                className="input-field "
+                type="number"
+                name="reps"
+                id="reps"
+                value={exercise.reps}
+                onChange={handleChange}
+                min={0}
               ></input>
             </div>
             <button
