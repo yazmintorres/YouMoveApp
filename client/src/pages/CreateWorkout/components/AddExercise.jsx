@@ -4,22 +4,14 @@ import { useState } from "react";
 
 const AddExercise = () => {
   const [exercises, setExercises] = useState([]);
-  const [durationMinutes, setDurationMinutes] = useState("");
-  const [durationSeconds, setDurationSeconds] = useState("");
   const [exercise, setExercise] = useState({
     name: "",
-    duration: "",
+    durationMinutes: "",
+    durationSeconds: "",
     weight: "",
     reps: "",
     sets: "",
   });
-
-  useEffect(() => {
-    setExercise({
-      ...exercise,
-      duration: `${durationMinutes}:${durationSeconds}`,
-    });
-  }, [durationSeconds, durationMinutes]);
 
   const handleChange = (e) => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
@@ -28,38 +20,34 @@ const AddExercise = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setExercises([...exercises, exercise]);
-    setDurationMinutes("");
-    setDurationSeconds("");
     setExercise({
       name: "",
-      duration: "",
+      durationMinutes: "",
+      durationSeconds: "",
       weight: "",
       reps: "",
       sets: "",
     });
   };
 
-  console.log(exercises);
+  // const exerciseCards = exercises.map((exercise, index) => (
+  //   <ExerciseCard
+  //     key={index + 1}
+  //     number={index + 1}
+  //     durationMinutes={durationMinutes}
+  //     durationSeconds={dur}
+  //     name={exercise.name}
+  //     weight={exercise.weight}
+  //     sets={exercise.sets}
+  //     reps={exercise.sets}
+  //   />
+  // ));
+  console.log(exercise);
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
-      <ExerciseCard
-        number={1}
-        duration="this would be a duration (time)"
-        name="push-ups"
-        weight="bodyweight"
-        sets={2}
-        reps={10}
-      />
+      {/* {exerciseCards} */}
 
-      <ExerciseCard
-        number={2}
-        duration="this would be a duration (time)"
-        name="push-ups"
-        weight="bodyweight"
-        sets={2}
-        reps={10}
-      />
       <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
         <div className="m-auto w-11/12 p-3">
           <div className="my-4">
@@ -92,12 +80,12 @@ const AddExercise = () => {
               <input
                 className="input-field w-20  basis-auto"
                 type="number"
-                name="minutes"
+                name="durationMinutes"
                 min={0}
                 max={30}
                 placeholder="Minutes"
-                onChange={(e) => setDurationMinutes(e.target.value)}
-                value={durationMinutes}
+                onChange={handleChange}
+                value={exercise.durationMinutes}
                 id="duration"
               ></input>
 
@@ -108,9 +96,9 @@ const AddExercise = () => {
                 type="number"
                 placeholder="Seconds"
                 id="duration"
-                name="seconds"
-                value={durationSeconds}
-                onChange={(e) => setDurationSeconds(e.target.value)}
+                name="durationSeconds"
+                value={exercise.durationSeconds}
+                onChange={handleChange}
                 min={0}
                 max={60}
               ></input>
