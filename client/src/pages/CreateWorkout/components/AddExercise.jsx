@@ -1,32 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useState } from "react";
 
 const AddExercise = () => {
   const [exercises, setExercises] = useState([]);
+  const [durationMinutes, setDurationMinutes] = useState("");
+  const [durationSeconds, setDurationSeconds] = useState("");
   const [exercise, setExercise] = useState({
     name: "",
-    // duration: { minutes: "", seconds: "" },
-    minutes: "",
-    seconds: "",
+    duration: "",
     weight: "",
     reps: "",
     sets: "",
   });
 
+  useEffect(() => {
+    setExercise({
+      ...exercise,
+      duration: `${durationMinutes}:${durationSeconds}`,
+    });
+  }, [durationSeconds, durationMinutes]);
+
   const handleChange = (e) => {
-    // if (e.target.name === "minutes" || e.target.name === "seconds") {
-    //   setExercise({
-    //     ...exercise,
-    //     duration: { ...exercise.duration, [e.target.name]: e.target.value },
-    //   });
-    // } else {
-    //   setExercise({ ...exercise, [e.target.name]: e.target.value });
-    // }
     setExercise({ ...exercise, [e.target.name]: e.target.value });
   };
 
-  console.log(exercise);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setExercises([...exercises, exercise]);
+    setDurationMinutes("");
+    setDurationSeconds("");
+    setExercise({
+      name: "",
+      duration: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    });
+  };
+
+  console.log(exercises);
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
@@ -53,7 +66,7 @@ const AddExercise = () => {
             <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
             <p className="text-xs font-bold">(or a rest interval) </p>
           </div>
-          <form className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label
                 htmlFor="exercise-name"
@@ -75,30 +88,34 @@ const AddExercise = () => {
               <label htmlFor="duration" className="w-1/5 basis-auto text-left">
                 Duration
               </label>
+
               <input
-                className="input-field w-20 basis-auto"
+                className="input-field w-20  basis-auto"
                 type="number"
                 name="minutes"
                 min={0}
                 max={30}
                 placeholder="Minutes"
-                onChange={handleChange}
-                value={exercise.minutes}
+                onChange={(e) => setDurationMinutes(e.target.value)}
+                value={durationMinutes}
                 id="duration"
               ></input>
+
               <p>:</p>
+
               <input
-                className="input-field basis-auto sm:w-20"
+                className="input-field  basis-auto sm:w-20"
                 type="number"
                 placeholder="Seconds"
                 id="duration"
                 name="seconds"
-                value={exercise.seconds}
-                onChange={handleChange}
+                value={durationSeconds}
+                onChange={(e) => setDurationSeconds(e.target.value)}
                 min={0}
                 max={60}
               ></input>
             </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="weight" className="w-1/5 basis-auto  text-left">
                 Weight
