@@ -1,3 +1,39 @@
 @tailwind base;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  body {
+    @apply bg-blue-50;
+  }
+  h1 {
+    @apply my-4 text-3xl;
+  }
+  h2 {
+    @apply my-4 text-2xl font-bold tracking-wide;
+  }
+  h3 {
+    @apply my-4 text-xl;
+  }
+  iframe {
+    @apply aspect-video h-full w-full;
+  }
+
+  /* a {
+    @apply text-blue-600 underline;
+  } */
+}
+
 @tailwind components;
+
+@layer components {
+  .btn {
+    @apply rounded border-b-2 border-solid border-white bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+  }
+
+  .input-field {
+    @apply grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500;
+  }
+}
 @tailwind utilities;

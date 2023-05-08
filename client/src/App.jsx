@@ -1,13 +1,36 @@
+import { Routes, Route, Outlet } from "react-router-dom";
+// pages
+import Navbar from "./components/Navbar/Navbar";
+import Home from "@pages/Home/Home";
+import CreateWorkout from "./pages/CreateWorkout/CreateWorkout";
+import WorkoutCard from "./pages/WorkoutCard/WorkoutCard";
+import UserLanding from "./pages/UserLanding/UserLanding";
+
+const Layout = () => {
+  return (
+    <div className="layout">
+      <header>
+        <Navbar />
+      </header>
+      <main className="m-auto w-11/12">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
 function App() {
   return (
-    <>
-      <h1 className="text-center text-3xl font-bold text-red-600 underline">
-        Hello world!
-      </h1>
-      <button className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-        ...
-      </button>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        {/* <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} /> */}
+        <Route path="create" element={<CreateWorkout />} />
+        <Route path="card/:id" element={<WorkoutCard />} />
+        <Route path="dashboard" element={<UserLanding />} />
+      </Route>
+    </Routes>
   );
 }
 
