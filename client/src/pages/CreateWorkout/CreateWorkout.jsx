@@ -73,9 +73,8 @@ const CreateWorkout = () => {
             )}
           </form>
         </div>
-        <div className="flex w-full grow flex-col items-center gap-3">
-          <AddExercise />
-        </div>
+
+        <AddExercise />
       </div>
     </div>
   );
