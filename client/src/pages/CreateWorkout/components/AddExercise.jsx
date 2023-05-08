@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useState } from "react";
 
-const AddExercise = () => {
+const AddExercise = ({ handleExerciseSubmitted }) => {
   const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState({
     name: "",
@@ -28,6 +28,7 @@ const AddExercise = () => {
       reps: "",
       sets: "",
     });
+    handleExerciseSubmitted();
   };
 
   const exerciseCards = exercises.map((exercise, index) => (

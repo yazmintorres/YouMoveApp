@@ -11,6 +11,10 @@ const CreateWorkout = () => {
 
   const [exerciseAdded, setExerciseAdded] = useState(false);
 
+  const handleExerciseSubmitted = () => {
+    setExerciseAdded(true);
+  };
+
   return (
     <div>
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
@@ -45,24 +49,7 @@ const CreateWorkout = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            {/* <div className="mb-2 flex flex-wrap items-center justify-between gap-3  ">
-              <label htmlFor="rest-interval">Rest Interval</label>
-              <input
-                className="input-field w-20 basis-auto"
-                type="number"
-                name="minutes"
-                placeholder="Minutes"
-                id="rest-interval"
-              ></input>
-              <p>:</p>
-              <input
-                className="input-field w-20 basis-auto"
-                type="number"
-                placeholder="Seconds"
-                id="rest-interval"
-                name="seconds"
-              ></input>
-            </div> */}
+
             {exerciseAdded && (
               <button
                 type="submit"
@@ -74,7 +61,7 @@ const CreateWorkout = () => {
           </form>
         </div>
 
-        <AddExercise />
+        <AddExercise handleExerciseSubmitted={handleExerciseSubmitted} />
       </div>
     </div>
   );
