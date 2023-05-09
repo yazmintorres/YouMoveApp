@@ -4,8 +4,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "videos" (
-  "id" serial PRIMARY KEY,
-  "sourceId" text,
+  "id" text PRIMARY KEY,
   "etag" text,
   "title" text,
   "channelTitle" text,
@@ -13,14 +12,14 @@ CREATE TABLE "videos" (
 );
 
 CREATE TABLE "workouts" (
-  "id" serial PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "userId" text NOT NULL,
-  "videoId" integer NOT NULL,
+  "videoId" text NOT NULL,
   "targetArea" text NOT NULL
 );
 
 CREATE TABLE "exercises" (
-  "id" serial PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "workoutId" integer NOT NULL,
   "exerciseNumber" integer,
   "exerciseName" text NOT NULL,
