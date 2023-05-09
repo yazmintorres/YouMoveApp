@@ -3,14 +3,23 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import AddExercise from "./components/AddExercise";
 import { useState } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const navigate = useNavigate();
 
   const [exerciseAdded, setExerciseAdded] = useState(false);
 
+  const handleExerciseSubmitted = () => {
+    setExerciseAdded(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/dashboard");
+  };
   return (
     <div>
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
@@ -22,7 +31,7 @@ const CreateWorkout = () => {
             title={videoInfo.title}
           />
           <div className="border border-solid border-gray-500"></div>
-          <form className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="target-area">Target Area*</label>
               <select
@@ -45,24 +54,7 @@ const CreateWorkout = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            {/* <div className="mb-2 flex flex-wrap items-center justify-between gap-3  ">
-              <label htmlFor="rest-interval">Rest Interval</label>
-              <input
-                className="input-field w-20 basis-auto"
-                type="number"
-                name="minutes"
-                placeholder="Minutes"
-                id="rest-interval"
-              ></input>
-              <p>:</p>
-              <input
-                className="input-field w-20 basis-auto"
-                type="number"
-                placeholder="Seconds"
-                id="rest-interval"
-                name="seconds"
-              ></input>
-            </div> */}
+
             {exerciseAdded && (
               <button
                 type="submit"
@@ -73,9 +65,8 @@ const CreateWorkout = () => {
             )}
           </form>
         </div>
-        <div className="flex w-full grow flex-col items-center gap-3">
-          <AddExercise />
-        </div>
+
+        <AddExercise handleExerciseSubmitted={handleExerciseSubmitted} />
       </div>
     </div>
   );

@@ -1,59 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useState } from "react";
 
-const AddExercise = () => {
+const AddExercise = ({ handleExerciseSubmitted }) => {
   const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState({
     name: "",
-    // duration: { minutes: "", seconds: "" },
-    minutes: "",
-    seconds: "",
+    durationMinutes: "",
+    durationSeconds: "",
     weight: "",
     reps: "",
     sets: "",
   });
 
   const handleChange = (e) => {
-    // if (e.target.name === "minutes" || e.target.name === "seconds") {
-    //   setExercise({
-    //     ...exercise,
-    //     duration: { ...exercise.duration, [e.target.name]: e.target.value },
-    //   });
-    // } else {
-    //   setExercise({ ...exercise, [e.target.name]: e.target.value });
-    // }
     setExercise({ ...exercise, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setExercises([...exercises, exercise]);
+    setExercise({
+      name: "",
+      durationMinutes: "",
+      durationSeconds: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    });
+    handleExerciseSubmitted();
+  };
+
+  const exerciseCards = exercises.map((exercise, index) => (
+    <ExerciseCard
+      key={index + 1}
+      number={index + 1}
+      durationMinutes={exercise.durationMinutes}
+      durationSeconds={exercise.durationSeconds}
+      name={exercise.name}
+      weight={exercise.weight}
+      sets={exercise.sets}
+      reps={exercise.reps}
+    />
+  ));
   console.log(exercise);
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
-      <ExerciseCard
-        number={1}
-        duration="this would be a duration (time)"
-        name="push-ups"
-        weight="bodyweight"
-        sets={2}
-        reps={10}
-      />
-
-      <ExerciseCard
-        number={2}
-        duration="this would be a duration (time)"
-        name="push-ups"
-        weight="bodyweight"
-        sets={2}
-        reps={10}
-      />
+      {exerciseCards}
       <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
         <div className="m-auto w-11/12 p-3">
           <div className="my-4">
             <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
             <p className="text-xs font-bold">(or a rest interval) </p>
           </div>
-          <form className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label
                 htmlFor="exercise-name"
@@ -75,30 +76,34 @@ const AddExercise = () => {
               <label htmlFor="duration" className="w-1/5 basis-auto text-left">
                 Duration
               </label>
+
               <input
-                className="input-field w-20 basis-auto"
+                className="input-field w-20  basis-auto"
                 type="number"
-                name="minutes"
+                name="durationMinutes"
                 min={0}
                 max={30}
                 placeholder="Minutes"
                 onChange={handleChange}
-                value={exercise.minutes}
+                value={exercise.durationMinutes}
                 id="duration"
               ></input>
+
               <p>:</p>
+
               <input
-                className="input-field basis-auto sm:w-20"
+                className="input-field  basis-auto sm:w-20"
                 type="number"
                 placeholder="Seconds"
                 id="duration"
-                name="seconds"
-                value={exercise.seconds}
+                name="durationSeconds"
+                value={exercise.durationSeconds}
                 onChange={handleChange}
                 min={0}
                 max={60}
               ></input>
             </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="weight" className="w-1/5 basis-auto  text-left">
                 Weight
@@ -114,20 +119,7 @@ const AddExercise = () => {
                 placeholder="Pounds"
               ></input>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3  ">
-              <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
-                Reps
-              </label>
-              <input
-                className="input-field "
-                type="number"
-                name="reps"
-                id="reps"
-                value={exercise.reps}
-                onChange={handleChange}
-                min={0}
-              ></input>
-            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3  ">
               <label htmlFor="sets" className="w-1/5 basis-auto  text-left">
                 Sets
@@ -140,6 +132,20 @@ const AddExercise = () => {
                 min={0}
                 value={exercise.sets}
                 onChange={handleChange}
+              ></input>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-3  ">
+              <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
+                Reps
+              </label>
+              <input
+                className="input-field "
+                type="number"
+                name="reps"
+                id="reps"
+                value={exercise.reps}
+                onChange={handleChange}
+                min={0}
               ></input>
             </div>
             <button
