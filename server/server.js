@@ -10,8 +10,19 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.get("/authorized", function (req, res) {
-  res.send("Secured Resource");
+// add new user to DB
+app.post("/addUser", async (req, res) => {
+  try {
+    const { userId, userEmail } = req.body;
+    const { rows: user } = await db.query(
+      "INSERT INTO users(id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
+      [userId, userEmail]
+    );
+    user[0] && console.log("User added:", user[0]);
+    res.json(user[0] ? user[0] : {});
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 // creates an endpoint for the route "/""

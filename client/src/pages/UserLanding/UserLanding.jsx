@@ -8,6 +8,29 @@ const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const { user } = useAuth0();
+
+  // add new user to DB
+  const addUserToDB = async () => {
+    try {
+      if (user) {
+        const userInfo = { userId: user.sub, userEmail: user.email };
+        const response = await fetch(`http://localhost:8080/addUser`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userInfo),
+        });
+        const userAdded = await response.json();
+        console.log(userAdded);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    addUserToDB();
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +64,7 @@ const UserLanding = () => {
     </VideoCard>
   ));
 
-  console.log(videos);
+  // console.log(videos);
 
   return (
     <div>
