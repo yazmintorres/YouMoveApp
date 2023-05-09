@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import searchResponse from "@client/src/data/search-response";
 import { Link } from "react-router-dom";
-
-// notes
-// path element is the search icon
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  console.log(searchTerm);
-  console.log(searchResult);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
