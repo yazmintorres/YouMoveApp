@@ -3,11 +3,12 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import AddExercise from "./components/AddExercise";
 import { useState } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const navigate = useNavigate();
 
   const [exerciseAdded, setExerciseAdded] = useState(false);
 
@@ -15,6 +16,10 @@ const CreateWorkout = () => {
     setExerciseAdded(true);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/dashboard");
+  };
   return (
     <div>
       <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
@@ -26,7 +31,7 @@ const CreateWorkout = () => {
             title={videoInfo.title}
           />
           <div className="border border-solid border-gray-500"></div>
-          <form className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="target-area">Target Area*</label>
               <select
