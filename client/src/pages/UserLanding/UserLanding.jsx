@@ -28,6 +28,7 @@ const UserLanding = () => {
     }
   };
 
+  // if i have time, consider implementing a token as the dependency for when this function gets called
   useEffect(() => {
     addUserToDB();
   }, [user]);
