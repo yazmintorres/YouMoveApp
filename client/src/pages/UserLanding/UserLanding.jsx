@@ -61,8 +61,8 @@ const UserLanding = () => {
     >
       {" "}
       <Link
-        to="/create"
-        state={{}}
+        to={`/card/${obj.workout_id}`}
+        state={obj}
         className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
       >
         View

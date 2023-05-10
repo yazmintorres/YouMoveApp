@@ -86,7 +86,7 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
     // all saved workouts for a specific user
     // need to send back videoId, title, channelTitle
     const { rows: savedWorkouts } = await db.query(
-      "SELECT workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
+      "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
       [userId]
     );
     // res.send("i was hit");
