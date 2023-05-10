@@ -9,11 +9,11 @@ const VideoCard = ({
 }) => {
   return (
     <div className="order-2 shadow-sm">
-      <div className="order-2  flex  flex-col md:m-auto md:w-11/12    ">
+      <div className="order-2  flex  flex-col  md:m-auto  md:w-11/12  ">
         {videoId && (
           <iframe
-            className="border-2 border-solid  border-black
-        "
+            className="border-2 border-solid border-black 
+          "
             src={`https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0`}
             title="a workout thumbnail"
             // width={320}
