@@ -59,16 +59,16 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
   return (
-    <div>
-      <h2 className=" my-4  font-bold tracking-wide">Add Workout</h2>
-      <div className="md:flex">
+    <div className="flex flex-col gap-2">
+      <h2 className=" my-0 mt-4 font-bold tracking-wide">Add Workout</h2>
+      <div className="border border-solid border-gray-500"></div>
+      <div className="mt-2 md:flex">
         <div className="flex w-full grow flex-col gap-3">
           <VideoCard
             videoId={videoInfo.videoId}
             channelTitle={videoInfo.channelTitle}
             title={videoInfo.title}
           />
-          <div className="border border-solid border-gray-500"></div>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="target-area">Target Area*</label>
