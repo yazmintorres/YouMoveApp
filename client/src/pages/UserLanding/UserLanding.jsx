@@ -62,7 +62,16 @@ const UserLanding = () => {
       thumbnailUrl={obj.thumbnail_url}
       title={obj.title}
       channelTitle={obj.channel_title}
-    />
+    >
+      {" "}
+      <Link
+        to="/create"
+        state={{}}
+        className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
+      >
+        View
+      </Link>
+    </VideoCard>
   ));
 
   const handleSubmit = async (e) => {
