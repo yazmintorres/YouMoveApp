@@ -15,7 +15,7 @@ const UserLanding = () => {
   const addUserToDB = async () => {
     try {
       // i use if user for now because if the user is not logged in, i don't need to call the /api/addUser endpoint
-      // i (believe) there is a way to redirect users to login if they get here
+      // can implement withAuthenticationRequired
       if (user) {
         const userInfo = { userId: user.sub, userEmail: user.email };
         const response = await fetch(`/api/addUser`, {
