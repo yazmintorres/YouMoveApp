@@ -20,7 +20,7 @@ const CreateWorkout = () => {
     } else {
       setWorkoutExercises(exercises);
     }
-    console.log("Workout exercises:", workoutExercises);
+    // console.log("Workout exercises:", workoutExercises);
   };
 
   const postWorkout = async () => {

@@ -9,10 +9,13 @@ const UserLanding = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const { user } = useAuth0();
+  console.log(user);
 
   // add new user to DB
   const addUserToDB = async () => {
     try {
+      // i use if user for now because if the user is not logged in, i don't need to call the /api/addUser endpoint
+      // i (believe) there is a way to redirect users to login if they get here
       if (user) {
         const userInfo = { userId: user.sub, userEmail: user.email };
         const response = await fetch(`/api/addUser`, {
@@ -21,7 +24,7 @@ const UserLanding = () => {
           body: JSON.stringify(userInfo),
         });
         const userAdded = await response.json();
-        console.log(userAdded);
+        // console.log(userAdded);
       }
     } catch (error) {
       console.log(error.message);
@@ -31,6 +34,7 @@ const UserLanding = () => {
   // if i have time, consider implementing a token as the dependency for when this function gets called
   useEffect(() => {
     addUserToDB();
+    // console.log("api post");
   }, [user]);
 
   const handleSubmit = async (e) => {
