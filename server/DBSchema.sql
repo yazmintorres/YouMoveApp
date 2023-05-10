@@ -7,31 +7,31 @@ CREATE TABLE "videos" (
   "id" text PRIMARY KEY,
   "etag" text,
   "title" text,
-  "channelTitle" text,
-  "thumbnailUrl" text
+  "channel_title" text,
+  "thumbnail_url" text
 );
 
 CREATE TABLE "workouts" (
   "id" SERIAL PRIMARY KEY,
-  "userId" text NOT NULL,
-  "videoId" text NOT NULL,
-  "targetArea" text NOT NULL
+  "user_id" text NOT NULL,
+  "video_id" text NOT NULL,
+  "target_area" text NOT NULL
 );
 
 CREATE TABLE "exercises" (
   "id" SERIAL PRIMARY KEY,
-  "workoutId" integer NOT NULL,
-  "exerciseNumber" integer,
-  "exerciseName" text NOT NULL,
-  "durationMinutes" integer,
-  "durationSeconds" integer,
+  "workout_id" integer NOT NULL,
+  "exercise_number" integer,
+  "exercise_name" text NOT NULL,
+  "duration_minutes" integer,
+  "duration_seconds" integer,
   "weight" integer,
   "reps" integer,
   "sets" integer
 );
 
-ALTER TABLE "workouts" ADD FOREIGN KEY ("userId") REFERENCES "users" ("id");
+ALTER TABLE "workouts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "workouts" ADD FOREIGN KEY ("videoId") REFERENCES "videos" ("id");
+ALTER TABLE "workouts" ADD FOREIGN KEY ("video_id") REFERENCES "videos" ("id");
 
-ALTER TABLE "exercises" ADD FOREIGN KEY ("workoutId") REFERENCES "workouts" ("id");
+ALTER TABLE "exercises" ADD FOREIGN KEY ("workout_id") REFERENCES "workouts" ("id");

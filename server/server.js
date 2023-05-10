@@ -51,15 +51,13 @@ app.post("/addVideo/:videoId", async (req, res) => {
     const title = videoInfo[0].snippet.title;
     const channelTitle = videoInfo[0].snippet.channelTitle;
     const thumbnailUrl = videoInfo[0].snippet.thumbnails.standard.url;
-    console.log(id, etag, title, channelTitle, thumbnailUrl);
-
     const { rows: video } = await db.query(
-      "INSERT INTO videos(id, etag, title, channeltitle, thumbnailUrl) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
+      "INSERT INTO public.videos(id, etag, title, channel_title, thumbnail_url) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
       [id, etag, title, channelTitle, thumbnailUrl]
     );
 
     // user[0] && console.log("User added:", user[0]);
-    res.json(videoInfo[0] ? videoInfo[0] : {});
+    res.json(video[0] ? video[0] : {});
   } catch (error) {
     console.log(error.message);
   }
