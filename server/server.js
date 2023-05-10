@@ -14,13 +14,13 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  try {
-    res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+// app.get("/", (req, res) => {
+//   try {
+//     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 
 // add new user to DB
 app.post("/api/addUser", async (req, res) => {

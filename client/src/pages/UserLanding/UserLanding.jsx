@@ -37,6 +37,24 @@ const UserLanding = () => {
     // console.log("api post");
   }, [user]);
 
+  // get saved workouts from DB
+  const getSavedWorkouts = async () => {
+    try {
+      if (user) {
+        const userId = user.sub;
+        const response = await fetch(`/api/savedWorkouts/${userId}`);
+        const savedWorkouts = await response.json();
+        console.log(savedWorkouts);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getSavedWorkouts();
+  }, [user]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const response = await fetch(
@@ -105,6 +123,10 @@ const UserLanding = () => {
         <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
+          <div className="h-9"></div>
+          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+            {videos}
+          </div>
         </div>
       </div>
     </div>
