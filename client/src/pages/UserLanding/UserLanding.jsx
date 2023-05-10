@@ -25,7 +25,6 @@ const UserLanding = () => {
           body: JSON.stringify(userInfo),
         });
         const userAdded = await response.json();
-        // console.log(userAdded);
       }
     } catch (error) {
       console.log(error.message);
@@ -35,6 +34,7 @@ const UserLanding = () => {
   // if i have time, consider implementing a token as the dependency for when this function gets called
   useEffect(() => {
     addUserToDB();
+    getSavedWorkouts();
     // console.log("api post");
   }, [user]);
 
@@ -45,16 +45,12 @@ const UserLanding = () => {
         const userId = user.sub;
         const response = await fetch(`/api/savedWorkouts/${userId}`);
         const savedWorkouts = await response.json();
-        setSavedWorkouts(savedWorkouts);
+        setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  useEffect(() => {
-    getSavedWorkouts();
-  }, [user]);
 
   const workoutVideos = savedWorkouts.map((obj) => (
     <VideoCard
