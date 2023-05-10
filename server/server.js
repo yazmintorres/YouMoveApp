@@ -6,12 +6,24 @@ const db = require("./db/db-connection.js");
 const { auth } = require("express-oauth2-jwt-bearer");
 
 const app = express();
+
+const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "dist");
+app.use(express.static(REACT_BUILD_DIR));
+
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
+app.get("/*", (req, res) => {
+  try {
+    res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 // add new user to DB
-app.post("/addUser", async (req, res) => {
+app.post("/api/addUser", async (req, res) => {
   try {
     const { userId, userEmail } = req.body;
     const { rows: user } = await db.query(
@@ -25,10 +37,36 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-// creates an endpoint for the route "/""
-app.get("/", (req, res) => {
-  res.json({ message: "Hola, from My template ExpressJS with React-Vite" });
+// add video
+app.post("/addVideo/:videoId", async (req, res) => {
+  try {
+    const { videoId } = req.params;
+    const API_KEY = process.env.YOUTUBE_API_KEY;
+    const youtubeResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet&id=${videoId}`
+    );
+    const { items: videoInfo } = await youtubeResponse.json();
+    const id = videoInfo[0].id;
+    const etag = videoInfo[0].etag;
+    const title = videoInfo[0].snippet.title;
+    const channelTitle = videoInfo[0].snippet.channelTitle;
+    const thumbnailUrl = videoInfo[0].snippet.thumbnails.standard.url;
+    console.log(id, etag, title, channelTitle, thumbnailUrl);
+
+    const { rows: video } = await db.query(
+      "INSERT INTO videos(id, etag, title, channeltitle, thumbnailUrl) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
+      [id, etag, title, channelTitle, thumbnailUrl]
+    );
+
+    // user[0] && console.log("User added:", user[0]);
+    res.json(videoInfo[0] ? videoInfo[0] : {});
+  } catch (error) {
+    console.log(error.message);
+  }
 });
+
+// add workout
+//add exercises
 
 // create the get request for students in the endpoint '/api/students'
 app.get("/api/students", async (req, res) => {

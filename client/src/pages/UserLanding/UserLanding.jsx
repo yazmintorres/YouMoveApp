@@ -15,7 +15,7 @@ const UserLanding = () => {
     try {
       if (user) {
         const userInfo = { userId: user.sub, userEmail: user.email };
-        const response = await fetch(`http://localhost:8080/addUser`, {
+        const response = await fetch(`/api/addUser`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userInfo),
