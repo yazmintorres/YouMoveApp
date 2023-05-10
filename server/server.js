@@ -50,7 +50,7 @@ app.post("/api/addVideo/:videoId", async (req, res) => {
     const etag = videoInfo[0].etag;
     const title = videoInfo[0].snippet.title;
     const channelTitle = videoInfo[0].snippet.channelTitle;
-    const thumbnailUrl = videoInfo[0].snippet.thumbnails.standard.url;
+    const thumbnailUrl = videoInfo[0].snippet.thumbnails.maxres.url;
     const { rows: video } = await db.query(
       "INSERT INTO public.videos(id, etag, title, channel_title, thumbnail_url) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
       [id, etag, title, channelTitle, thumbnailUrl]
@@ -69,7 +69,7 @@ app.post("/api/addWorkout", async (req, res) => {
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
-      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) ON CONFLICT (user_id, video_id) DO NOTHING RETURNING*",
+      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
       [userId, videoId, targetArea, exercises]
     );
     res.json(workout);
