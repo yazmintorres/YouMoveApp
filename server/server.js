@@ -62,16 +62,17 @@ app.post("/addVideo/:videoId", async (req, res) => {
   }
 });
 
+// NOTE: need to add video first to video table because workout table references video id
 // add workout
 app.post("/api/addWorkout", async (req, res) => {
   try {
-    const { userId, userEmail } = req.body;
-    const { rows: user } = await db.query(
-      "INSERT INTO users(id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
-      [userId, userEmail]
+    const { videoId, userId, targetArea } = req.query;
+    console.log(req.query);
+    const { rows: workout } = await db.query(
+      "INSERT INTO workouts(user_id, target_area, video_id) VALUES($1, $2, $3) RETURNING*",
+      [userId, targetArea, videoId]
     );
-    user[0] && console.log("User added:", user[0]);
-    res.json(user[0] ? user[0] : {});
+    res.json(workout);
   } catch (error) {
     console.log(error.message);
   }
