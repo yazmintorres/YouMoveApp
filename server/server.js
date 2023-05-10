@@ -66,19 +66,17 @@ app.post("/addVideo/:videoId", async (req, res) => {
 // add workout
 app.post("/api/addWorkout", async (req, res) => {
   try {
-    const { videoId, userId, targetArea } = req.query;
-    console.log(req.query);
+    const { videoId, userId, targetArea, exercises } = req.body;
+    console.log(req.body);
     const { rows: workout } = await db.query(
-      "INSERT INTO workouts(user_id, target_area, video_id) VALUES($1, $2, $3) RETURNING*",
-      [userId, targetArea, videoId]
+      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
+      [userId, videoId, targetArea, exercises]
     );
     res.json(workout);
   } catch (error) {
     console.log(error.message);
   }
 });
-
-//add exercises
 
 // create the get request for students in the endpoint '/api/students'
 app.get("/api/students", async (req, res) => {
