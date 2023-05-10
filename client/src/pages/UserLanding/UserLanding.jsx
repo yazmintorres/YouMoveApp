@@ -45,6 +45,7 @@ const UserLanding = () => {
         const userId = user.sub;
         const response = await fetch(`/api/savedWorkouts/${userId}`);
         const savedWorkouts = await response.json();
+        console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -62,7 +63,7 @@ const UserLanding = () => {
       {" "}
       <Link
         to={`/card/${obj.workout_id}`}
-        state={obj}
+        state={{ workoutInfo: obj }}
         className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
       >
         View
