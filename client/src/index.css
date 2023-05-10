@@ -16,7 +16,8 @@
   h3 {
     @apply my-4 text-xl;
   }
-  iframe {
+  iframe,
+  img {
     @apply aspect-video h-full w-full;
   }
 

@@ -53,10 +53,10 @@ const CreateWorkout = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    postWorkout();
-    // navigate("/dashboard");
+    await postWorkout();
+    navigate("/dashboard");
   };
   return (
     <div>

@@ -8,6 +8,7 @@ const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [savedWorkouts, setSavedWorkouts] = useState([]);
   const { user } = useAuth0();
   // console.log(user);
 
@@ -24,7 +25,6 @@ const UserLanding = () => {
           body: JSON.stringify(userInfo),
         });
         const userAdded = await response.json();
-        // console.log(userAdded);
       }
     } catch (error) {
       console.log(error.message);
@@ -34,8 +34,41 @@ const UserLanding = () => {
   // if i have time, consider implementing a token as the dependency for when this function gets called
   useEffect(() => {
     addUserToDB();
+    getSavedWorkouts();
     // console.log("api post");
   }, [user]);
+
+  // get saved workouts from DB
+  const getSavedWorkouts = async () => {
+    try {
+      if (user) {
+        const userId = user.sub;
+        const response = await fetch(`/api/savedWorkouts/${userId}`);
+        const savedWorkouts = await response.json();
+        setSavedWorkouts(savedWorkouts.reverse());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const workoutVideos = savedWorkouts.map((obj) => (
+    <VideoCard
+      key={obj.video_id}
+      thumbnailUrl={obj.thumbnail_url}
+      title={obj.title}
+      channelTitle={obj.channel_title}
+    >
+      {" "}
+      <Link
+        to={`/card/${obj.workout_id}`}
+        state={obj}
+        className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
+      >
+        View
+      </Link>
+    </VideoCard>
+  ));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +81,7 @@ const UserLanding = () => {
     setSearchResult(searchResults.items);
   };
 
-  const videos = searchResult.map((obj) => (
+  const searchVideos = searchResult.map((obj) => (
     <VideoCard
       key={obj.id.videoId}
       videoId={obj.id.videoId}
@@ -99,12 +132,16 @@ const UserLanding = () => {
             </button>
           </form>
           <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
-            {videos}
+            {searchVideos}
           </div>
         </div>
         <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
+          <div className="h-9"></div>
+          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+            {workoutVideos}
+          </div>
         </div>
       </div>
     </div>

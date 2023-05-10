@@ -14,13 +14,13 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  try {
-    res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+// app.get("/", (req, res) => {
+//   try {
+//     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 
 // add new user to DB
 app.post("/api/addUser", async (req, res) => {
@@ -50,7 +50,7 @@ app.post("/api/addVideo/:videoId", async (req, res) => {
     const etag = videoInfo[0].etag;
     const title = videoInfo[0].snippet.title;
     const channelTitle = videoInfo[0].snippet.channelTitle;
-    const thumbnailUrl = videoInfo[0].snippet.thumbnails.standard.url;
+    const thumbnailUrl = videoInfo[0].snippet.thumbnails.maxres.url;
     const { rows: video } = await db.query(
       "INSERT INTO public.videos(id, etag, title, channel_title, thumbnail_url) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
       [id, etag, title, channelTitle, thumbnailUrl]
@@ -69,7 +69,7 @@ app.post("/api/addWorkout", async (req, res) => {
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
-      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) ON CONFLICT (user_id, video_id) DO NOTHING RETURNING*",
+      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
       [userId, videoId, targetArea, exercises]
     );
     res.json(workout);
@@ -86,7 +86,7 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
     // all saved workouts for a specific user
     // need to send back videoId, title, channelTitle
     const { rows: savedWorkouts } = await db.query(
-      "SELECT workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
+      "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
       [userId]
     );
     // res.send("i was hit");
