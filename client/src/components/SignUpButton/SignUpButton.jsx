@@ -4,14 +4,6 @@ import React from "react";
 const SignupButton = () => {
   const { loginWithRedirect } = useAuth0();
 
-  // const handleSignUp = async () => {
-  //   await loginWithRedirect({
-  //     authorizationParams: {
-  //       screen_hint: "signup",
-  //     },
-  //   });
-  // };
-
   return (
     <button
       className="btn mt-1 drop-shadow-lg"

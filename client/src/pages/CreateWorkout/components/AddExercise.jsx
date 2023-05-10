@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useState } from "react";
 
-const AddExercise = ({ handleExerciseSubmitted }) => {
+const AddExercise = ({ handleExerciseAdded }) => {
   const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState({
     name: "",
@@ -19,7 +19,7 @@ const AddExercise = ({ handleExerciseSubmitted }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setExercises([...exercises, exercise]);
+    setExercises((prevExercises) => [...prevExercises, exercise]);
     setExercise({
       name: "",
       durationMinutes: "",
@@ -28,8 +28,11 @@ const AddExercise = ({ handleExerciseSubmitted }) => {
       reps: "",
       sets: "",
     });
-    handleExerciseSubmitted();
   };
+
+  useEffect(() => {
+    handleExerciseAdded(exercises);
+  }, [exercises]);
 
   const exerciseCards = exercises.map((exercise, index) => (
     <ExerciseCard
@@ -43,7 +46,6 @@ const AddExercise = ({ handleExerciseSubmitted }) => {
       reps={exercise.reps}
     />
   ));
-  console.log(exercise);
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">

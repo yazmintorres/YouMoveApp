@@ -28,3 +28,6 @@ DS_Store
 
 #env files
 .env
+
+# ignore production code
+client/dist

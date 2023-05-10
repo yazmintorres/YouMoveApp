@@ -1,17 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import searchResponse from "@client/src/data/search-response";
 import { Link } from "react-router-dom";
-
-// notes
-// path element is the search icon
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  console.log(searchTerm);
-  console.log(searchResult);
+  const { user } = useAuth0();
+  // console.log(user);
+
+  // add new user to DB
+  const addUserToDB = async () => {
+    try {
+      // i use if user for now because if the user is not logged in, i don't need to call the /api/addUser endpoint
+      // can implement withAuthenticationRequired
+      if (user) {
+        const userInfo = { userId: user.sub, userEmail: user.email };
+        const response = await fetch(`/api/addUser`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userInfo),
+        });
+        const userAdded = await response.json();
+        // console.log(userAdded);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // if i have time, consider implementing a token as the dependency for when this function gets called
+  useEffect(() => {
+    addUserToDB();
+    // console.log("api post");
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +69,7 @@ const UserLanding = () => {
     </VideoCard>
   ));
 
-  console.log(videos);
+  // console.log(videos);
 
   return (
     <div>

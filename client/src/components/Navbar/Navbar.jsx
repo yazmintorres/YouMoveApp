@@ -22,13 +22,6 @@ const Navbar = () => {
               Your Workouts
             </Link>
           )}
-          {/* {isAuthenticated && location.pathname !== "/" && (
-            <>
-              <Link className="btn" to="/">
-                Home Page
-              </Link>
-            </>
-          )} */}
           {isAuthenticated && <LogoutButton />}
           {!isAuthenticated && <LoginButton />}
         </div>
