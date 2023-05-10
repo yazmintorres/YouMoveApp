@@ -9,7 +9,7 @@ const UserLanding = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const { user } = useAuth0();
-  console.log(user);
+  // console.log(user);
 
   // add new user to DB
   const addUserToDB = async () => {

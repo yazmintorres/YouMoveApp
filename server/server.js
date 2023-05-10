@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.get("/*", (req, res) => {
+app.get("/", (req, res) => {
   try {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
   } catch (error) {
@@ -69,7 +69,7 @@ app.post("/api/addWorkout", async (req, res) => {
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
-      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
+      "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) ON CONFLICT (user_id, video_id) DO NOTHING RETURNING*",
       [userId, videoId, targetArea, exercises]
     );
     res.json(workout);
@@ -78,11 +78,19 @@ app.post("/api/addWorkout", async (req, res) => {
   }
 });
 
-// create the get request for students in the endpoint '/api/students'
-app.get("/api/students", async (req, res) => {
+// get all saved workouts for a user
+app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
-    const { rows: students } = await db.query("SELECT * FROM students");
-    res.send(students);
+    const { userId } = req.params;
+    console.log(userId);
+    // all saved workouts for a specific user
+    // need to send back videoId, title, channelTitle
+    const { rows: savedWorkouts } = await db.query(
+      "SELECT workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
+      [userId]
+    );
+    // res.send("i was hit");
+    res.json(savedWorkouts);
   } catch (e) {
     return res.status(400).json({ e });
   }
