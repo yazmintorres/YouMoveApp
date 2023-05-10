@@ -31,7 +31,7 @@ app.post("/api/addUser", async (req, res) => {
       [userId, userEmail]
     );
     user[0] && console.log("User added:", user[0]);
-    res.json(user[0] ? user[0] : {});
+    res.json(user);
   } catch (error) {
     console.log(error.message);
   }
@@ -56,14 +56,27 @@ app.post("/addVideo/:videoId", async (req, res) => {
       [id, etag, title, channelTitle, thumbnailUrl]
     );
 
-    // user[0] && console.log("User added:", user[0]);
-    res.json(video[0] ? video[0] : {});
+    res.json(video);
   } catch (error) {
     console.log(error.message);
   }
 });
 
 // add workout
+app.post("/api/addWorkout", async (req, res) => {
+  try {
+    const { userId, userEmail } = req.body;
+    const { rows: user } = await db.query(
+      "INSERT INTO users(id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
+      [userId, userEmail]
+    );
+    user[0] && console.log("User added:", user[0]);
+    res.json(user[0] ? user[0] : {});
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 //add exercises
 
 // create the get request for students in the endpoint '/api/students'
