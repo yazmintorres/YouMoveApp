@@ -4,21 +4,59 @@ import AddExercise from "./components/AddExercise";
 import { useState } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const { user } = useAuth0();
+  const [workoutExercises, setWorkoutExercises] = useState(null);
+  const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
 
-  const [exerciseAdded, setExerciseAdded] = useState(false);
+  const handleExerciseAdded = (exercises) => {
+    if (exercises.length === 0) {
+      setWorkoutExercises(null);
+    } else {
+      setWorkoutExercises(exercises);
+    }
+    console.log("Workout exercises:", workoutExercises);
+  };
 
-  const handleExerciseSubmitted = () => {
-    setExerciseAdded(true);
+  const postWorkout = async () => {
+    try {
+      const addVideoResponse = await fetch(
+        `/api/addVideo/${videoInfo.videoId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (addVideoResponse.ok) {
+        // userId, targetArea, videoId, exercises
+        const workoutInfo = {
+          videoId: videoInfo.videoId,
+          userId: user.sub,
+          exercises: workoutExercises,
+          targetArea: targetArea,
+        };
+        const addWorkoutResponse = await fetch(`/api/addWorkout`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(workoutInfo),
+        });
+      } else {
+        console.log("video was not added corrctly to database");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    postWorkout();
+    // navigate("/dashboard");
   };
   return (
     <div>
@@ -38,6 +76,8 @@ const CreateWorkout = () => {
                 className="input-field"
                 name="target-area"
                 id="target-area"
+                value={targetArea}
+                onChange={(e) => setTargetArea(e.target.value)}
                 required
               >
                 <option value="full-body">Full Body</option>
@@ -55,7 +95,7 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {exerciseAdded && (
+            {workoutExercises && (
               <button
                 type="submit"
                 className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -66,7 +106,7 @@ const CreateWorkout = () => {
           </form>
         </div>
 
-        <AddExercise handleExerciseSubmitted={handleExerciseSubmitted} />
+        <AddExercise handleExerciseAdded={handleExerciseAdded} />
       </div>
     </div>
   );

@@ -31,14 +31,14 @@ app.post("/api/addUser", async (req, res) => {
       [userId, userEmail]
     );
     user[0] && console.log("User added:", user[0]);
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     console.log(error.message);
   }
 });
 
 // add video
-app.post("/addVideo/:videoId", async (req, res) => {
+app.post("/api/addVideo/:videoId", async (req, res) => {
   try {
     const { videoId } = req.params;
     const API_KEY = process.env.YOUTUBE_API_KEY;
@@ -56,7 +56,7 @@ app.post("/addVideo/:videoId", async (req, res) => {
       [id, etag, title, channelTitle, thumbnailUrl]
     );
 
-    res.json(video);
+    res.status(200).json(video);
   } catch (error) {
     console.log(error.message);
   }
