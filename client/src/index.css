@@ -33,6 +33,10 @@
     @apply rounded border-b-2 border-solid border-white bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
   }
 
+  .btn-actions {
+    @apply rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300;
+  }
+
   .input-field {
     @apply grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500;
   }

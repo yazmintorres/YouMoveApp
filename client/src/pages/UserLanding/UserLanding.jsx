@@ -25,6 +25,23 @@ const UserLanding = () => {
           body: JSON.stringify(userInfo),
         });
         const userAdded = await response.json();
+        console.log("userAdded:", userAdded);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // get saved workouts from DB
+  const getSavedWorkouts = async () => {
+    try {
+      if (user) {
+        const userId = user.sub;
+        const response = await fetch(`/api/savedWorkouts/${userId}`);
+        const savedWorkouts = await response.json();
+        console.log("saved workouts", savedWorkouts);
+        // console.log(savedWorkouts);
+        setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
       console.log(error.message);
@@ -38,21 +55,6 @@ const UserLanding = () => {
     // console.log("api post");
   }, [user]);
 
-  // get saved workouts from DB
-  const getSavedWorkouts = async () => {
-    try {
-      if (user) {
-        const userId = user.sub;
-        const response = await fetch(`/api/savedWorkouts/${userId}`);
-        const savedWorkouts = await response.json();
-        console.log(savedWorkouts);
-        setSavedWorkouts(savedWorkouts.reverse());
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   const workoutVideos = savedWorkouts.map((obj) => (
     <VideoCard
       key={obj.video_id}
@@ -62,8 +64,12 @@ const UserLanding = () => {
     >
       {" "}
       <Link
-        to={`/card/${obj.workout_id}`}
-        state={{ workoutInfo: obj }}
+        to={`/workout?edit=${obj.workout_id}`}
+        state={{
+          videoId: obj.video_id,
+          channelTitle: obj.channel_title,
+          title: obj.title,
+        }}
         className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
       >
         View
@@ -90,7 +96,7 @@ const UserLanding = () => {
       channelTitle={obj.snippet.channelTitle}
     >
       <Link
-        to="/create"
+        to="/workout?add=true"
         state={{
           videoId: obj.id.videoId,
           channelTitle: obj.snippet.channelTitle,
