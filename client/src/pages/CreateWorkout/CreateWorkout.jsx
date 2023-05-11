@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import AddExercise from "./components/AddExercise";
 import { useState } from "react";
@@ -9,17 +9,42 @@ import { useAuth0 } from "@auth0/auth0-react";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
-  const { user } = useAuth0();
-  const [workoutExercises, setWorkoutExercises] = useState(null);
+  const [workoutExercises, setWorkoutExercises] = useState([]);
+  const [workout, setWorkout] = useState({});
+  const { user, isAuthenticated } = useAuth0();
+
   const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
 
-  const handleExerciseAdded = (exercises) => {
-    if (exercises.length === 0) {
-      setWorkoutExercises(null);
-    } else {
-      setWorkoutExercises(exercises);
+  // need to check if video has already been saved by a user
+  // if so get saved workout info
+  // pre-populate info
+
+  const getWorkout = async () => {
+    try {
+      // console.log("called");
+      if (isAuthenticated) {
+        const userId = user.sub;
+        const response = await fetch(
+          `/api/workout?userId=${userId}&videoId=${videoInfo.videoId}`
+        );
+        const workout = await response.json();
+        setTargetArea(workout.target_area);
+        setWorkoutExercises(workout.exercises || []);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
+  };
+
+  useEffect(() => {
+    // console.log(isAuthenticated);
+    getWorkout();
+  }, [isAuthenticated]);
+
+  const handleExerciseAdded = (exercises) => {
+    setWorkoutExercises(exercises);
+
     // console.log("Workout exercises:", workoutExercises);
   };
 
@@ -58,6 +83,21 @@ const CreateWorkout = () => {
     await postWorkout();
     navigate("/dashboard");
   };
+
+  const exerciseCards = workoutExercises.map((exercise, index) => (
+    <ExerciseCard
+      key={index + 1}
+      number={index + 1}
+      durationMinutes={exercise.durationMinutes}
+      durationSeconds={exercise.durationSeconds}
+      name={exercise.name}
+      weight={exercise.weight}
+      sets={exercise.sets}
+      reps={exercise.reps}
+    />
+  ));
+  console.log(exerciseCards);
+
   return (
     <div className="flex flex-col gap-2">
       <h2 className=" my-0 mt-4 font-bold tracking-wide">Add Workout</h2>
@@ -65,6 +105,7 @@ const CreateWorkout = () => {
       <div className="mt-2 md:flex">
         <div className="flex w-full grow flex-col gap-3">
           <VideoCard
+            width="full"
             videoId={videoInfo.videoId}
             channelTitle={videoInfo.channelTitle}
             title={videoInfo.title}
@@ -95,7 +136,8 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {workoutExercises && (
+            {/* if workout exercises is not empty, show add workout button */}
+            {workoutExercises.length !== 0 && (
               <button
                 type="submit"
                 className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -106,7 +148,11 @@ const CreateWorkout = () => {
           </form>
         </div>
 
-        <AddExercise handleExerciseAdded={handleExerciseAdded} />
+        <div className="flex w-full grow flex-col items-center gap-3">
+          {" "}
+          {exerciseCards}
+          <AddExercise handleExerciseAdded={handleExerciseAdded} />
+        </div>
       </div>
     </div>
   );

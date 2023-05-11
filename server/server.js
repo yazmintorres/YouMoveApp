@@ -108,8 +108,10 @@ app.get("/api/workout", async (req, res) => {
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
     );
+    if (workout.length === 0) res.send("");
+    res.json(workout[0]);
     // res.send("i was hit");
-    res.json(workout);
+    // res.json(workout[0]);
   } catch (e) {
     return res.status(400).json({ e });
   }
