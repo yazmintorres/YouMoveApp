@@ -100,7 +100,19 @@ const CreateWorkout = () => {
       reps={exercise.reps}
     />
   ));
-  // console.log(exerciseCards);
+
+  const handleClickDelete = async () => {
+    const userId = user.sub;
+    const response = await fetch(
+      `/api/delete?userId=${userId}&videoId=${videoInfo.videoId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const deleted = await response.json();
+    console.log("deleted");
+    navigate("/dashboard");
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -111,7 +123,10 @@ const CreateWorkout = () => {
           </h2>
         </div>
         {newWorkout || (
-          <button className="btn btn-actions bg-rose-600 hover:bg-rose-700  ">
+          <button
+            onClick={handleClickDelete}
+            className="btn btn-actions bg-rose-600 hover:bg-rose-700  "
+          >
             Delete workout
           </button>
         )}
