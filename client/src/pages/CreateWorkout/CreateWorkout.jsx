@@ -18,6 +18,10 @@ const CreateWorkout = () => {
   const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
 
+  const handleShowForm = (bool) => {
+    setShowForm(bool);
+  };
+
   // need to check if video has already been saved by a user
   // if so get saved workout info
   // pre-populate info
@@ -128,6 +132,7 @@ const CreateWorkout = () => {
       weight={exercise.weight}
       sets={exercise.sets}
       reps={exercise.reps}
+      handleShowForm={handleShowForm}
     />
   ));
 
@@ -212,11 +217,11 @@ const CreateWorkout = () => {
           {showForm ? (
             <ExerciseForm
               handleExerciseAdded={handleExerciseAdded}
-              setShowForm={setShowForm}
+              handleShowForm={handleShowForm}
             />
           ) : (
             <div
-              onClick={() => setShowForm(true)}
+              onClick={() => handleShowForm(true)}
               className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
             >
               <div className="m-auto p-3">

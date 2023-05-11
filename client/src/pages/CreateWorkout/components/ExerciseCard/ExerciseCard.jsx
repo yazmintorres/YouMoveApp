@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 
 const ExerciseCard = ({
+  handleShowForm,
   number,
   name,
   durationMinutes,
@@ -72,6 +73,10 @@ const ExerciseCard = ({
     weight = `${weight} lbs`;
   }
 
+  const handleEditClick = () => {
+    handleShowForm(true);
+    console.log("do something");
+  };
   return (
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto p-3">
@@ -83,7 +88,7 @@ const ExerciseCard = ({
           </h3>
 
           <div className=" flex gap-2">
-            <MdModeEdit className="text-xl" />
+            <MdModeEdit onClick={handleEditClick} className="text-xl" />
             <MdDeleteForever className="text-xl" />
           </div>
         </div>

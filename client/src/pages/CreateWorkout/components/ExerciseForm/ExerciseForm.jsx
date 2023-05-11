@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
 
-const ExerciseForm = ({ handleExerciseAdded, setShowForm }) => {
+const ExerciseForm = ({ handleExerciseAdded, handleShowForm }) => {
   const [exercise, setExercise] = useState({
     name: "",
     durationMinutes: "",
@@ -36,7 +36,7 @@ const ExerciseForm = ({ handleExerciseAdded, setShowForm }) => {
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
           <p className="text-xs font-bold">(or a rest interval) </p>
           <MdHighlightOff
-            onClick={() => setShowForm(false)}
+            onClick={() => handleShowForm(false)}
             className="absolute right-1 top-1 text-3xl"
           />
         </div>
