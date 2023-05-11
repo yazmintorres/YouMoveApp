@@ -10,7 +10,7 @@ const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
   const [workoutExercises, setWorkoutExercises] = useState([]);
-  const [workout, setWorkout] = useState({});
+  const [newWorkout, setNewWorkout] = useState(false);
   const { user, isAuthenticated } = useAuth0();
 
   const [targetArea, setTargetArea] = useState("full-body");
@@ -30,6 +30,7 @@ const CreateWorkout = () => {
         );
         const workout = await response.json();
         console.log("workout response", workout);
+        setNewWorkout(workout?.id ? false : true);
         setTargetArea(workout?.target_area || "full-body");
         setWorkoutExercises(workout?.exercises || []);
       }
@@ -37,6 +38,8 @@ const CreateWorkout = () => {
       console.log(error.message);
     }
   };
+
+  console.log(newWorkout);
 
   useEffect(() => {
     // console.log(isAuthenticated);
@@ -101,16 +104,22 @@ const CreateWorkout = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className=" my-0 mt-4 font-bold tracking-wide">Add Workout</h2>
+      <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
+        <div className="w-3/4">
+          <h2 className=" my-0 truncate font-bold tracking-wide">
+            {newWorkout ? "Add Workout" : videoInfo.title}
+          </h2>
+        </div>
+        {newWorkout || (
+          <button className="btn btn-actions bg-rose-600 hover:bg-rose-700  ">
+            Delete workout
+          </button>
+        )}
+      </div>
+
       <div className="border border-solid border-gray-500"></div>
       <div className="mt-2 md:flex">
         <div className="flex w-full grow flex-col gap-3">
-          <VideoCard
-            width="full"
-            videoId={videoInfo.videoId}
-            channelTitle={videoInfo.channelTitle}
-            title={videoInfo.title}
-          />
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="target-area">Target Area*</label>
@@ -137,16 +146,19 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {/* if workout exercises is not empty, show add workout button */}
             {workoutExercises.length !== 0 && (
-              <button
-                type="submit"
-                className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-              >
-                Add Workout
+              <button type="submit" className=" btn-actions order-3">
+                {newWorkout ? "Add Workout" : "Save Workout"}
               </button>
             )}
           </form>
+          <VideoCard
+            width="full"
+            videoId={videoInfo.videoId}
+            channelTitle={videoInfo.channelTitle}
+            title={videoInfo.title}
+          />
+          {/* if workout exercises is not empty, show add workout button */}
         </div>
 
         <div className="flex w-full grow flex-col items-center gap-3">

@@ -32,13 +32,6 @@ const UserLanding = () => {
     }
   };
 
-  // if i have time, consider implementing a token as the dependency for when this function gets called
-  useEffect(() => {
-    addUserToDB();
-    getSavedWorkouts();
-    // console.log("api post");
-  }, [user]);
-
   // get saved workouts from DB
   const getSavedWorkouts = async () => {
     try {
@@ -54,6 +47,13 @@ const UserLanding = () => {
       console.log(error.message);
     }
   };
+
+  // if i have time, consider implementing a token as the dependency for when this function gets called
+  useEffect(() => {
+    addUserToDB();
+    getSavedWorkouts();
+    // console.log("api post");
+  }, [user]);
 
   const workoutVideos = savedWorkouts.map((obj) => (
     <VideoCard
