@@ -25,6 +25,7 @@ const UserLanding = () => {
           body: JSON.stringify(userInfo),
         });
         const userAdded = await response.json();
+        console.log("userAdded:", userAdded);
       }
     } catch (error) {
       console.log(error.message);
@@ -45,7 +46,8 @@ const UserLanding = () => {
         const userId = user.sub;
         const response = await fetch(`/api/savedWorkouts/${userId}`);
         const savedWorkouts = await response.json();
-        console.log(savedWorkouts);
+        console.log("saved workouts", savedWorkouts);
+        // console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {

@@ -58,13 +58,14 @@ app.post("/api/addVideo/:videoId", async (req, res) => {
       [id, etag, title, channelTitle, thumbnailUrl]
     );
 
-    res.status(200).json(video);
+    res.status(200).json(video.length === 0 ? {} : video[0]);
   } catch (error) {
     console.log(error.message);
   }
 });
 
 // NOTE: need to add video first to video table because workout table references video id
+// there should not be a duplicate workout (same userId and videoId) --> will need how to implement this to make sure if this conflict arises, then nothing happes (as in don't post new entry)
 // add workout
 app.post("/api/addWorkout", async (req, res) => {
   try {
@@ -74,7 +75,7 @@ app.post("/api/addWorkout", async (req, res) => {
       "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
       [userId, videoId, targetArea, exercises]
     );
-    res.json(workout);
+    res.json(workout[0]);
   } catch (error) {
     console.log(error.message);
   }
@@ -110,11 +111,7 @@ app.get("/api/workout", async (req, res) => {
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
     );
-    // console.log(workout[0]);
-    if (workout.length === 0) res.json({});
-    res.json(workout[0]);
-    // res.send("i was hit");
-    // res.json(workout[0]);
+    res.status(200).json(workout.length === 0 ? {} : workout[0]);
   } catch (e) {
     return res.status(400).json({ e });
   }

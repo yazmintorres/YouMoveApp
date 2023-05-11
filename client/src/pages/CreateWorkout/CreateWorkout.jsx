@@ -22,15 +22,16 @@ const CreateWorkout = () => {
 
   const getWorkout = async () => {
     try {
-      // console.log("called");
+      console.log("called");
       if (isAuthenticated) {
         const userId = user.sub;
         const response = await fetch(
           `/api/workout?userId=${userId}&videoId=${videoInfo.videoId}`
         );
         const workout = await response.json();
-        setTargetArea(workout.target_area);
-        setWorkoutExercises(workout.exercises || []);
+        console.log("workout response", workout);
+        setTargetArea(workout?.target_area || "full-body");
+        setWorkoutExercises(workout?.exercises || []);
       }
     } catch (error) {
       console.log(error.message);
@@ -96,7 +97,7 @@ const CreateWorkout = () => {
       reps={exercise.reps}
     />
   ));
-  console.log(exerciseCards);
+  // console.log(exerciseCards);
 
   return (
     <div className="flex flex-col gap-2">
