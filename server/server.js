@@ -30,8 +30,10 @@ app.post("/api/addUser", async (req, res) => {
       "INSERT INTO users(id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
       [userId, userEmail]
     );
-    user[0] && console.log("User added:", user[0]);
-    res.status(200).json(user);
+    // on conflict do nothing will return empty array because nothing was posted
+    // but we need to send a response in json format(an object)
+    // so if the array is empty, then send an empty object
+    res.status(200).json(user.length === 0 ? {} : user[0]);
   } catch (error) {
     console.log(error.message);
   }
@@ -108,7 +110,8 @@ app.get("/api/workout", async (req, res) => {
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
     );
-    if (workout.length === 0) res.send("");
+    // console.log(workout[0]);
+    if (workout.length === 0) res.json({});
     res.json(workout[0]);
     // res.send("i was hit");
     // res.json(workout[0]);
