@@ -71,7 +71,7 @@ const ExerciseCard = ({
   }
 
   return (
-    <div className=" w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+    <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto w-11/12 p-3">
         <div>
           <p className=" absolute text-xl font-bold ">{number}</p>

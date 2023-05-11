@@ -29,7 +29,7 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
   };
 
   return (
-    <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+    <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto w-11/12 p-3">
         <div className="my-4">
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
