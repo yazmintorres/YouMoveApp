@@ -54,6 +54,7 @@ const CreateWorkout = () => {
       ...prevWorkoutExercises,
       exercise,
     ]);
+    setShowForm(false);
     // console.log("Workout exercises:", workoutExercises);
   };
 
@@ -209,9 +210,15 @@ const CreateWorkout = () => {
           {" "}
           {exerciseCards}
           {showForm ? (
-            <ExerciseForm handleExerciseAdded={handleExerciseAdded} />
+            <ExerciseForm
+              handleExerciseAdded={handleExerciseAdded}
+              setShowForm={setShowForm}
+            />
           ) : (
-            <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+            <div
+              onClick={() => setShowForm(true)}
+              className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
+            >
               <div className="m-auto p-3">
                 <h3 className="my-0 flex items-center justify-center gap-2 font-bold">
                   <MdAddCircle />

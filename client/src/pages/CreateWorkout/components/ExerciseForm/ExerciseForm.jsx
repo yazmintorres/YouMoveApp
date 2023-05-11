@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
 
-const ExerciseForm = ({ handleExerciseAdded }) => {
+const ExerciseForm = ({ handleExerciseAdded, setShowForm }) => {
   const [exercise, setExercise] = useState({
     name: "",
     durationMinutes: "",
@@ -31,9 +32,13 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
   return (
     <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto w-11/12">
-        <div className="my-4">
+        <div className="relative my-4">
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
           <p className="text-xs font-bold">(or a rest interval) </p>
+          <MdHighlightOff
+            onClick={() => setShowForm(false)}
+            className="absolute right-1 top-1 text-3xl"
+          />
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center justify-between gap-3  ">
