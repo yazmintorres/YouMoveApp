@@ -145,6 +145,14 @@ app.delete("/api/delete", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  try {
+    res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 // console.log that your server is up and running
 app.listen(PORT, () => {
   console.log(`Hola, Server listening on ${PORT}`);
