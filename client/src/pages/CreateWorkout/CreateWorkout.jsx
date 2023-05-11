@@ -54,6 +54,7 @@ const CreateWorkout = () => {
   }, [isAuthenticated]);
 
   const handleExerciseAdded = (exercise) => {
+    console.log(exercise);
     setWorkoutExercises((prevWorkoutExercises) => [
       ...prevWorkoutExercises,
       exercise,
@@ -126,6 +127,7 @@ const CreateWorkout = () => {
     <ExerciseCard
       key={index + 1}
       number={index + 1}
+      exercise={exercise}
       durationMinutes={exercise.durationMinutes}
       durationSeconds={exercise.durationSeconds}
       name={exercise.name}
