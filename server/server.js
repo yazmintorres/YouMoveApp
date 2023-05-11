@@ -81,6 +81,21 @@ app.post("/api/addWorkout", async (req, res) => {
   }
 });
 
+// update a specific workout
+app.put("/api/updateWorkout", async (req, res) => {
+  try {
+    const { videoId, userId, targetArea, exercises } = req.body;
+    console.log(req.body);
+    const { rows: workout } = await db.query(
+      "UPDATE workouts SET target_area=$1, exercises=$2 WHERE user_id=$3 AND video_id=$4 RETURNING*",
+      [targetArea, exercises, userId, videoId]
+    );
+    res.json(workout[0]);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 // get all saved workouts for a user
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
