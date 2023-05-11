@@ -30,7 +30,7 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
 
   return (
     <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-      <div className="m-auto p-3">
+      <div className="m-auto w-11/12">
         <div className="my-4">
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
           <p className="text-xs font-bold">(or a rest interval) </p>
@@ -103,7 +103,7 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3  ">
-            <label htmlFor="sets" className="w-1/5 basis-auto  text-left">
+            <label htmlFor="sets" className=" w-1/5 basis-auto  text-left">
               Sets
             </label>
             <input
@@ -117,7 +117,7 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
             ></input>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3  ">
-            <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
+            <label htmlFor="reps" className=" w-1/5 basis-auto  text-left">
               Reps
             </label>
             <input
@@ -130,8 +130,8 @@ const ExerciseForm = ({ handleExerciseAdded }) => {
               min={0}
             ></input>
           </div>
-          <button type="submit" className=" btn-actions mt-4 self-center">
-            Add Exercise
+          <button type="submit" className=" btn-actions my-4 self-center px-4">
+            Add
           </button>
         </form>
       </div>

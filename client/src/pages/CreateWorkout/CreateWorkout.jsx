@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { MdAddCircle } from "react-icons/md";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import ExerciseCard from "@client/src/pages/CreateWorkout/components/ExerciseCard/ExerciseCard";
 import ExerciseForm from "./components/ExerciseForm/ExerciseForm";
@@ -9,6 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const [showForm, setShowForm] = useState(false);
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const [newWorkout, setNewWorkout] = useState(false);
   const { user, isAuthenticated } = useAuth0();
@@ -30,6 +32,7 @@ const CreateWorkout = () => {
         );
         const workout = await response.json();
         console.log("workout response", workout);
+        setShowForm(workout?.id ? false : true);
         setNewWorkout(workout?.id ? false : true);
         setTargetArea(workout?.target_area || "full-body");
         setWorkoutExercises(workout?.exercises || []);
@@ -205,7 +208,18 @@ const CreateWorkout = () => {
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
           {exerciseCards}
-          <ExerciseForm handleExerciseAdded={handleExerciseAdded} />
+          {showForm ? (
+            <ExerciseForm handleExerciseAdded={handleExerciseAdded} />
+          ) : (
+            <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+              <div className="m-auto p-3">
+                <h3 className="my-0 flex items-center justify-center gap-2 font-bold">
+                  <MdAddCircle />
+                  Add Exercise
+                </h3>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

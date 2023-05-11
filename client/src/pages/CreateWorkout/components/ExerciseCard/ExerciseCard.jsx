@@ -76,13 +76,13 @@ const ExerciseCard = ({
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto p-3">
         <div className=" flex items-center justify-between">
-          <p className=" text-xl font-bold ">{number}</p>
+          <h3 className="my-0 w-12 basis-auto font-bold ">{number}</h3>
 
           <h3 className=" my-0 grow font-bold">
             {name[0].toUpperCase() + name.slice(1)}
           </h3>
 
-          <div className=" flex gap-1">
+          <div className=" flex gap-2">
             <MdModeEdit className="text-xl" />
             <MdDeleteForever className="text-xl" />
           </div>
