@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import ExerciseForm from "./components/ExerciseForm";
+import ExerciseCard from "@client/src/pages/CreateWorkout/components/ExerciseCard/ExerciseCard";
+import ExerciseForm from "./components/ExerciseForm/ExerciseForm";
 import { useState } from "react";
-import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
