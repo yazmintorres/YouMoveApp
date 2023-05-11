@@ -1,4 +1,6 @@
 import React from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 
 const ExerciseCard = ({
   number,
@@ -72,12 +74,18 @@ const ExerciseCard = ({
 
   return (
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-      <div className="m-auto w-11/12 p-3">
-        <div>
-          <p className=" absolute text-xl font-bold ">{number}</p>
-          <h3 className="my-0 grow font-bold">
+      <div className="m-auto p-3">
+        <div className=" flex items-center justify-between">
+          <p className=" text-xl font-bold ">{number}</p>
+
+          <h3 className=" my-0 grow font-bold">
             {name[0].toUpperCase() + name.slice(1)}
           </h3>
+
+          <div className=" flex gap-1">
+            <MdModeEdit className="text-xl" />
+            <MdDeleteForever className="text-xl" />
+          </div>
         </div>
         {minutesAndSeconds && <p>{minutesAndSeconds}</p>}
         {weight && <p>{weight}</p>}
