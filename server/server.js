@@ -96,6 +96,25 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
   }
 });
 
+// get specific workout by videoId and userId
+app.get("/api/workout", async (req, res) => {
+  try {
+    console.log("test");
+    const { userId, videoId } = req.query;
+    console.log(userId, videoId);
+    // all saved workouts for a specific user
+    // need to send back videoId, title, channelTitle
+    const { rows: workout } = await db.query(
+      "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
+      [userId, videoId]
+    );
+    // res.send("i was hit");
+    res.json(workout);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
 // create the POST request
 app.post("/api/students", async (req, res) => {
   try {
