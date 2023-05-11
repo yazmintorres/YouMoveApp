@@ -84,9 +84,33 @@ const CreateWorkout = () => {
     }
   };
 
+  const updateWorkout = async () => {
+    try {
+      // userId, targetArea, videoId, exercises
+      const workoutInfo = {
+        videoId: videoInfo.videoId,
+        userId: user.sub,
+        exercises: workoutExercises,
+        targetArea: targetArea,
+      };
+      const response = await fetch(`/api/updateWorkout`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workoutInfo),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await postWorkout();
+    if (newWorkout) {
+      await postWorkout();
+    } else {
+      await updateWorkout();
+    }
+
     navigate("/dashboard");
   };
 
