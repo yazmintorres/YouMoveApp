@@ -23,8 +23,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        {/* <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} /> */}
         <Route path="workout" element={<CreateWorkout />} />
         <Route path="dashboard" element={<UserLanding />} />
       </Route>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import AddExercise from "./components/AddExercise";
+import ExerciseForm from "./components/ExerciseForm";
 import { useState } from "react";
 import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -205,7 +205,7 @@ const CreateWorkout = () => {
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
           {exerciseCards}
-          <AddExercise handleExerciseAdded={handleExerciseAdded} />
+          <ExerciseForm handleExerciseAdded={handleExerciseAdded} />
         </div>
       </div>
     </div>

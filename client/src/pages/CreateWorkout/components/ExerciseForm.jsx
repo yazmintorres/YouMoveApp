@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-const AddExercise = ({ handleExerciseAdded }) => {
+const ExerciseForm = ({ handleExerciseAdded }) => {
   const [exercise, setExercise] = useState({
     name: "",
     durationMinutes: "",
@@ -138,4 +138,4 @@ const AddExercise = ({ handleExerciseAdded }) => {
   );
 };
 
-export default AddExercise;
+export default ExerciseForm;
