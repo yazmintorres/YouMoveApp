@@ -46,9 +46,11 @@ const CreateWorkout = () => {
     getWorkout();
   }, [isAuthenticated]);
 
-  const handleExerciseAdded = (exercises) => {
-    setWorkoutExercises(exercises);
-
+  const handleExerciseAdded = (exercise) => {
+    setWorkoutExercises((prevWorkoutExercises) => [
+      ...prevWorkoutExercises,
+      exercise,
+    ]);
     // console.log("Workout exercises:", workoutExercises);
   };
 

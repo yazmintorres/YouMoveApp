@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useState } from "react";
 
 const AddExercise = ({ handleExerciseAdded }) => {
-  const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState({
     name: "",
     durationMinutes: "",
@@ -19,7 +17,7 @@ const AddExercise = ({ handleExerciseAdded }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setExercises((prevExercises) => [...prevExercises, exercise]);
+    handleExerciseAdded(exercise);
     setExercise({
       name: "",
       durationMinutes: "",
@@ -29,23 +27,6 @@ const AddExercise = ({ handleExerciseAdded }) => {
       sets: "",
     });
   };
-
-  useEffect(() => {
-    handleExerciseAdded(exercises);
-  }, [exercises]);
-
-  const exerciseCards = exercises.map((exercise, index) => (
-    <ExerciseCard
-      key={index + 1}
-      number={index + 1}
-      durationMinutes={exercise.durationMinutes}
-      durationSeconds={exercise.durationSeconds}
-      name={exercise.name}
-      weight={exercise.weight}
-      sets={exercise.sets}
-      reps={exercise.reps}
-    />
-  ));
 
   return (
     <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
