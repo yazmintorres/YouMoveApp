@@ -2,15 +2,23 @@ import React, { useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
 
-const ExerciseForm = ({ handleExerciseAdded, handleShowForm }) => {
-  const [exercise, setExercise] = useState({
-    name: "",
-    durationMinutes: "",
-    durationSeconds: "",
-    weight: "",
-    reps: "",
-    sets: "",
-  });
+const ExerciseForm = ({
+  handleExerciseAdded,
+  handleShowForm,
+  exerciseToEdit,
+}) => {
+  const [exercise, setExercise] = useState(
+    exerciseToEdit || {
+      name: "",
+      durationMinutes: "",
+      durationSeconds: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    }
+  );
+
+  console.log(exercise);
 
   const handleChange = (e) => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
@@ -28,6 +36,18 @@ const ExerciseForm = ({ handleExerciseAdded, handleShowForm }) => {
       sets: "",
     });
   };
+
+  // const handleExitClick = () => {
+  //   handleShowForm(false);
+  //   setExercise({
+  //     name: "",
+  //     durationMinutes: "",
+  //     durationSeconds: "",
+  //     weight: "",
+  //     reps: "",
+  //     sets: "",
+  //   });
+  // };
 
   return (
     <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">

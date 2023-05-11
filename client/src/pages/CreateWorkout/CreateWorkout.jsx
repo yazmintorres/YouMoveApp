@@ -10,6 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const [exercise, setExercise] = useState({});
   const [showForm, setShowForm] = useState(false);
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const [newWorkout, setNewWorkout] = useState(false);
@@ -22,20 +23,23 @@ const CreateWorkout = () => {
     setShowForm(bool);
   };
 
+  const handleEditExercise = (exercise) => {
+    setExercise(exercise);
+  };
+
   // need to check if video has already been saved by a user
   // if so get saved workout info
   // pre-populate info
 
   const getWorkout = async () => {
     try {
-      console.log("called");
       if (isAuthenticated) {
         const userId = user.sub;
         const response = await fetch(
           `/api/workout?userId=${userId}&videoId=${videoInfo.videoId}`
         );
         const workout = await response.json();
-        console.log("workout response", workout);
+        // console.log("workout response", workout);
         setShowForm(workout?.id ? false : true);
         setNewWorkout(workout?.id ? false : true);
         setTargetArea(workout?.target_area || "full-body");
@@ -45,8 +49,6 @@ const CreateWorkout = () => {
       console.log(error.message);
     }
   };
-
-  console.log(newWorkout);
 
   useEffect(() => {
     // console.log(isAuthenticated);
@@ -128,12 +130,7 @@ const CreateWorkout = () => {
       key={index + 1}
       number={index + 1}
       exercise={exercise}
-      durationMinutes={exercise.durationMinutes}
-      durationSeconds={exercise.durationSeconds}
-      name={exercise.name}
-      weight={exercise.weight}
-      sets={exercise.sets}
-      reps={exercise.reps}
+      handleEditExercise={handleEditExercise}
       handleShowForm={handleShowForm}
     />
   ));
@@ -149,6 +146,18 @@ const CreateWorkout = () => {
     const deleted = await response.json();
     console.log("deleted");
     navigate("/dashboard");
+  };
+
+  const handleAddExercise = () => {
+    handleShowForm(true);
+    setExercise({
+      name: "",
+      durationMinutes: "",
+      durationSeconds: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    });
   };
 
   return (
@@ -218,12 +227,13 @@ const CreateWorkout = () => {
           {exerciseCards}
           {showForm ? (
             <ExerciseForm
+              exerciseToEdit={exercise}
               handleExerciseAdded={handleExerciseAdded}
               handleShowForm={handleShowForm}
             />
           ) : (
             <div
-              onClick={() => handleShowForm(true)}
+              onClick={handleAddExercise}
               className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
             >
               <div className="m-auto p-3">

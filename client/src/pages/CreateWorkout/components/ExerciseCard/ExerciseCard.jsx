@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 
-const ExerciseCard = ({ exercise, handleShowForm, number }) => {
-  console.log(exercise);
-  console.log(exercise.weight);
+const ExerciseCard = ({
+  exercise,
+  handleShowForm,
+  number,
+  handleEditExercise,
+}) => {
+  // console.log(exercise);
+  // console.log(exercise.weight);
 
   // sets and reps
   if (Number(exercise.sets) === 0) {
@@ -59,16 +64,17 @@ const ExerciseCard = ({ exercise, handleShowForm, number }) => {
   }
 
   // weight
-  if (Number(exercise.weight) === 0) {
-    exercise.weight = "";
-  } else if (Number(exercise.weight) === 1) {
-    exercise.weight = `1 lb`;
-  } else if (Number(exercise.weight) > 1) {
-    exercise.weight = `${exercise.weight} lbs`;
-  }
+  // if (Number(exercise.weight) === 0) {
+  //   exercise.weight = "";
+  // } else if (Number(exercise.weight) === 1) {
+  //   exercise.weight = `1 lb`;
+  // } else if (Number(exercise.weight) > 1) {
+  //   exercise.weight = `${exercise.weight} lbs`;
+  // }
 
   const handleEditClick = () => {
     handleShowForm(true);
+    handleEditExercise(exercise);
     console.log("do something");
   };
 
