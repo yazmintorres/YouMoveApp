@@ -64,7 +64,7 @@ const UserLanding = () => {
     >
       {" "}
       <Link
-        to={`/create?edit=${obj.workout_id}`}
+        to={`/workout?edit=${obj.workout_id}`}
         state={{
           videoId: obj.video_id,
           channelTitle: obj.channel_title,
@@ -96,7 +96,7 @@ const UserLanding = () => {
       channelTitle={obj.snippet.channelTitle}
     >
       <Link
-        to="/create"
+        to="/workout?add=true"
         state={{
           videoId: obj.id.videoId,
           channelTitle: obj.snippet.channelTitle,
