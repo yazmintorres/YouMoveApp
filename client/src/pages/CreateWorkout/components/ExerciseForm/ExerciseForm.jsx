@@ -18,6 +18,7 @@ const ExerciseForm = ({
     }
   );
 
+  console.log(exerciseFromParent);
   console.log(exercise);
 
   const handleChange = (e) => {
