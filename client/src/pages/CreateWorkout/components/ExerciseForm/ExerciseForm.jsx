@@ -7,7 +7,16 @@ const ExerciseForm = ({
   handleShowForm,
   exerciseFromParent,
 }) => {
-  const [exercise, setExercise] = useState(exerciseFromParent);
+  const [exercise, setExercise] = useState(
+    exerciseFromParent || {
+      name: "",
+      durationMinutes: "",
+      durationSeconds: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    }
+  );
 
   console.log(exercise);
 
