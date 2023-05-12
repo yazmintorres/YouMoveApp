@@ -5,18 +5,9 @@ import { useState } from "react";
 const ExerciseForm = ({
   handleExerciseAdded,
   handleShowForm,
-  exerciseToEdit,
+  exerciseFromParent,
 }) => {
-  const [exercise, setExercise] = useState(
-    exerciseToEdit || {
-      name: "",
-      durationMinutes: "",
-      durationSeconds: "",
-      weight: "",
-      reps: "",
-      sets: "",
-    }
-  );
+  const [exercise, setExercise] = useState(exerciseFromParent);
 
   console.log(exercise);
 

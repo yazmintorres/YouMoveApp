@@ -227,7 +227,7 @@ const CreateWorkout = () => {
           {exerciseCards}
           {showForm ? (
             <ExerciseForm
-              exerciseToEdit={exercise}
+              exerciseFromParent={exercise}
               handleExerciseAdded={handleExerciseAdded}
               handleShowForm={handleShowForm}
             />
