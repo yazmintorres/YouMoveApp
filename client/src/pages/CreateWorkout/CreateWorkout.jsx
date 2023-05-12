@@ -225,13 +225,7 @@ const CreateWorkout = () => {
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
           {exerciseCards}
-          {showForm ? (
-            <ExerciseForm
-              exerciseFromParent={exercise}
-              handleExerciseAdded={handleExerciseAdded}
-              handleShowForm={handleShowForm}
-            />
-          ) : (
+          {showForm || (
             <div
               onClick={handleAddExercise}
               className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
@@ -243,6 +237,13 @@ const CreateWorkout = () => {
                 </h3>
               </div>
             </div>
+          )}
+          {showForm && (
+            <ExerciseForm
+              exerciseFromParent={exercise}
+              handleExerciseAdded={handleExerciseAdded}
+              handleShowForm={handleShowForm}
+            />
           )}
         </div>
       </div>

@@ -18,8 +18,6 @@ const ExerciseForm = ({
     }
   );
 
-  console.log(exercise);
-
   const handleChange = (e) => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
   };
@@ -36,18 +34,6 @@ const ExerciseForm = ({
       sets: "",
     });
   };
-
-  // const handleExitClick = () => {
-  //   handleShowForm(false);
-  //   setExercise({
-  //     name: "",
-  //     durationMinutes: "",
-  //     durationSeconds: "",
-  //     weight: "",
-  //     reps: "",
-  //     sets: "",
-  //   });
-  // };
 
   return (
     <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
