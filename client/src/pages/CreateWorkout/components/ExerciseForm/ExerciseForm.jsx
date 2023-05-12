@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
+import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
 const ExerciseForm = ({
@@ -7,6 +8,9 @@ const ExerciseForm = ({
   handleShowForm,
   exerciseFromParent,
 }) => {
+  const { exercises, setExercises, workout } = useContext(WorkoutContext);
+
+  // change exercisefrom parent to be exercise to edit
   const [exercise, setExercise] = useState(
     exerciseFromParent || {
       name: "",
@@ -24,7 +28,8 @@ const ExerciseForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleExerciseAdded(exercise);
+    setExercises((prevExercises) => [...prevExercises, exercise]);
+    // handleExerciseAdded(exercise);
     setExercise({
       name: "",
       durationMinutes: "",
@@ -78,7 +83,7 @@ const ExerciseForm = ({
               max={30}
               placeholder="Minutes"
               onChange={handleChange}
-              value={exercise.durationMinutes}
+              // value={exercise.durationMinutes}
               id="duration"
             ></input>
 

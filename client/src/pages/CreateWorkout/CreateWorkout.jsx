@@ -13,7 +13,7 @@ const CreateWorkout = () => {
   const { getWorkout, workout, setWorkout, exercises, deleteWorkout } =
     useContext(WorkoutContext);
   const { user, isAuthenticated } = useAuth0();
-  console.log(workout);
+  // console.log(workout);
 
   const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
