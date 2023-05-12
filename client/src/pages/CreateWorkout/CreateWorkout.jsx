@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { MdAddCircle } from "react-icons/md";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import ExerciseCard from "@client/src/pages/CreateWorkout/components/ExerciseCard/ExerciseCard";
@@ -6,18 +6,41 @@ import ExerciseForm from "./components/ExerciseForm/ExerciseForm";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import WorkoutContext from "@client/src/contexts/workout";
+import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
-  const [exercise, setExercise] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [workoutExercises, setWorkoutExercises] = useState([]);
   const [newWorkout, setNewWorkout] = useState(false);
+  const { getWorkout, workout, setWorkout, exercises, deleteWorkout } =
+    useContext(WorkoutContext);
   const { user, isAuthenticated } = useAuth0();
+  console.log(workout);
 
   const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      getWorkout(user.sub, videoInfo.videoId, isAuthenticated);
+    }
+
+    setShowForm(workout?.id ? false : true);
+    setNewWorkout(workout?.id ? false : true);
+    setTargetArea(workout?.target_area || "full-body");
+  }, [isAuthenticated]);
+
+  const handleExerciseAdded = (exercise) => {
+    console.log(exercise);
+    // setWorkoutExercises((prevWorkoutExercises) => [
+    //   ...prevWorkoutExercises,
+    //   exercise,
+    // ]);
+    setShowForm(false);
+    // console.log("Workout exercises:", workoutExercises);
+  };
 
   const handleShowForm = (bool) => {
     setShowForm(bool);
@@ -25,45 +48,6 @@ const CreateWorkout = () => {
 
   const handleEditExercise = (exercise) => {
     setExercise(exercise);
-  };
-
-  // need to check if video has already been saved by a user
-  // if so get saved workout info
-  // pre-populate info
-
-  const getWorkout = async () => {
-    try {
-      if (isAuthenticated) {
-        const userId = user.sub;
-        const response = await fetch(
-          `/api/workout?userId=${userId}&videoId=${videoInfo.videoId}`
-        );
-        const workout = await response.json();
-        // console.log("workout response", workout);
-        setShowForm(workout?.id ? false : true);
-        setNewWorkout(workout?.id ? false : true);
-        setTargetArea(workout?.target_area || "full-body");
-        setWorkoutExercises(workout?.exercises || []);
-        console.log("workout exercises updated by get request");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    // console.log(isAuthenticated);
-    getWorkout();
-  }, [isAuthenticated]);
-
-  const handleExerciseAdded = (exercise) => {
-    console.log(exercise);
-    setWorkoutExercises((prevWorkoutExercises) => [
-      ...prevWorkoutExercises,
-      exercise,
-    ]);
-    setShowForm(false);
-    // console.log("Workout exercises:", workoutExercises);
   };
 
   const postWorkout = async () => {
@@ -126,24 +110,8 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
-  const handleDeleteExercise = (exerciseNumber) => {
-    console.log("delete this card");
-    setWorkoutExercises(
-      workoutExercises.filter((exercise) => exercise.number !== exerciseNumber)
-    );
-  };
-
-  const handleClickDelete = async () => {
-    const userId = user.sub;
-    const response = await fetch(
-      `/api/delete?userId=${userId}&videoId=${videoInfo.videoId}`,
-      {
-        method: "DELETE",
-      }
-    );
-    const deleted = await response.json();
-    console.log("deleted");
-    navigate("/dashboard");
+  const handleClickDelete = () => {
+    deleteWorkout(user.sub, videoInfo.videoId);
   };
 
   const handleAddExercise = () => {
@@ -157,17 +125,6 @@ const CreateWorkout = () => {
       sets: "",
     });
   };
-
-  const exerciseCards = workoutExercises.map((exercise, index) => (
-    <ExerciseCard
-      key={index + 1}
-      number={index + 1}
-      exercise={exercise}
-      handleEditExercise={handleEditExercise}
-      handleDeleteExercise={handleDeleteExercise}
-      handleShowForm={handleShowForm}
-    />
-  ));
 
   return (
     <div className="flex flex-col gap-2">
@@ -197,8 +154,10 @@ const CreateWorkout = () => {
                 className="input-field"
                 name="target-area"
                 id="target-area"
-                value={targetArea}
-                onChange={(e) => setTargetArea(e.target.value)}
+                value={workout.target_area}
+                onChange={(e) =>
+                  setWorkout({ ...workout, target_area: e.target.value })
+                }
                 required
               >
                 <option value="full-body">Full Body</option>
@@ -216,7 +175,7 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {workoutExercises.length !== 0 && (
+            {exercises.length !== 0 && (
               <button type="submit" className=" btn-actions order-3">
                 {newWorkout ? "Add Workout" : "Save Workout"}
               </button>
@@ -233,7 +192,7 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          {exerciseCards}
+          <ListExercises />
           {showForm || (
             <div
               onClick={handleAddExercise}
@@ -249,7 +208,6 @@ const CreateWorkout = () => {
           )}
           {showForm && (
             <ExerciseForm
-              exerciseFromParent={exercise}
               handleExerciseAdded={handleExerciseAdded}
               handleShowForm={handleShowForm}
             />

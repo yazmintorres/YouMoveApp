@@ -1,15 +1,23 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import CreateWorkout from "../pages/CreateWorkout/CreateWorkout";
 
 const WorkoutContext = createContext();
 
 const Provider = ({ children }) => {
+  const navigate = useNavigate();
   const [workout, setWorkout] = useState({});
   const [exercises, setExercises] = useState([]);
+
+  // if exercises changes, inevitably workout changes
+  // make a lists exercise component
 
   // GET
   const getWorkout = async (userId, videoId, isAuthenticated) => {
     try {
       if (isAuthenticated) {
+        console.log("fetched workouts");
         const response = await fetch(
           `/api/workout?userId=${userId}&videoId=${videoId}`
         );
@@ -60,6 +68,7 @@ const Provider = ({ children }) => {
       );
       const deleted = await response.json();
       console.log("deleted");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }
@@ -84,9 +93,15 @@ const Provider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    setWorkout({ ...workout, exercises });
+  }, [exercises]);
+
   const valuesToShare = {
     workout,
     exercises,
+    setWorkout,
+    setExercises,
     getWorkout,
     postWorkout,
     deleteWorkout,
@@ -96,6 +111,7 @@ const Provider = ({ children }) => {
   return (
     <WorkoutContext.Provider value={valuesToShare}>
       {children}
+      <Outlet />
     </WorkoutContext.Provider>
   );
 };
