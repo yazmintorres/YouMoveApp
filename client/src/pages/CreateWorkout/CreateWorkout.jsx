@@ -1,8 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { MdAddCircle } from "react-icons/md";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import ExerciseCard from "@client/src/pages/CreateWorkout/components/ExerciseCard/ExerciseCard";
-import ExerciseForm from "./components/ExerciseForm/ExerciseForm";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,7 +9,6 @@ import ListExercises from "./components/ListExercises/ListExercises";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
-  const [showForm, setShowForm] = useState(false);
   const [newWorkout, setNewWorkout] = useState(false);
   const { getWorkout, workout, setWorkout, exercises, deleteWorkout } =
     useContext(WorkoutContext);
@@ -26,8 +22,6 @@ const CreateWorkout = () => {
     if (user) {
       getWorkout(user.sub, videoInfo.videoId, isAuthenticated);
     }
-
-    setShowForm(workout?.id ? false : true);
     setNewWorkout(workout?.id ? false : true);
     setTargetArea(workout?.target_area || "full-body");
   }, [isAuthenticated]);
@@ -38,13 +32,13 @@ const CreateWorkout = () => {
     //   ...prevWorkoutExercises,
     //   exercise,
     // ]);
-    setShowForm(false);
+    // setShowForm(false);
     // console.log("Workout exercises:", workoutExercises);
   };
 
-  const handleShowForm = (bool) => {
-    setShowForm(bool);
-  };
+  // const handleShowForm = (bool) => {
+  //   setShowForm(bool);
+  // };
 
   const handleEditExercise = (exercise) => {
     setExercise(exercise);
@@ -110,21 +104,22 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
+  //this works
   const handleClickDelete = () => {
     deleteWorkout(user.sub, videoInfo.videoId);
   };
 
-  const handleAddExercise = () => {
-    handleShowForm(true);
-    setExercise({
-      name: "",
-      durationMinutes: "",
-      durationSeconds: "",
-      weight: "",
-      reps: "",
-      sets: "",
-    });
-  };
+  // const handleAddExercise = () => {
+  //   handleShowForm(true);
+  //   setExercise({
+  //     name: "",
+  //     durationMinutes: "",
+  //     durationSeconds: "",
+  //     weight: "",
+  //     reps: "",
+  //     sets: "",
+  //   });
+  // };
 
   return (
     <div className="flex flex-col gap-2">
@@ -193,25 +188,6 @@ const CreateWorkout = () => {
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
           <ListExercises />
-          {showForm || (
-            <div
-              onClick={handleAddExercise}
-              className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
-            >
-              <div className="m-auto p-3">
-                <h3 className="my-0 flex items-center justify-center gap-2 font-bold">
-                  <MdAddCircle />
-                  Add Exercise
-                </h3>
-              </div>
-            </div>
-          )}
-          {showForm && (
-            <ExerciseForm
-              handleExerciseAdded={handleExerciseAdded}
-              handleShowForm={handleShowForm}
-            />
-          )}
         </div>
       </div>
     </div>
