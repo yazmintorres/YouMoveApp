@@ -23,6 +23,10 @@ const ListExercises = () => {
     setShowForm(true);
   };
 
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
       {" "}
@@ -42,8 +46,9 @@ const ListExercises = () => {
       )}
       {showForm && (
         <ExerciseForm
-        // handleExerciseAdded={handleExerciseAdded}
-        // handleShowForm={handleShowForm}
+          handleCloseForm={handleCloseForm}
+          // handleExerciseAdded={handleExerciseAdded}
+          // handleShowForm={handleShowForm}
         />
       )}
     </div>

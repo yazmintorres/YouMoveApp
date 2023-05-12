@@ -4,7 +4,7 @@ import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
 const ExerciseForm = ({
-  handleExerciseAdded,
+  handleCloseForm,
   handleShowForm,
   exerciseFromParent,
 }) => {
@@ -47,7 +47,7 @@ const ExerciseForm = ({
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
           <p className="text-xs font-bold">(or a rest interval) </p>
           <MdHighlightOff
-            onClick={() => handleShowForm(false)}
+            onClick={() => handleCloseForm()}
             className="absolute right-1 top-1 text-3xl"
           />
         </div>
