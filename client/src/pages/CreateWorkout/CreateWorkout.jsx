@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
-  const [exercise, setExercise] = useState({});
+  const [exercise, setExercise] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const [newWorkout, setNewWorkout] = useState(false);
