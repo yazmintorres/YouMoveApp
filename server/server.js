@@ -145,7 +145,7 @@ app.delete("/api/delete", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.get("/api/*", (req, res) => {
   try {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
   } catch (error) {
