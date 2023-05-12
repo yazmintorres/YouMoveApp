@@ -8,69 +8,53 @@ const ExerciseCard = ({
   number,
   handleEditExercise,
 }) => {
-  // console.log(exercise);
-  // console.log(exercise.weight);
+  // will need a word to be empty, singular, or plural depending on the amount inputted by user
+  // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
+  // pluralWordDesc must be a plural string
+  // using loose equality because input from user is in a string
+  const singularPluralOrEmpty = (amount, pluralWordDesc) => {
+    let transformWord;
+    if (amount == 0) {
+      transformWord = "";
+    } else if (amount == 1) {
+      // singular word
+      transformWord = pluralWordDesc.slice(0, -1);
+    } else {
+      transformWord = pluralWordDesc;
+    }
+    return transformWord;
+  };
 
-  // sets and reps
-  if (Number(exercise.sets) === 0) {
-    exercise.sets = "";
-  } else if (Number(exercise.sets) === 1) {
-    exercise.sets = `1 set`;
-  } else if (Number(exercise.sets) > 1) {
-    exercise.sets = `${exercise.sets} sets`;
-  }
+  // will need to customize the string displayed on the workout card depending on the variations between reps/sets and minutes/seconds
+  // ex. a user can input a rep, a set or both. if both are inputted = "1 set x 3rep", otherwise display either rep or set depending on which one was imputter
+  const createCardStrings = (
+    exercise,
+    property1,
+    property2,
+    wordDesc1,
+    wordDesc2
+  ) => {
+    const amount1 = Number(exercise[property1]);
+    const amount2 = Number(exercise[property2]);
 
-  if (Number(exercise.reps) === 0) {
-    exercise.reps = "";
-  } else if (Number(exercise.reps) === 1) {
-    exercise.reps = `1 rep`;
-  } else if (Number(exercise.reps) > 1) {
-    exercise.reps = `${exercise.reps} reps`;
-  }
-
-  let setsAndReps = "";
-  if (exercise.sets && exercise.reps) {
-    setsAndReps = `${exercise.sets} x ${exercise.reps}`;
-  } else if (exercise.sets) {
-    setsAndReps = exercise.sets;
-  } else if (exercise.reps) {
-    setsAndReps = exercise.reps;
-  }
-
-  // duration minutes and seconds
-  if (Number(exercise.durationMinutes) === 0) {
-    exercise.durationMinutes = "";
-  } else if (Number(exercise.durationMinutes) === 1) {
-    exercise.durationMinutes = `1 min`;
-  } else if (Number(exercise.durationMinutes) > 1) {
-    exercise.durationMinutes = `${exercise.durationMinutes} mins`;
-  }
-
-  if (Number(exercise.durationSeconds) === 0) {
-    exercise.durationSeconds = "";
-  } else if (Number(exercise.durationSeconds) === 1) {
-    exercise.durationSeconds = `1 sec`;
-  } else if (Number(exercise.durationSeconds) > 1) {
-    exercise.durationSeconds = `${exercise.durationSeconds} secs`;
-  }
-
-  let minutesAndSeconds = "";
-  if (exercise.durationMinutes && exercise.durationSeconds) {
-    minutesAndSeconds = `${exercise.durationMinutes} ${exercise.durationSeconds} `;
-  } else if (exercise.durationMinutes) {
-    minutesAndSeconds = exercise.durationMinutes;
-  } else if (exercise.durationSeconds) {
-    minutesAndSeconds = exercise.durationSeconds;
-  }
-
-  // weight
-  // if (Number(exercise.weight) === 0) {
-  //   exercise.weight = "";
-  // } else if (Number(exercise.weight) === 1) {
-  //   exercise.weight = `1 lb`;
-  // } else if (Number(exercise.weight) > 1) {
-  //   exercise.weight = `${exercise.weight} lbs`;
-  // }
+    const word1 = singularPluralOrEmpty(
+      exercise[property1],
+      wordDesc1 || property1
+    );
+    const word2 = singularPluralOrEmpty(
+      exercise[property2],
+      wordDesc2 || property2
+    );
+    if (amount1 && amount2) {
+      return `${amount1} ${word1} x ${amount2} ${word2}`;
+    } else if (amount1) {
+      return `${amount1} ${word1}`;
+    } else if (amount2) {
+      return `${amount2} ${word1}`;
+    } else {
+      return "";
+    }
+  };
 
   const handleEditClick = () => {
     handleShowForm(true);
@@ -93,9 +77,22 @@ const ExerciseCard = ({
             <MdDeleteForever className="text-xl" />
           </div>
         </div>
-        {minutesAndSeconds && <p>{minutesAndSeconds}</p>}
-        {exercise.weight && <p>{exercise.weight}</p>}
-        {setsAndReps && <p>{setsAndReps}</p>}
+        {exercise.weight != 0 && (
+          <p>{`${exercise.weight} ${singularPluralOrEmpty(
+            exercise.weight,
+            "lbs"
+          )}`}</p>
+        )}
+        <p>{createCardStrings(exercise, "sets", "reps")}</p>
+        <p>
+          {createCardStrings(
+            exercise,
+            "durationMinutes",
+            "durationSeconds",
+            "mins",
+            "secs"
+          )}
+        </p>
       </div>
     </div>
   );
