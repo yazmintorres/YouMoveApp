@@ -6,7 +6,8 @@ const ExerciseCard = ({
   exercise,
   handleShowForm,
   number,
-  handleEditExercise,
+  handleDeleteExercise,
+  handleEditExercise
 }) => {
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
@@ -62,6 +63,12 @@ const ExerciseCard = ({
     console.log("do something");
   };
 
+  const handleDeleteClick = () => {
+    // need to let parent know which one i am deleting
+    console.log("delete card requested")
+    handleDeleteExercise(number);
+  }
+
   return (
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto p-3">
@@ -74,7 +81,7 @@ const ExerciseCard = ({
 
           <div className=" flex gap-2">
             <MdModeEdit onClick={handleEditClick} className="text-xl" />
-            <MdDeleteForever className="text-xl" />
+            <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
           </div>
         </div>
         {exercise.weight != 0 && (

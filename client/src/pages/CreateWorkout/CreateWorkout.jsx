@@ -44,6 +44,7 @@ const CreateWorkout = () => {
         setNewWorkout(workout?.id ? false : true);
         setTargetArea(workout?.target_area || "full-body");
         setWorkoutExercises(workout?.exercises || []);
+        console.log("workout exercises updated by get request");
       }
     } catch (error) {
       console.log(error.message);
@@ -125,15 +126,12 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
-  const exerciseCards = workoutExercises.map((exercise, index) => (
-    <ExerciseCard
-      key={index + 1}
-      number={index + 1}
-      exercise={exercise}
-      handleEditExercise={handleEditExercise}
-      handleShowForm={handleShowForm}
-    />
-  ));
+  const handleDeleteExercise = (exerciseNumber) => {
+    console.log("delete this card");
+    setWorkoutExercises(
+      workoutExercises.filter((exercise) => exercise.number !== exerciseNumber)
+    );
+  };
 
   const handleClickDelete = async () => {
     const userId = user.sub;
@@ -159,6 +157,17 @@ const CreateWorkout = () => {
       sets: "",
     });
   };
+
+  const exerciseCards = workoutExercises.map((exercise, index) => (
+    <ExerciseCard
+      key={index + 1}
+      number={index + 1}
+      exercise={exercise}
+      handleEditExercise={handleEditExercise}
+      handleDeleteExercise={handleDeleteExercise}
+      handleShowForm={handleShowForm}
+    />
+  ));
 
   return (
     <div className="flex flex-col gap-2">
