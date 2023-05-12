@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-// app.get("/", (req, res) => {
+// app.get("/*", (req, res) => {
 //   try {
 //     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 //   } catch (error) {
@@ -140,6 +140,14 @@ app.delete("/api/delete", async (req, res) => {
       [userId, videoId]
     );
     res.status(200).json("Post has been deleted");
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+app.get("/*", (req, res) => {
+  try {
+    res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
   } catch (error) {
     console.log(error.message);
   }

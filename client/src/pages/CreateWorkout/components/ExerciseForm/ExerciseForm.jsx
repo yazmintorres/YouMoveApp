@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
+import { MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
 
-const AddExercise = ({ handleExerciseAdded }) => {
-  const [exercise, setExercise] = useState({
-    name: "",
-    durationMinutes: "",
-    durationSeconds: "",
-    weight: "",
-    reps: "",
-    sets: "",
-  });
+const ExerciseForm = ({
+  handleExerciseAdded,
+  handleShowForm,
+  exerciseFromParent,
+}) => {
+  const [exercise, setExercise] = useState(exerciseFromParent);
+
+  console.log(exercise);
 
   const handleChange = (e) => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
@@ -28,12 +28,28 @@ const AddExercise = ({ handleExerciseAdded }) => {
     });
   };
 
+  // const handleExitClick = () => {
+  //   handleShowForm(false);
+  //   setExercise({
+  //     name: "",
+  //     durationMinutes: "",
+  //     durationSeconds: "",
+  //     weight: "",
+  //     reps: "",
+  //     sets: "",
+  //   });
+  // };
+
   return (
-    <div className="w-11/12 rounded-xl border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-      <div className="m-auto w-11/12 p-3">
-        <div className="my-4">
+    <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+      <div className="m-auto w-11/12">
+        <div className="relative my-4">
           <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
           <p className="text-xs font-bold">(or a rest interval) </p>
+          <MdHighlightOff
+            onClick={() => handleShowForm(false)}
+            className="absolute right-1 top-1 text-3xl"
+          />
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center justify-between gap-3  ">
@@ -50,6 +66,7 @@ const AddExercise = ({ handleExerciseAdded }) => {
               id="name"
               value={exercise.name}
               onChange={handleChange}
+              maxLength={35}
               required
             ></input>
           </div>
@@ -102,7 +119,7 @@ const AddExercise = ({ handleExerciseAdded }) => {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3  ">
-            <label htmlFor="sets" className="w-1/5 basis-auto  text-left">
+            <label htmlFor="sets" className=" w-1/5 basis-auto  text-left">
               Sets
             </label>
             <input
@@ -116,7 +133,7 @@ const AddExercise = ({ handleExerciseAdded }) => {
             ></input>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3  ">
-            <label htmlFor="reps" className="w-1/5 basis-auto  text-left">
+            <label htmlFor="reps" className=" w-1/5 basis-auto  text-left">
               Reps
             </label>
             <input
@@ -129,8 +146,8 @@ const AddExercise = ({ handleExerciseAdded }) => {
               min={0}
             ></input>
           </div>
-          <button type="submit" className=" btn-actions mt-4 self-center">
-            Add Exercise
+          <button type="submit" className=" btn-actions my-4 self-center px-4">
+            Add
           </button>
         </form>
       </div>
@@ -138,4 +155,4 @@ const AddExercise = ({ handleExerciseAdded }) => {
   );
 };
 
-export default AddExercise;
+export default ExerciseForm;

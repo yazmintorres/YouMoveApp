@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
+import { MdAddCircle } from "react-icons/md";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import AddExercise from "./components/AddExercise";
+import ExerciseCard from "@client/src/pages/CreateWorkout/components/ExerciseCard/ExerciseCard";
+import ExerciseForm from "./components/ExerciseForm/ExerciseForm";
 import { useState } from "react";
-import ExerciseCard from "@client/src/components/ExerciseCard/ExerciseCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const [exercise, setExercise] = useState({});
+  const [showForm, setShowForm] = useState(false);
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const [newWorkout, setNewWorkout] = useState(false);
   const { user, isAuthenticated } = useAuth0();
@@ -16,20 +19,28 @@ const CreateWorkout = () => {
   const [targetArea, setTargetArea] = useState("full-body");
   const navigate = useNavigate();
 
+  const handleShowForm = (bool) => {
+    setShowForm(bool);
+  };
+
+  const handleEditExercise = (exercise) => {
+    setExercise(exercise);
+  };
+
   // need to check if video has already been saved by a user
   // if so get saved workout info
   // pre-populate info
 
   const getWorkout = async () => {
     try {
-      console.log("called");
       if (isAuthenticated) {
         const userId = user.sub;
         const response = await fetch(
           `/api/workout?userId=${userId}&videoId=${videoInfo.videoId}`
         );
         const workout = await response.json();
-        console.log("workout response", workout);
+        // console.log("workout response", workout);
+        setShowForm(workout?.id ? false : true);
         setNewWorkout(workout?.id ? false : true);
         setTargetArea(workout?.target_area || "full-body");
         setWorkoutExercises(workout?.exercises || []);
@@ -39,18 +50,18 @@ const CreateWorkout = () => {
     }
   };
 
-  console.log(newWorkout);
-
   useEffect(() => {
     // console.log(isAuthenticated);
     getWorkout();
   }, [isAuthenticated]);
 
   const handleExerciseAdded = (exercise) => {
+    console.log(exercise);
     setWorkoutExercises((prevWorkoutExercises) => [
       ...prevWorkoutExercises,
       exercise,
     ]);
+    setShowForm(false);
     // console.log("Workout exercises:", workoutExercises);
   };
 
@@ -118,12 +129,9 @@ const CreateWorkout = () => {
     <ExerciseCard
       key={index + 1}
       number={index + 1}
-      durationMinutes={exercise.durationMinutes}
-      durationSeconds={exercise.durationSeconds}
-      name={exercise.name}
-      weight={exercise.weight}
-      sets={exercise.sets}
-      reps={exercise.reps}
+      exercise={exercise}
+      handleEditExercise={handleEditExercise}
+      handleShowForm={handleShowForm}
     />
   ));
 
@@ -138,6 +146,18 @@ const CreateWorkout = () => {
     const deleted = await response.json();
     console.log("deleted");
     navigate("/dashboard");
+  };
+
+  const handleAddExercise = () => {
+    handleShowForm(true);
+    setExercise({
+      name: "",
+      durationMinutes: "",
+      durationSeconds: "",
+      weight: "",
+      reps: "",
+      sets: "",
+    });
   };
 
   return (
@@ -205,7 +225,25 @@ const CreateWorkout = () => {
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
           {exerciseCards}
-          <AddExercise handleExerciseAdded={handleExerciseAdded} />
+          {showForm ? (
+            <ExerciseForm
+              exerciseFromParent={exercise}
+              handleExerciseAdded={handleExerciseAdded}
+              handleShowForm={handleShowForm}
+            />
+          ) : (
+            <div
+              onClick={handleAddExercise}
+              className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
+            >
+              <div className="m-auto p-3">
+                <h3 className="my-0 flex items-center justify-center gap-2 font-bold">
+                  <MdAddCircle />
+                  Add Exercise
+                </h3>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
