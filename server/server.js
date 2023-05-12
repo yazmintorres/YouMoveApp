@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-// app.get("/", (req, res) => {
+// app.get("/*", (req, res) => {
 //   try {
 //     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 //   } catch (error) {
@@ -145,7 +145,7 @@ app.delete("/api/delete", async (req, res) => {
   }
 });
 
-app.get("/api/*", (req, res) => {
+app.get("/*", (req, res) => {
   try {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
   } catch (error) {
