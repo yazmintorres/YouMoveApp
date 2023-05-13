@@ -7,6 +7,7 @@ const ExerciseCard = ({
   exercise,
   exerciseNumber,
   handleEditExercise,
+  handleDeleteExercise,
   number,
 }) => {
   const { exercises, setExercises } = useContext(WorkoutContext);
@@ -70,10 +71,8 @@ const ExerciseCard = ({
   };
 
   const handleDeleteClick = () => {
-    let newExercises = exercises.filter(
-      (exercise, index) => index + 1 !== number
-    );
-    setExercises(newExercises);
+    console.log("i was clicked");
+    handleDeleteExercise(exerciseNumber);
   };
 
   return (

@@ -8,7 +8,7 @@ const ListExercises = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
 
-  const { exercises } = useContext(WorkoutContext);
+  const { exercises, setExercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
     setShowAddForm(true);
@@ -25,6 +25,14 @@ const ListExercises = () => {
     setShowAddForm(false);
   };
 
+  const handleDeleteExercise = (exerciseNumber) => {
+    console.log("i was clicked");
+    let newExercises = exercises.filter(
+      (exercise, index) => index + 1 !== exerciseNumber
+    );
+    setExercises(newExercises);
+  };
+
   const exerciseCards = exercises.map((exercise, index) => {
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
@@ -33,6 +41,7 @@ const ListExercises = () => {
           exerciseNumber={index + 1}
           exercise={exercise}
           handleEditExercise={handleEditExercise}
+          handleDeleteExercise={handleDeleteExercise}
         />
         {showEditForm === index + 1 && (
           <ExerciseForm
