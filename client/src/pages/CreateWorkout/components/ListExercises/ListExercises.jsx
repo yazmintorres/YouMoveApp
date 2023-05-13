@@ -5,32 +5,45 @@ import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import WorkoutContext from "@client/src/contexts/workout";
 
 const ListExercises = () => {
-  const [exerciseToEdit, setExerciseToEdit] = useState({});
-  const [showForm, setShowForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(null);
 
   const { exercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
-    setShowForm(true);
+    setShowAddForm(true);
+    setShowEditForm(null);
   };
 
   const handleCloseForm = () => {
-    setShowForm(false);
+    setShowAddForm(false);
+    setShowEditForm(null);
   };
 
-  const handleEditExercise = (exerciseToEdit) => {
-    setShowForm(true);
-    setExerciseToEdit(exerciseToEdit);
+  const handleEditExercise = (exerciseToEdit, number) => {
+    console.log("edit this exercise");
+    console.log(number);
+    // setShowForm(true);
+    setShowEditForm(number);
+    setShowAddForm(false);
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
     return (
-      <ExerciseCard
-        key={index + 1}
-        number={index + 1}
-        exercise={exercise}
-        handleEditExercise={handleEditExercise}
-      />
+      <div key={index} className="flex w-full flex-col items-center gap-3">
+        <ExerciseCard
+          key={index + 1}
+          number={index + 1}
+          exercise={exercise}
+          handleEditExercise={handleEditExercise}
+        />
+        {showEditForm === index + 1 && (
+          <ExerciseForm
+            exerciseToEdit={exercise}
+            handleCloseForm={handleCloseForm}
+          />
+        )}
+      </div>
     );
   });
 
@@ -38,7 +51,7 @@ const ListExercises = () => {
     <div className="flex w-full grow flex-col items-center gap-3">
       {" "}
       {exerciseCards}
-      {showForm || (
+      {showAddForm || (
         <div
           onClick={handleAddClick}
           className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
@@ -51,14 +64,7 @@ const ListExercises = () => {
           </div>
         </div>
       )}
-      {showForm && (
-        <ExerciseForm
-          handleCloseForm={handleCloseForm}
-          exerciseToEdit={exerciseToEdit}
-          // handleExerciseAdded={handleExerciseAdded}
-          // handleShowForm={handleShowForm}
-        />
-      )}
+      {showAddForm && <ExerciseForm handleCloseForm={handleCloseForm} />}
     </div>
   );
 };

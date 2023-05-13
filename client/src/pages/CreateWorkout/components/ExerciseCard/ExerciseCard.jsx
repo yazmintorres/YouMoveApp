@@ -3,12 +3,11 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import WorkoutContext from "@client/src/contexts/workout";
 
-const ExerciseCard = ({
-  exercise,
-  handleEditExercise,
-  number,
-}) => {
+const ExerciseCard = ({ exercise, handleEditExercise, number }) => {
   const { exercises, setExercises } = useContext(WorkoutContext);
+
+  const [showForm, setShowForm] = useState(false);
+  const toggle = () => setShowForm((prev) => !prev);
 
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
@@ -59,7 +58,8 @@ const ExerciseCard = ({
   };
 
   const handleEditClick = () => {
-    handleEditExercise(exercise);
+    console.log("i was clicked");
+    handleEditExercise(exercise, number);
     // when edit is clicked, need to pass specific exercise information to exercise form
     // exercise form needs to render this
     // handleShowForm(true);
