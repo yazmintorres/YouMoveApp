@@ -8,10 +8,7 @@ const ExerciseCard = ({
   exerciseNumber,
   handleEditExercise,
   handleDeleteExercise,
-  number,
 }) => {
-  const { exercises, setExercises } = useContext(WorkoutContext);
-
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
   // pluralWordDesc must be a plural string
@@ -63,11 +60,6 @@ const ExerciseCard = ({
   const handleEditClick = () => {
     console.log("i was clicked");
     handleEditExercise(exerciseNumber);
-    // when edit is clicked, need to pass specific exercise information to exercise form
-    // exercise form needs to render this
-    // handleShowForm(true);
-    // handleEditExercise(exercise);
-    // console.log("do something");
   };
 
   const handleDeleteClick = () => {
