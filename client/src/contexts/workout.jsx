@@ -87,7 +87,6 @@ const Provider = ({ children }) => {
       );
       const deleted = await response.json();
       console.log("deleted");
-      navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }

@@ -27,9 +27,6 @@ const CreateWorkout = () => {
     workout?.target_area || "full-body"
   );
 
-  console.log(workout);
-  console.log(targetArea);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,8 +39,6 @@ const CreateWorkout = () => {
     setNewWorkout(workout?.id ? false : true);
     setTargetArea(workout?.target_area || "full-body");
   }, [workout]);
-
-  console.log("new workout", newWorkout);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,6 +56,7 @@ const CreateWorkout = () => {
   //this works
   const handleClickDelete = () => {
     deleteWorkout(user.sub, videoInfo.videoId);
+    navigate("/dashboard");
   };
 
   return (
