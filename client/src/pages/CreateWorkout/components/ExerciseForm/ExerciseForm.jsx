@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
+import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
-const ExerciseForm = ({
-  handleExerciseAdded,
-  handleShowForm,
-  exerciseFromParent,
-}) => {
+const ExerciseForm = ({ handleCloseForm, exerciseToEdit, exerciseNumber }) => {
+  const { exercises, setExercises } = useContext(WorkoutContext);
+
   const [exercise, setExercise] = useState(
-    exerciseFromParent || {
+    exerciseToEdit || {
       name: "",
       durationMinutes: "",
       durationSeconds: "",
@@ -24,7 +23,18 @@ const ExerciseForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleExerciseAdded(exercise);
+    if (exerciseToEdit) {
+      const currentExerciseIndex = exercises.findIndex(
+        (exercise, index) => index + 1 === exerciseNumber
+      );
+      setExercises((exercises) => [
+        ...exercises.slice(0, currentExerciseIndex),
+        exercise,
+        ...exercises.slice(currentExerciseIndex + 1),
+      ]);
+    } else {
+      setExercises((prevExercises) => [...prevExercises, exercise]);
+    }
     setExercise({
       name: "",
       durationMinutes: "",
@@ -33,16 +43,22 @@ const ExerciseForm = ({
       reps: "",
       sets: "",
     });
+    handleCloseForm();
   };
 
   return (
     <div className="w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto w-11/12">
         <div className="relative my-4">
-          <h3 className=" my-0 text-lg font-bold ">Add Exercise</h3>
-          <p className="text-xs font-bold">(or a rest interval) </p>
+          <h3 className=" my-0 text-lg font-bold ">
+            {exerciseToEdit ? "Edit Exercise" : "Add Exercise"}
+          </h3>
+          <p className="text-xs font-bold">
+            {" "}
+            {exerciseToEdit ? "(or rest interval)" : "(or a rest interval)"}
+          </p>
           <MdHighlightOff
-            onClick={() => handleShowForm(false)}
+            onClick={() => handleCloseForm()}
             className="absolute right-1 top-1 text-3xl"
           />
         </div>
@@ -76,9 +92,9 @@ const ExerciseForm = ({
               name="durationMinutes"
               min={0}
               max={30}
+              value={exercise.durationMinutes}
               placeholder="Minutes"
               onChange={handleChange}
-              value={exercise.durationMinutes}
               id="duration"
             ></input>
 
@@ -142,7 +158,7 @@ const ExerciseForm = ({
             ></input>
           </div>
           <button type="submit" className=" btn-actions my-4 self-center px-4">
-            Add
+            {exerciseToEdit ? "Update" : "Add"}
           </button>
         </form>
       </div>

@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "@pages/Home/Home";
 import CreateWorkout from "./pages/CreateWorkout/CreateWorkout";
 import UserLanding from "./pages/UserLanding/UserLanding";
+import { Provider } from "./contexts/workout";
 
 const Layout = () => {
   return (
@@ -20,13 +21,15 @@ const Layout = () => {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="workout" element={<CreateWorkout />} />
-        <Route path="dashboard" element={<UserLanding />} />
-      </Route>
-    </Routes>
+    <Provider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="workout" element={<CreateWorkout />} />
+          <Route path="dashboard" element={<UserLanding />} />
+        </Route>
+      </Routes>
+    </Provider>
   );
 }
 

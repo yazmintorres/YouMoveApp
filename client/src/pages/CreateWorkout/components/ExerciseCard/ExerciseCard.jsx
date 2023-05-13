@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
+import WorkoutContext from "@client/src/contexts/workout";
 
 const ExerciseCard = ({
   exercise,
-  handleShowForm,
-  number,
+  exerciseNumber,
   handleEditExercise,
+  handleDeleteExercise,
+  number,
 }) => {
+  const { exercises, setExercises } = useContext(WorkoutContext);
+
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
   // pluralWordDesc must be a plural string
@@ -57,16 +61,25 @@ const ExerciseCard = ({
   };
 
   const handleEditClick = () => {
-    handleShowForm(true);
-    handleEditExercise(exercise);
-    console.log("do something");
+    console.log("i was clicked");
+    handleEditExercise(exerciseNumber);
+    // when edit is clicked, need to pass specific exercise information to exercise form
+    // exercise form needs to render this
+    // handleShowForm(true);
+    // handleEditExercise(exercise);
+    // console.log("do something");
+  };
+
+  const handleDeleteClick = () => {
+    console.log("i was clicked");
+    handleDeleteExercise(exerciseNumber);
   };
 
   return (
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto p-3">
         <div className=" flex items-center justify-between">
-          <h3 className="my-0 w-12 basis-auto font-bold ">{number}</h3>
+          <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
 
           <h3 className=" my-0 grow font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
@@ -74,7 +87,7 @@ const ExerciseCard = ({
 
           <div className=" flex gap-2">
             <MdModeEdit onClick={handleEditClick} className="text-xl" />
-            <MdDeleteForever className="text-xl" />
+            <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
           </div>
         </div>
         {exercise.weight != 0 && (

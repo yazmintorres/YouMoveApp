@@ -69,6 +69,7 @@ app.post("/api/addVideo/:videoId", async (req, res) => {
 // add workout
 app.post("/api/addWorkout", async (req, res) => {
   try {
+    console.log("post a new workout request was made");
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
@@ -84,6 +85,7 @@ app.post("/api/addWorkout", async (req, res) => {
 // update a specific workout
 app.put("/api/updateWorkout", async (req, res) => {
   try {
+    console.log("update a new workout request made");
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
@@ -116,9 +118,9 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
 // get specific workout by videoId and userId
 app.get("/api/workout", async (req, res) => {
   try {
-    console.log("test");
+    // console.log("test");
     const { userId, videoId } = req.query;
-    console.log(userId, videoId);
+    // console.log(userId, videoId);
     const { rows: workout } = await db.query(
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
