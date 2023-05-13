@@ -6,7 +6,6 @@ import { useState } from "react";
 const ExerciseForm = ({ handleCloseForm, exerciseToEdit }) => {
   const { exercises, setExercises } = useContext(WorkoutContext);
 
-  // change exercisefrom parent to be exercise to edit
   const [exercise, setExercise] = useState(
     exerciseToEdit || {
       name: "",
@@ -25,7 +24,6 @@ const ExerciseForm = ({ handleCloseForm, exerciseToEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setExercises((prevExercises) => [...prevExercises, exercise]);
-    // handleExerciseAdded(exercise);
     setExercise({
       name: "",
       durationMinutes: "",
@@ -34,6 +32,7 @@ const ExerciseForm = ({ handleCloseForm, exerciseToEdit }) => {
       reps: "",
       sets: "",
     });
+    handleCloseForm();
   };
 
   return (

@@ -21,9 +21,6 @@ const ListExercises = () => {
   };
 
   const handleEditExercise = (exerciseToEdit, number) => {
-    console.log("edit this exercise");
-    console.log(number);
-    // setShowForm(true);
     setShowEditForm(number);
     setShowAddForm(false);
   };
