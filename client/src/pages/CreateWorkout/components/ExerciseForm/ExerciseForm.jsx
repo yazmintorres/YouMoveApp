@@ -92,6 +92,7 @@ const ExerciseForm = ({ handleCloseForm, exerciseToEdit, exerciseNumber }) => {
               name="durationMinutes"
               min={0}
               max={30}
+              value={exercise.durationMinutes}
               placeholder="Minutes"
               onChange={handleChange}
               id="duration"
