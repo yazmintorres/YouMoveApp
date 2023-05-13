@@ -12,14 +12,16 @@ const CreateWorkout = () => {
   const [newWorkout, setNewWorkout] = useState(false);
 
   const {
-    getWorkout,
     workout,
-    setWorkout,
     exercises,
+    setWorkout,
+    getWorkout,
     deleteWorkout,
     postWorkout,
     updateWorkout,
   } = useContext(WorkoutContext);
+
+  console.log("re-rendered");
 
   const { user, isAuthenticated } = useAuth0();
 

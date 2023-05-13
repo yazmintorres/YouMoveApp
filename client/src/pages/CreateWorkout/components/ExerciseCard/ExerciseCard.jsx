@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
+import WorkoutContext from "@client/src/contexts/workout";
 
 const ExerciseCard = ({
   exercise,
   handleShowForm,
   number,
   handleDeleteExercise,
-  handleEditExercise
+  handleEditExercise,
 }) => {
+  const { exercises, setExercises } = useContext(WorkoutContext);
+
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
   // pluralWordDesc must be a plural string
@@ -64,10 +67,11 @@ const ExerciseCard = ({
   };
 
   const handleDeleteClick = () => {
-    // need to let parent know which one i am deleting
-    console.log("delete card requested")
-    handleDeleteExercise(number);
-  }
+    let newExercises = exercises.filter(
+      (exercise, index) => index + 1 !== number
+    );
+    setExercises(newExercises);
+  };
 
   return (
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">

@@ -6,18 +6,11 @@ import WorkoutContext from "@client/src/contexts/workout";
 
 const ListExercises = () => {
   const [showForm, setShowForm] = useState(false);
-  const { exercises } = useContext(WorkoutContext);
 
-  const exerciseCards = exercises.map((exercise, index) => (
-    <ExerciseCard
-      key={index + 1}
-      number={index + 1}
-      exercise={exercise}
-      // handleEditExercise={handleEditExercise}
-      // handleDeleteExercise={handleDeleteExercise}
-      // handleShowForm={handleShowForm}
-    />
-  ));
+  const { setWorkout, workout, exercises, setExercises, updateWorkout } =
+    useContext(WorkoutContext);
+
+  console.log(workout);
 
   const handleAddClick = () => {
     setShowForm(true);
@@ -26,6 +19,18 @@ const ListExercises = () => {
   const handleCloseForm = () => {
     setShowForm(false);
   };
+
+  const exerciseCards = exercises.map((exercise, index) => (
+    <ExerciseCard
+      key={index + 1}
+      number={index + 1}
+      exercise={exercise}
+      // handleDeleteExercise={handleDeleteExercise}
+      // handleEditExercise={handleEditExercise}
+      // handleDeleteExercise={handleDeleteExercise}
+      // handleShowForm={handleShowForm}
+    />
+  ));
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">

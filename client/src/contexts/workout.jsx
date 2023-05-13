@@ -22,8 +22,8 @@ const Provider = ({ children }) => {
           `/api/workout?userId=${userId}&videoId=${videoId}`
         );
         const workout = await response.json();
-        setExercises(workout?.exercises || []);
         setWorkout(workout?.id ? workout : {});
+        setExercises(workout?.exercises || []);
       }
     } catch (error) {
       console.log(error.message);
@@ -93,6 +93,7 @@ const Provider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("use effect called");
     setWorkout({ ...workout, exercises });
   }, [exercises]);
 
