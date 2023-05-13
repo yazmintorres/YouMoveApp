@@ -20,8 +20,8 @@ const ListExercises = () => {
     setShowEditForm(null);
   };
 
-  const handleEditExercise = (exerciseToEdit, number) => {
-    setShowEditForm(number);
+  const handleEditExercise = (exerciseNumber) => {
+    setShowEditForm(exerciseNumber);
     setShowAddForm(false);
   };
 
@@ -30,12 +30,13 @@ const ListExercises = () => {
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
           key={index + 1}
-          number={index + 1}
+          exerciseNumber={index + 1}
           exercise={exercise}
           handleEditExercise={handleEditExercise}
         />
         {showEditForm === index + 1 && (
           <ExerciseForm
+            exerciseNumber={index + 1}
             exerciseToEdit={exercise}
             handleCloseForm={handleCloseForm}
           />

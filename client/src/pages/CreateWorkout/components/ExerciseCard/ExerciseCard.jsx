@@ -3,11 +3,13 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import WorkoutContext from "@client/src/contexts/workout";
 
-const ExerciseCard = ({ exercise, handleEditExercise, number }) => {
+const ExerciseCard = ({
+  exercise,
+  exerciseNumber,
+  handleEditExercise,
+  number,
+}) => {
   const { exercises, setExercises } = useContext(WorkoutContext);
-
-  const [showForm, setShowForm] = useState(false);
-  const toggle = () => setShowForm((prev) => !prev);
 
   // will need a word to be empty, singular, or plural depending on the amount inputted by user
   // ex. in regards to "sets" amount inputted by user. 0 = "", 1 = "set", >1 = "sets"
@@ -59,7 +61,7 @@ const ExerciseCard = ({ exercise, handleEditExercise, number }) => {
 
   const handleEditClick = () => {
     console.log("i was clicked");
-    handleEditExercise(exercise, number);
+    handleEditExercise(exerciseNumber);
     // when edit is clicked, need to pass specific exercise information to exercise form
     // exercise form needs to render this
     // handleShowForm(true);
@@ -78,7 +80,7 @@ const ExerciseCard = ({ exercise, handleEditExercise, number }) => {
     <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
       <div className="m-auto p-3">
         <div className=" flex items-center justify-between">
-          <h3 className="my-0 w-12 basis-auto font-bold ">{number}</h3>
+          <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
 
           <h3 className=" my-0 grow font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
