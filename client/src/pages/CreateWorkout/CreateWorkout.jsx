@@ -10,95 +10,48 @@ const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
   const [newWorkout, setNewWorkout] = useState(false);
-  const { getWorkout, workout, setWorkout, exercises, deleteWorkout } =
-    useContext(WorkoutContext);
-  const { user, isAuthenticated } = useAuth0();
-  // console.log(workout);
 
-  const [targetArea, setTargetArea] = useState("full-body");
+  const {
+    getWorkout,
+    workout,
+    setWorkout,
+    exercises,
+    deleteWorkout,
+    postWorkout,
+    updateWorkout,
+  } = useContext(WorkoutContext);
+
+  const { user, isAuthenticated } = useAuth0();
+
+  const [targetArea, setTargetArea] = useState(
+    workout?.target_area || "full-body"
+  );
+
+  console.log(workout);
+  console.log(targetArea);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       getWorkout(user.sub, videoInfo.videoId, isAuthenticated);
     }
-    setNewWorkout(workout?.id ? false : true);
-    setTargetArea(workout?.target_area || "full-body");
   }, [isAuthenticated]);
 
-  const handleExerciseAdded = (exercise) => {
-    console.log(exercise);
-    // setWorkoutExercises((prevWorkoutExercises) => [
-    //   ...prevWorkoutExercises,
-    //   exercise,
-    // ]);
-    // setShowForm(false);
-    // console.log("Workout exercises:", workoutExercises);
-  };
+  useEffect(() => {
+    setNewWorkout(workout?.id ? false : true);
+    setTargetArea(workout?.target_area || "full-body");
+  }, [workout]);
 
-  // const handleShowForm = (bool) => {
-  //   setShowForm(bool);
-  // };
-
-  const handleEditExercise = (exercise) => {
-    setExercise(exercise);
-  };
-
-  const postWorkout = async () => {
-    try {
-      const addVideoResponse = await fetch(
-        `/api/addVideo/${videoInfo.videoId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (addVideoResponse.ok) {
-        // userId, targetArea, videoId, exercises
-        const workoutInfo = {
-          videoId: videoInfo.videoId,
-          userId: user.sub,
-          exercises: workoutExercises,
-          targetArea: targetArea,
-        };
-        const addWorkoutResponse = await fetch(`/api/addWorkout`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(workoutInfo),
-        });
-      } else {
-        console.log("video was not added corrctly to database");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const updateWorkout = async () => {
-    try {
-      // userId, targetArea, videoId, exercises
-      const workoutInfo = {
-        videoId: videoInfo.videoId,
-        userId: user.sub,
-        exercises: workoutExercises,
-        targetArea: targetArea,
-      };
-      const response = await fetch(`/api/updateWorkout`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(workoutInfo),
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
+  console.log("new workout", newWorkout);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setWorkout({ ...workout, target_area: targetArea });
     if (newWorkout) {
-      await postWorkout();
+      await postWorkout(videoInfo.videoId, user.sub, exercises, targetArea);
     } else {
-      await updateWorkout();
+      await updateWorkout(videoInfo.videoId, user.sub, exercises, targetArea);
     }
 
     navigate("/dashboard");
@@ -108,18 +61,6 @@ const CreateWorkout = () => {
   const handleClickDelete = () => {
     deleteWorkout(user.sub, videoInfo.videoId);
   };
-
-  // const handleAddExercise = () => {
-  //   handleShowForm(true);
-  //   setExercise({
-  //     name: "",
-  //     durationMinutes: "",
-  //     durationSeconds: "",
-  //     weight: "",
-  //     reps: "",
-  //     sets: "",
-  //   });
-  // };
 
   return (
     <div className="flex flex-col gap-2">
@@ -149,10 +90,8 @@ const CreateWorkout = () => {
                 className="input-field"
                 name="target-area"
                 id="target-area"
-                value={workout.target_area}
-                onChange={(e) =>
-                  setWorkout({ ...workout, target_area: e.target.value })
-                }
+                value={targetArea}
+                onChange={(e) => setTargetArea(e.target.value)}
                 required
               >
                 <option value="full-body">Full Body</option>
