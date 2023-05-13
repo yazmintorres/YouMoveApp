@@ -3,16 +3,12 @@ import { MdHighlightOff } from "react-icons/md";
 import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
-const ExerciseForm = ({
-  handleCloseForm,
-  handleShowForm,
-  exerciseFromParent,
-}) => {
-  const { exercises, setExercises, workout } = useContext(WorkoutContext);
+const ExerciseForm = ({ handleCloseForm, exerciseToEdit }) => {
+  const { exercises, setExercises } = useContext(WorkoutContext);
 
   // change exercisefrom parent to be exercise to edit
   const [exercise, setExercise] = useState(
-    exerciseFromParent || {
+    exerciseToEdit || {
       name: "",
       durationMinutes: "",
       durationSeconds: "",

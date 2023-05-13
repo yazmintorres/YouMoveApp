@@ -5,12 +5,10 @@ import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import WorkoutContext from "@client/src/contexts/workout";
 
 const ListExercises = () => {
+  const [exerciseToEdit, setExerciseToEdit] = useState({});
   const [showForm, setShowForm] = useState(false);
 
-  const { setWorkout, workout, exercises, setExercises, updateWorkout } =
-    useContext(WorkoutContext);
-
-  console.log(workout);
+  const { exercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
     setShowForm(true);
@@ -20,17 +18,21 @@ const ListExercises = () => {
     setShowForm(false);
   };
 
-  const exerciseCards = exercises.map((exercise, index) => (
-    <ExerciseCard
-      key={index + 1}
-      number={index + 1}
-      exercise={exercise}
-      // handleDeleteExercise={handleDeleteExercise}
-      // handleEditExercise={handleEditExercise}
-      // handleDeleteExercise={handleDeleteExercise}
-      // handleShowForm={handleShowForm}
-    />
-  ));
+  const handleEditExercise = (exerciseToEdit) => {
+    setShowForm(true);
+    setExerciseToEdit(exerciseToEdit);
+  };
+
+  const exerciseCards = exercises.map((exercise, index) => {
+    return (
+      <ExerciseCard
+        key={index + 1}
+        number={index + 1}
+        exercise={exercise}
+        handleEditExercise={handleEditExercise}
+      />
+    );
+  });
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
@@ -52,6 +54,7 @@ const ListExercises = () => {
       {showForm && (
         <ExerciseForm
           handleCloseForm={handleCloseForm}
+          exerciseToEdit={exerciseToEdit}
           // handleExerciseAdded={handleExerciseAdded}
           // handleShowForm={handleShowForm}
         />

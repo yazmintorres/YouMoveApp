@@ -5,10 +5,8 @@ import WorkoutContext from "@client/src/contexts/workout";
 
 const ExerciseCard = ({
   exercise,
-  handleShowForm,
-  number,
-  handleDeleteExercise,
   handleEditExercise,
+  number,
 }) => {
   const { exercises, setExercises } = useContext(WorkoutContext);
 
@@ -61,9 +59,12 @@ const ExerciseCard = ({
   };
 
   const handleEditClick = () => {
-    handleShowForm(true);
     handleEditExercise(exercise);
-    console.log("do something");
+    // when edit is clicked, need to pass specific exercise information to exercise form
+    // exercise form needs to render this
+    // handleShowForm(true);
+    // handleEditExercise(exercise);
+    // console.log("do something");
   };
 
   const handleDeleteClick = () => {
