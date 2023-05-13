@@ -44,14 +44,15 @@ const CreateWorkout = () => {
   }, [workout]);
 
   console.log("new workout", newWorkout);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setWorkout({ ...workout, target_area: targetArea });
     if (newWorkout) {
-      await postWorkout(videoInfo.videoId, user.sub, exercises, targetArea);
+      await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
     } else {
-      await updateWorkout(videoInfo.videoId, user.sub, exercises, targetArea);
+      await updateWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
     }
 
     navigate("/dashboard");

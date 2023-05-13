@@ -85,7 +85,7 @@ app.post("/api/addWorkout", async (req, res) => {
 // update a specific workout
 app.put("/api/updateWorkout", async (req, res) => {
   try {
-    console.log("hit");
+    console.log("update a new workout request made");
     const { videoId, userId, targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(

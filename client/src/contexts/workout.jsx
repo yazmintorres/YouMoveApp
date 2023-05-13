@@ -31,7 +31,7 @@ const Provider = ({ children }) => {
   };
 
   // POST
-  const postWorkout = async (videoId, userId, exercises, targetArea) => {
+  const postWorkout = async (userId, videoId, targetArea, exercises) => {
     try {
       const addVideoResponse = await fetch(`/api/addVideo/${videoId}`, {
         method: "POST",
@@ -57,23 +57,6 @@ const Provider = ({ children }) => {
     }
   };
 
-  // CONST
-  const deleteWorkout = async (userId, videoId) => {
-    try {
-      const response = await fetch(
-        `/api/delete?userId=${userId}&videoId=${videoId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      const deleted = await response.json();
-      console.log("deleted");
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   // PUT
   const updateWorkout = async (userId, videoId, targetArea, exercises) => {
     try {
@@ -88,6 +71,23 @@ const Provider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newWorkoutInfo),
       });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // DELETE
+  const deleteWorkout = async (userId, videoId) => {
+    try {
+      const response = await fetch(
+        `/api/delete?userId=${userId}&videoId=${videoId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const deleted = await response.json();
+      console.log("deleted");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }
