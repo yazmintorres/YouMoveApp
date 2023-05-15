@@ -7,9 +7,8 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
-  const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
   const [userSearchTerm, setUserSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchedVideos, setSearchedVideos] = useState([]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const { user } = useAuth0();
 
@@ -43,6 +42,16 @@ const UserLanding = () => {
     getSavedWorkouts();
   }, [user]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // const includesStrings = /workout|women/.test(userSearchTerm);
+    const searchQuery = userSearchTerm + "workout" + "women";
+    const searchResults = await getSearchVideos(searchQuery);
+    // working with mock data
+    // const searchResults = searchResponse;
+    setSearchedVideos(searchResults.items);
+  };
+
   const workoutVideos = savedWorkouts.map((obj) => (
     <VideoCard
       key={obj.video_id}
@@ -66,17 +75,7 @@ const UserLanding = () => {
     </VideoCard>
   ));
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // const includesStrings = /workout|women/.test(userSearchTerm);
-    const searchQuery = userSearchTerm + "workout" + "women";
-    const searchResults = await getSearchVideos(searchQuery);
-    // working with mock data
-    // const searchResults = searchResponse;
-    setSearchResult(searchResults.items);
-  };
-
-  const searchVideos = searchResult.map((obj) => (
+  const searchVideos = searchedVideos.map((obj) => (
     <VideoCard
       key={obj.id.videoId}
       videoId={obj.id.videoId}
