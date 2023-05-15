@@ -58,12 +58,12 @@ const ExerciseCard = ({
   };
 
   const handleEditClick = () => {
-    console.log("i was clicked");
-    handleEditExercise(exerciseNumber);
+    console.log("edit exercise requested ...");
+    handleEditExercise(exercise, exerciseNumber);
   };
 
   const handleDeleteClick = () => {
-    console.log("i was clicked");
+    console.log("delete exercise requested ...");
     handleDeleteExercise(exerciseNumber);
   };
 

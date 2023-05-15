@@ -43,11 +43,20 @@ const CreateWorkout = () => {
     workout();
   }, [isAuthenticated]);
 
+  const handleClickDelete = async () => {
+    await deleteWorkout(workoutId);
+    navigate("/dashboard");
+  };
+
+  // workout form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (workoutId) {
+      console.log("updating workout...");
       await updateWorkout(workoutId, workout.target_area, workout.exercises);
     } else {
+      console.log("adding workout");
       await postWorkout(
         user.sub,
         videoInfo.videoId,
@@ -55,18 +64,6 @@ const CreateWorkout = () => {
         workout.exercises
       );
     }
-    navigate("/dashboard");
-  };
-
-  const handleExerciseDeleted = (exerciseNumber) => {
-    let newExercises = workout.exercises.filter(
-      (exercise, index) => index + 1 !== exerciseNumber
-    );
-    setWorkout({ ...workout, exercises: newExercises });
-  };
-
-  const handleClickDelete = async () => {
-    await deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 
@@ -134,10 +131,7 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises
-            exercises={workout.exercises}
-            handleExerciseDeleted={handleExerciseDeleted}
-          />
+          <ListExercises workout={workout} setWorkout={setWorkout} />
         </div>
       </div>
     </div>

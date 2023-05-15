@@ -21,15 +21,13 @@ const Layout = () => {
 
 function App() {
   return (
-    <Provider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="workout" element={<CreateWorkout />} />
-          <Route path="dashboard" element={<UserLanding />} />
-        </Route>
-      </Routes>
-    </Provider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="workout" element={<CreateWorkout />} />
+        <Route path="dashboard" element={<UserLanding />} />
+      </Route>
+    </Routes>
   );
 }
 
