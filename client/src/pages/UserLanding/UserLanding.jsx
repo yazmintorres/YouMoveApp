@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { getWorkouts } from "@client/src/apis/WorkoutAPI";
+import { addUser } from "@client/src/apis/UserAPI";
 import searchResponse from "@client/src/data/search-response";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -19,13 +20,7 @@ const UserLanding = () => {
       // i use if user for now because if the user is not logged in, i don't need to call the /api/addUser endpoint
       // can implement withAuthenticationRequired
       if (user) {
-        const userInfo = { userId: user.sub, userEmail: user.email };
-        const response = await fetch(`/api/addUser`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userInfo),
-        });
-        const userAdded = await response.json();
+        const userAdded = await addUser(user.sub, user.email);
         console.log("userAdded:", userAdded);
       }
     } catch (error) {
