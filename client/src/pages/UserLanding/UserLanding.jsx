@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
+import { getWorkouts } from "@client/src/services/Workout";
 import searchResponse from "@client/src/data/search-response";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -37,9 +38,7 @@ const UserLanding = () => {
     try {
       if (user) {
         const userId = user.sub;
-        const response = await fetch(`/api/savedWorkouts/${userId}`);
-        const savedWorkouts = await response.json();
-        console.log("saved workouts", savedWorkouts);
+        const savedWorkouts = await getWorkouts(userId);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -51,7 +50,6 @@ const UserLanding = () => {
   useEffect(() => {
     addUserToDB();
     getSavedWorkouts();
-    // console.log("api post");
   }, [user]);
 
   const workoutVideos = savedWorkouts.map((obj) => (
