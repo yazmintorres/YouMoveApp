@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
 const db = require("./db/db-connection.js");
+const addVideo = require("./addVideo.js");
 const { auth } = require("express-oauth2-jwt-bearer");
 
 const app = express();
@@ -39,31 +40,6 @@ app.post("/api/addUser", async (req, res) => {
   }
 });
 
-// add video
-app.post("/api/addVideo/:videoId", async (req, res) => {
-  try {
-    const { videoId } = req.params;
-    const API_KEY = process.env.YOUTUBE_API_KEY;
-    const youtubeResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet&id=${videoId}`
-    );
-    const { items: videoInfo } = await youtubeResponse.json();
-    const id = videoInfo[0].id;
-    const etag = videoInfo[0].etag;
-    const title = videoInfo[0].snippet.title;
-    const channelTitle = videoInfo[0].snippet.channelTitle;
-    const thumbnailUrl = videoInfo[0].snippet.thumbnails.maxres.url;
-    const { rows: video } = await db.query(
-      "INSERT INTO public.videos(id, etag, title, channel_title, thumbnail_url) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING RETURNING*",
-      [id, etag, title, channelTitle, thumbnailUrl]
-    );
-
-    res.status(200).json(video.length === 0 ? {} : video[0]);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
 // NOTE: need to add video first to video table because workout table references video id
 // there should not be a duplicate workout (same userId and videoId) --> will need how to implement this to make sure if this conflict arises, then nothing happes (as in don't post new entry)
 // add workout
@@ -71,7 +47,9 @@ app.post("/api/addWorkout", async (req, res) => {
   try {
     console.log("post a new workout request was made");
     const { videoId, userId, targetArea, exercises } = req.body;
-    console.log(req.body);
+
+    await addVideo(videoId);
+
     const { rows: workout } = await db.query(
       "INSERT INTO workouts(user_id, video_id, target_area, exercises) VALUES($1, $2, $3, $4) RETURNING*",
       [userId, videoId, targetArea, exercises]
@@ -102,7 +80,6 @@ app.put("/api/updateWorkout", async (req, res) => {
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(
       "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
@@ -118,9 +95,8 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
 // get specific workout by videoId and userId
 app.get("/api/workout", async (req, res) => {
   try {
-    // console.log("test");
     const { userId, videoId } = req.query;
-    // console.log(userId, videoId);
+
     const { rows: workout } = await db.query(
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
@@ -134,9 +110,8 @@ app.get("/api/workout", async (req, res) => {
 // delete specific workout by videoId and userId
 app.delete("/api/delete", async (req, res) => {
   try {
-    console.log("test");
+    console.log("delete workout");
     const { userId, videoId } = req.query;
-    console.log(userId, videoId);
     const { rows: deleted } = await db.query(
       "DELETE FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]

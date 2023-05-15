@@ -29,6 +29,8 @@ const CreateWorkout = () => {
     workout?.target_area || "full-body"
   );
 
+  console.log(targetArea);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const CreateWorkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(targetArea);
     setWorkout({ ...workout, target_area: targetArea });
     if (newWorkout) {
       await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
