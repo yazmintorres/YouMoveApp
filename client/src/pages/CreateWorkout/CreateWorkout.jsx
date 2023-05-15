@@ -23,8 +23,6 @@ const CreateWorkout = () => {
     updateWorkout,
   } = useContext(WorkoutContext);
 
-  console.log("re-rendered");
-
   const { user, isAuthenticated } = useAuth0();
 
   const [targetArea, setTargetArea] = useState(
