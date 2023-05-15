@@ -33,25 +33,17 @@ const Provider = ({ children }) => {
   // POST
   const postWorkout = async (userId, videoId, targetArea, exercises) => {
     try {
-      const addVideoResponse = await fetch(`/api/addVideo/${videoId}`, {
+      const workoutInfo = {
+        videoId,
+        userId,
+        exercises,
+        targetArea,
+      };
+      const addWorkoutResponse = await fetch(`/api/addWorkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workoutInfo),
       });
-      if (addVideoResponse.ok) {
-        const workoutInfo = {
-          videoId,
-          userId,
-          exercises,
-          targetArea,
-        };
-        const addWorkoutResponse = await fetch(`/api/addWorkout`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(workoutInfo),
-        });
-      } else {
-        console.log("video was not added corrctly to database");
-      }
     } catch (error) {
       console.log(error.message);
     }
