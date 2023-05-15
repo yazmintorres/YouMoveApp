@@ -40,8 +40,6 @@ app.post("/api/addUser", async (req, res) => {
   }
 });
 
-// addVideo("I9nG-G4B5Bs");
-
 // NOTE: need to add video first to video table because workout table references video id
 // there should not be a duplicate workout (same userId and videoId) --> will need how to implement this to make sure if this conflict arises, then nothing happes (as in don't post new entry)
 // add workout
@@ -82,7 +80,6 @@ app.put("/api/updateWorkout", async (req, res) => {
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(
       "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
@@ -98,9 +95,8 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
 // get specific workout by videoId and userId
 app.get("/api/workout", async (req, res) => {
   try {
-    // console.log("test");
     const { userId, videoId } = req.query;
-    // console.log(userId, videoId);
+
     const { rows: workout } = await db.query(
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
@@ -114,9 +110,8 @@ app.get("/api/workout", async (req, res) => {
 // delete specific workout by videoId and userId
 app.delete("/api/delete", async (req, res) => {
   try {
-    console.log("test");
+    console.log("delete workout");
     const { userId, videoId } = req.query;
-    console.log(userId, videoId);
     const { rows: deleted } = await db.query(
       "DELETE FROM workouts WHERE user_id = $1 AND video_id = $2 ",
       [userId, videoId]
