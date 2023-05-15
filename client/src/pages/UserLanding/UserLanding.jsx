@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import { getWorkouts } from "@client/src/services/Workout";
+import { getWorkouts } from "@client/src/apis/WorkoutAPI";
 import searchResponse from "@client/src/data/search-response";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
