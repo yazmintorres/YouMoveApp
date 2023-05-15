@@ -8,6 +8,7 @@ import {
   updateWorkout,
   deleteWorkout,
   getWorkout,
+  getWorkouts,
 } from "@client/src/apis/WorkoutAPI";
 import ListExercises from "./components/ListExercises/ListExercises";
 
@@ -25,8 +26,6 @@ const CreateWorkout = () => {
     exercises: [],
   });
 
-  console.log("exercises", workout.exercises);
-
   const handleChange = (e) => {
     setWorkout({ ...workout, target_area: e.target.value });
   };
@@ -36,12 +35,19 @@ const CreateWorkout = () => {
       if (workoutId) {
         const workout = await getWorkout(workoutId);
         setWorkout(workout);
-      } else {
+      } else if (user) {
         // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
+        const workouts = await getWorkouts(user.sub);
+        const workout = workouts.find(
+          (workout) => workout.video_id === videoInfo.videoId
+        );
+        if (workout) setWorkout(workout);
       }
     };
     workout();
   }, [isAuthenticated]);
+
+  console.log("workout info", workout);
 
   const handleClickDelete = async () => {
     await deleteWorkout(workoutId);
