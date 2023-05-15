@@ -3,7 +3,11 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { postWorkout, updateWorkout } from "@client/src/apis/WorkoutAPI";
+import {
+  postWorkout,
+  updateWorkout,
+  deleteWorkout,
+} from "@client/src/apis/WorkoutAPI";
 import WorkoutContext from "@client/src/contexts/workout";
 import ListExercises from "./components/ListExercises/ListExercises";
 
@@ -12,7 +16,7 @@ const CreateWorkout = () => {
   const videoInfo = location.state;
   const { workoutId } = location.state;
 
-  const { workout, exercises, setWorkout, getWorkout, deleteWorkout } =
+  const { workout, exercises, setWorkout, getWorkout } =
     useContext(WorkoutContext);
 
   const { user, isAuthenticated } = useAuth0();
