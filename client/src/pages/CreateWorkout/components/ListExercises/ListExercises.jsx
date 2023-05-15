@@ -58,7 +58,7 @@ const ListExercises = ({ exercises }) => {
     <div className="flex w-full grow flex-col items-center gap-3">
       {" "}
       {exerciseCards}
-      {showAddForm || (
+      {showAddForm ? null : (
         <div
           onClick={handleAddClick}
           className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
@@ -71,7 +71,7 @@ const ListExercises = ({ exercises }) => {
           </div>
         </div>
       )}
-      {showAddForm && <ExerciseForm handleCloseForm={handleCloseForm} />}
+      {showAddForm ? <ExerciseForm handleCloseForm={handleCloseForm} /> : null}
     </div>
   );
 };

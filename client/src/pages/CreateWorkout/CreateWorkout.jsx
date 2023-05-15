@@ -22,7 +22,7 @@ const CreateWorkout = () => {
     user_id: "",
     video_id: "",
     target_area: "full-body",
-    exercises: "",
+    exercises: [],
   });
 
   console.log("exercises", workout.exercises);
