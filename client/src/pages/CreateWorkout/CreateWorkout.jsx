@@ -3,6 +3,7 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { postWorkout, updateWorkout } from "@client/src/apis/WorkoutAPI";
 import WorkoutContext from "@client/src/contexts/workout";
 import ListExercises from "./components/ListExercises/ListExercises";
 
@@ -10,17 +11,9 @@ const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
   const { workoutId } = location.state;
-  const [newWorkout, setNewWorkout] = useState(false);
 
-  const {
-    workout,
-    exercises,
-    setWorkout,
-    getWorkout,
-    deleteWorkout,
-    postWorkout,
-    updateWorkout,
-  } = useContext(WorkoutContext);
+  const { workout, exercises, setWorkout, getWorkout, deleteWorkout } =
+    useContext(WorkoutContext);
 
   const { user, isAuthenticated } = useAuth0();
 
@@ -32,14 +25,17 @@ const CreateWorkout = () => {
 
   const navigate = useNavigate();
 
+  // NOTE: for tomorrow, need to check if the videoId clicked on is associated with a workout by the user, if so get workout information
+
   useEffect(() => {
-    if (user) {
+    if (workoutId) {
       getWorkout(workoutId, isAuthenticated);
+    } else {
+      // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
     }
   }, [isAuthenticated]);
 
   useEffect(() => {
-    setNewWorkout(workout?.id ? false : true);
     setTargetArea(workout?.target_area || "full-body");
   }, [workout]);
 
@@ -47,18 +43,18 @@ const CreateWorkout = () => {
     e.preventDefault();
     console.log(targetArea);
     setWorkout({ ...workout, target_area: targetArea });
-    if (newWorkout) {
-      await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
-    } else {
+    if (workoutId) {
       await updateWorkout(workoutId, targetArea, exercises);
+    } else {
+      await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
     }
 
     navigate("/dashboard");
   };
 
   //this works
-  const handleClickDelete = () => {
-    deleteWorkout(workoutId);
+  const handleClickDelete = async () => {
+    await deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 
@@ -67,17 +63,17 @@ const CreateWorkout = () => {
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
         <div className="w-3/4">
           <h2 className=" my-0 truncate font-bold tracking-wide">
-            {newWorkout ? "Add Workout" : videoInfo.title}
+            {workoutId ? videoInfo.title : "Add Workout"}
           </h2>
         </div>
-        {newWorkout || (
+        {workoutId ? (
           <button
             onClick={handleClickDelete}
             className="btn btn-actions bg-rose-600 hover:bg-rose-700  "
           >
             Delete workout
           </button>
-        )}
+        ) : null}
       </div>
 
       <div className="border border-solid border-gray-500"></div>
@@ -111,7 +107,7 @@ const CreateWorkout = () => {
 
             {exercises.length !== 0 && (
               <button type="submit" className=" btn-actions order-3">
-                {newWorkout ? "Add Workout" : "Save Workout"}
+                {workoutId ? "Save Workout" : "Add Workout"}
               </button>
             )}
           </form>

@@ -86,6 +86,7 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
 // GET WORKOUT BY WORKOUTID
 app.get("/api/workout/:workoutId", async (req, res) => {
   try {
+    console.log("getting workout information...");
     const { workoutId } = req.params;
     const { rows: workout } = await db.query(
       "SELECT * FROM workouts WHERE id = $1 ",
@@ -100,7 +101,7 @@ app.get("/api/workout/:workoutId", async (req, res) => {
 // DELETE WORKOUT BY WORKOUT ID
 app.delete("/api/delete/:workoutId", async (req, res) => {
   try {
-    console.log("delete workout");
+    console.log("delete workout request made");
     const { workoutId } = req.params;
     const { rows: deleted } = await db.query(
       "DELETE FROM workouts WHERE id = $1 ",
