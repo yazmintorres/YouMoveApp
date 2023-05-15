@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
-import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
 const ExerciseForm = ({
@@ -24,7 +23,10 @@ const ExerciseForm = ({
   );
 
   const handleChange = (e) => {
-    setExercise({ ...exercise, [e.target.name]: e.target.value });
+    setExercise((prevExercise) => ({
+      ...prevExercise,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {

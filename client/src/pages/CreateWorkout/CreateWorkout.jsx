@@ -27,7 +27,7 @@ const CreateWorkout = () => {
   });
 
   const handleChange = (e) => {
-    setWorkout({ ...workout, target_area: e.target.value });
+    setWorkout(prevWorkout => ({ ...prevWorkout, target_area: e.target.value }));
   };
 
   useEffect(() => {

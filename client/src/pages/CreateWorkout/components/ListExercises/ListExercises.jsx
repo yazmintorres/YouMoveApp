@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
@@ -20,7 +20,7 @@ const ListExercises = ({ workout, setWorkout }) => {
   const handleAddExercise = (newExercise) => {
     console.log("adding exercise...");
     const exercises = [...workout.exercises, newExercise];
-    setWorkout({ ...workout, exercises });
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
   const handleEditExercise = (exercise, exerciseNumber) => {
@@ -36,7 +36,7 @@ const ListExercises = ({ workout, setWorkout }) => {
       exercise,
       ...workout.exercises.slice(currentExerciseIndex + 1),
     ];
-    setWorkout({ ...workout, exercises });
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
   const handleDeleteExercise = (exerciseNumber) => {
@@ -44,7 +44,7 @@ const ListExercises = ({ workout, setWorkout }) => {
     let exercises = workout.exercises.filter(
       (exercise, index) => index + 1 !== exerciseNumber
     );
-    setWorkout({ ...workout, exercises });
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
   const exerciseCards = workout.exercises.map((exercise, index) => {
