@@ -15,15 +15,7 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-// app.get("/*", (req, res) => {
-//   try {
-//     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// });
-
-// add new user to DB
+// ADD USER TO DB
 app.post("/api/addUser", async (req, res) => {
   try {
     const { userId, userEmail } = req.body;
@@ -41,8 +33,7 @@ app.post("/api/addUser", async (req, res) => {
 });
 
 // NOTE: need to add video first to video table because workout table references video id
-// there should not be a duplicate workout (same userId and videoId) --> will need how to implement this to make sure if this conflict arises, then nothing happes (as in don't post new entry)
-// add workout
+// ADD WORKOUT TO DB
 app.post("/api/addWorkout", async (req, res) => {
   try {
     console.log("post a new workout request was made");
@@ -60,15 +51,16 @@ app.post("/api/addWorkout", async (req, res) => {
   }
 });
 
-// update a specific workout
-app.put("/api/updateWorkout", async (req, res) => {
+// UPDATE WORKOUT BY WORKOUTID
+app.put("/api/updateWorkout/:workoutId", async (req, res) => {
   try {
-    console.log("update a new workout request made");
-    const { videoId, userId, targetArea, exercises } = req.body;
+    console.log("update a workout request made");
+    const { workoutId } = req.params;
+    const { targetArea, exercises } = req.body;
     console.log(req.body);
     const { rows: workout } = await db.query(
-      "UPDATE workouts SET target_area=$1, exercises=$2 WHERE user_id=$3 AND video_id=$4 RETURNING*",
-      [targetArea, exercises, userId, videoId]
+      "UPDATE workouts SET target_area=$1, exercises=$2 WHERE id = $3 RETURNING*",
+      [targetArea, exercises, workoutId]
     );
     res.json(workout[0]);
   } catch (error) {
@@ -76,7 +68,7 @@ app.put("/api/updateWorkout", async (req, res) => {
   }
 });
 
-// get all saved workouts for a user
+// GET SAVED WORKOUTS FOR A USER BY USERID
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
@@ -85,21 +77,19 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
       "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
       [userId]
     );
-    // res.send("i was hit");
     res.json(savedWorkouts);
   } catch (error) {
     console.log(error.message);
   }
 });
 
-// get specific workout by videoId and userId
-app.get("/api/workout", async (req, res) => {
+// GET WORKOUT BY WORKOUTID
+app.get("/api/workout/:workoutId", async (req, res) => {
   try {
-    const { userId, videoId } = req.query;
-
+    const { workoutId } = req.params;
     const { rows: workout } = await db.query(
-      "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
-      [userId, videoId]
+      "SELECT * FROM workouts WHERE id = $1 ",
+      [workoutId]
     );
     res.status(200).json(workout.length === 0 ? {} : workout[0]);
   } catch (error) {
@@ -107,16 +97,16 @@ app.get("/api/workout", async (req, res) => {
   }
 });
 
-// delete specific workout by videoId and userId
-app.delete("/api/delete", async (req, res) => {
+// DELETE WORKOUT BY WORKOUT ID
+app.delete("/api/delete/:workoutId", async (req, res) => {
   try {
     console.log("delete workout");
-    const { userId, videoId } = req.query;
+    const { workoutId } = req.params;
     const { rows: deleted } = await db.query(
-      "DELETE FROM workouts WHERE user_id = $1 AND video_id = $2 ",
-      [userId, videoId]
+      "DELETE FROM workouts WHERE id = $1 ",
+      [workoutId]
     );
-    res.status(200).json("Post has been deleted");
+    res.status(200).json("workout has been deleted");
   } catch (error) {
     console.log(error.message);
   }
