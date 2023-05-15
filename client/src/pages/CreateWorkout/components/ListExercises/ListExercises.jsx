@@ -4,11 +4,9 @@ import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import WorkoutContext from "@client/src/contexts/workout";
 
-const ListExercises = ({ exercises }) => {
+const ListExercises = ({ exercises, handleExerciseDeleted }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
-
-  // const { exercises, setExercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
     setShowAddForm(true);
@@ -26,11 +24,7 @@ const ListExercises = ({ exercises }) => {
   };
 
   const handleDeleteExercise = (exerciseNumber) => {
-    console.log("i was clicked");
-    let newExercises = exercises.filter(
-      (exercise, index) => index + 1 !== exerciseNumber
-    );
-    setExercises(newExercises);
+    handleExerciseDeleted(exerciseNumber);
   };
 
   const exerciseCards = exercises.map((exercise, index) => {

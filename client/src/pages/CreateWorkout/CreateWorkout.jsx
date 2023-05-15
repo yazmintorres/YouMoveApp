@@ -58,7 +58,13 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
-  //this works
+  const handleExerciseDeleted = (exerciseNumber) => {
+    let newExercises = workout.exercises.filter(
+      (exercise, index) => index + 1 !== exerciseNumber
+    );
+    setWorkout({ ...workout, exercises: newExercises });
+  };
+
   const handleClickDelete = async () => {
     await deleteWorkout(workoutId);
     navigate("/dashboard");
@@ -128,7 +134,10 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises exercises={workout.exercises} />
+          <ListExercises
+            exercises={workout.exercises}
+            handleExerciseDeleted={handleExerciseDeleted}
+          />
         </div>
       </div>
     </div>

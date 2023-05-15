@@ -4,6 +4,8 @@ import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
 const ExerciseForm = ({ handleCloseForm, exerciseToEdit, exerciseNumber }) => {
+  
+  
   const { exercises, setExercises } = useContext(WorkoutContext);
 
   const [exercise, setExercise] = useState(
