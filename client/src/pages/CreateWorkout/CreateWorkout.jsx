@@ -10,7 +10,6 @@ const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
   const { workoutId } = location.state;
-  console.log(workoutId);
   const [newWorkout, setNewWorkout] = useState(false);
 
   const {

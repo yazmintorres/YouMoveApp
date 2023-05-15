@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { getWorkouts } from "@client/src/apis/WorkoutAPI";
 import { addUser } from "@client/src/apis/UserAPI";
-import searchResponse from "@client/src/data/search-response";
+import { getSearchVideos } from "@client/src/apis/YouTubeAPI";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -12,13 +12,10 @@ const UserLanding = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const { user } = useAuth0();
-  // console.log(user);
 
   // add new user to DB
   const addUserToDB = async () => {
     try {
-      // i use if user for now because if the user is not logged in, i don't need to call the /api/addUser endpoint
-      // can implement withAuthenticationRequired
       if (user) {
         const userAdded = await addUser(user.sub, user.email);
         console.log("userAdded:", userAdded);
@@ -41,7 +38,6 @@ const UserLanding = () => {
     }
   };
 
-  // if i have time, consider implementing a token as the dependency for when this function gets called
   useEffect(() => {
     addUserToDB();
     getSavedWorkouts();
@@ -58,10 +54,10 @@ const UserLanding = () => {
       <Link
         to={`/workout?edit=${obj.workout_id}`}
         state={{
+          workoutId: obj.workout_id,
           videoId: obj.video_id,
           channelTitle: obj.channel_title,
           title: obj.title,
-          workoutId: obj.workout_id,
         }}
         className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
       >
@@ -74,10 +70,7 @@ const UserLanding = () => {
     e.preventDefault();
     // const includesStrings = /workout|women/.test(userSearchTerm);
     const searchQuery = userSearchTerm + "workout" + "women";
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchQuery}&type=video&maxResults=5`
-    );
-    const searchResults = await response.json();
+    const searchResults = await getSearchVideos(searchQuery);
     // working with mock data
     // const searchResults = searchResponse;
     setSearchResult(searchResults.items);
@@ -103,8 +96,6 @@ const UserLanding = () => {
       </Link>
     </VideoCard>
   ));
-
-  // console.log(videos);
 
   return (
     <div>
