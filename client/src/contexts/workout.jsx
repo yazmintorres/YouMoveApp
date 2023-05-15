@@ -14,13 +14,11 @@ const Provider = ({ children }) => {
   // make a lists exercise component
 
   // GET
-  const getWorkout = async (userId, videoId, isAuthenticated) => {
+  const getWorkout = async (workoutId, isAuthenticated) => {
     try {
       if (isAuthenticated) {
         console.log("fetched workouts");
-        const response = await fetch(
-          `/api/workout?userId=${userId}&videoId=${videoId}`
-        );
+        const response = await fetch(`/api/workout/${workoutId}`);
         const workout = await response.json();
         setWorkout(workout?.id ? workout : {});
         setExercises(workout?.exercises || []);
@@ -50,15 +48,13 @@ const Provider = ({ children }) => {
   };
 
   // PUT
-  const updateWorkout = async (userId, videoId, targetArea, exercises) => {
+  const updateWorkout = async (workoutId, targetArea, exercises) => {
     try {
       const newWorkoutInfo = {
-        videoId,
-        userId,
         exercises,
         targetArea,
       };
-      const response = await fetch(`/api/updateWorkout`, {
+      const response = await fetch(`/api/updateWorkout/${workoutId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newWorkoutInfo),
@@ -69,14 +65,11 @@ const Provider = ({ children }) => {
   };
 
   // DELETE
-  const deleteWorkout = async (userId, videoId) => {
+  const deleteWorkout = async (workoutId) => {
     try {
-      const response = await fetch(
-        `/api/delete?userId=${userId}&videoId=${videoId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/delete/${workoutId}`, {
+        method: "DELETE",
+      });
       const deleted = await response.json();
       console.log("deleted");
     } catch (error) {

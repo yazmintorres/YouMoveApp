@@ -9,6 +9,8 @@ import ListExercises from "./components/ListExercises/ListExercises";
 const CreateWorkout = () => {
   const location = useLocation();
   const videoInfo = location.state;
+  const { workoutId } = location.state;
+  console.log(workoutId);
   const [newWorkout, setNewWorkout] = useState(false);
 
   const {
@@ -20,8 +22,6 @@ const CreateWorkout = () => {
     postWorkout,
     updateWorkout,
   } = useContext(WorkoutContext);
-
-  console.log("re-rendered");
 
   const { user, isAuthenticated } = useAuth0();
 
@@ -35,7 +35,7 @@ const CreateWorkout = () => {
 
   useEffect(() => {
     if (user) {
-      getWorkout(user.sub, videoInfo.videoId, isAuthenticated);
+      getWorkout(workoutId, isAuthenticated);
     }
   }, [isAuthenticated]);
 
@@ -51,7 +51,7 @@ const CreateWorkout = () => {
     if (newWorkout) {
       await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
     } else {
-      await updateWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
+      await updateWorkout(workoutId, targetArea, exercises);
     }
 
     navigate("/dashboard");
@@ -59,7 +59,7 @@ const CreateWorkout = () => {
 
   //this works
   const handleClickDelete = () => {
-    deleteWorkout(user.sub, videoInfo.videoId);
+    deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 

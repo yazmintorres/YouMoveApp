@@ -40,7 +40,6 @@ const UserLanding = () => {
         const response = await fetch(`/api/savedWorkouts/${userId}`);
         const savedWorkouts = await response.json();
         console.log("saved workouts", savedWorkouts);
-        // console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -69,6 +68,7 @@ const UserLanding = () => {
           videoId: obj.video_id,
           channelTitle: obj.channel_title,
           title: obj.title,
+          workoutId: obj.workout_id,
         }}
         className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
       >
