@@ -4,11 +4,11 @@ import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import WorkoutContext from "@client/src/contexts/workout";
 
-const ListExercises = () => {
+const ListExercises = ({ exercises }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
 
-  const { exercises, setExercises } = useContext(WorkoutContext);
+  // const { exercises, setExercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
     setShowAddForm(true);

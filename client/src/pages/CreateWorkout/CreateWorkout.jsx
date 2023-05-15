@@ -7,52 +7,54 @@ import {
   postWorkout,
   updateWorkout,
   deleteWorkout,
+  getWorkout,
 } from "@client/src/apis/WorkoutAPI";
-import WorkoutContext from "@client/src/contexts/workout";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const videoInfo = location.state;
   const { workoutId } = location.state;
-
-  const { workout, exercises, setWorkout, getWorkout } =
-    useContext(WorkoutContext);
-
   const { user, isAuthenticated } = useAuth0();
 
-  const [targetArea, setTargetArea] = useState(
-    workout?.target_area || "full-body"
-  );
+  const [workout, setWorkout] = useState({
+    user_id: "",
+    video_id: "",
+    target_area: "full-body",
+    exercises: "",
+  });
 
-  console.log(targetArea);
+  console.log("exercises", workout.exercises);
 
-  const navigate = useNavigate();
-
-  // NOTE: for tomorrow, need to check if the videoId clicked on is associated with a workout by the user, if so get workout information
+  const handleChange = (e) => {
+    setWorkout({ ...workout, target_area: e.target.value });
+  };
 
   useEffect(() => {
-    if (workoutId) {
-      getWorkout(workoutId, isAuthenticated);
-    } else {
-      // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
-    }
+    const workout = async () => {
+      if (workoutId) {
+        const workout = await getWorkout(workoutId);
+        setWorkout(workout);
+      } else {
+        // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
+      }
+    };
+    workout();
   }, [isAuthenticated]);
-
-  useEffect(() => {
-    setTargetArea(workout?.target_area || "full-body");
-  }, [workout]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(targetArea);
-    setWorkout({ ...workout, target_area: targetArea });
     if (workoutId) {
-      await updateWorkout(workoutId, targetArea, exercises);
+      await updateWorkout(workoutId, workout.target_area, workout.exercises);
     } else {
-      await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
+      await postWorkout(
+        user.sub,
+        videoInfo.videoId,
+        workout.target_area,
+        workout.exercises
+      );
     }
-
     navigate("/dashboard");
   };
 
@@ -90,8 +92,8 @@ const CreateWorkout = () => {
                 className="input-field"
                 name="target-area"
                 id="target-area"
-                value={targetArea}
-                onChange={(e) => setTargetArea(e.target.value)}
+                value={workout.target_area}
+                onChange={handleChange}
                 required
               >
                 <option value="full-body">Full Body</option>
@@ -109,7 +111,7 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {exercises.length !== 0 && (
+            {workout.exercises?.length !== 0 && (
               <button type="submit" className=" btn-actions order-3">
                 {workoutId ? "Save Workout" : "Add Workout"}
               </button>
@@ -126,7 +128,7 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises />
+          <ListExercises exercises={workout.exercises} />
         </div>
       </div>
     </div>
