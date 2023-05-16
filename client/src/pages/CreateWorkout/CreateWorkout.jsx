@@ -27,11 +27,14 @@ const CreateWorkout = () => {
   });
 
   const handleChange = (e) => {
-    setWorkout(prevWorkout => ({ ...prevWorkout, target_area: e.target.value }));
+    setWorkout((prevWorkout) => ({
+      ...prevWorkout,
+      target_area: e.target.value,
+    }));
   };
 
   useEffect(() => {
-    const workout = async () => {
+    const loadWorkout = async () => {
       if (workoutId) {
         const workout = await getWorkout(workoutId);
         setWorkout(workout);
@@ -44,7 +47,7 @@ const CreateWorkout = () => {
         if (workout) setWorkout(workout);
       }
     };
-    workout();
+    loadWorkout();
   }, [isAuthenticated]);
 
   console.log("workout info", workout);
