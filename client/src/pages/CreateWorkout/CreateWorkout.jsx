@@ -3,63 +3,76 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import WorkoutContext from "@client/src/contexts/workout";
+import {
+  postWorkout,
+  updateWorkout,
+  deleteWorkout,
+  getWorkout,
+  getWorkouts,
+} from "@client/src/apis/WorkoutAPI";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const videoInfo = location.state;
   const { workoutId } = location.state;
-  console.log(workoutId);
-  const [newWorkout, setNewWorkout] = useState(false);
-
-  const {
-    workout,
-    exercises,
-    setWorkout,
-    getWorkout,
-    deleteWorkout,
-    postWorkout,
-    updateWorkout,
-  } = useContext(WorkoutContext);
-
   const { user, isAuthenticated } = useAuth0();
 
-  const [targetArea, setTargetArea] = useState(
-    workout?.target_area || "full-body"
-  );
+  const [workout, setWorkout] = useState({
+    user_id: "",
+    video_id: "",
+    target_area: "full-body",
+    exercises: [],
+  });
 
-  console.log(targetArea);
-
-  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setWorkout((prevWorkout) => ({
+      ...prevWorkout,
+      target_area: e.target.value,
+    }));
+  };
 
   useEffect(() => {
-    if (user) {
-      getWorkout(workoutId, isAuthenticated);
-    }
+    const loadWorkout = async () => {
+      if (workoutId) {
+        const workout = await getWorkout(workoutId);
+        setWorkout(workout);
+      } else if (user) {
+        // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
+        const workouts = await getWorkouts(user.sub);
+        const workout = workouts.find(
+          (workout) => workout.video_id === videoInfo.videoId
+        );
+        if (workout) setWorkout(workout);
+      }
+    };
+    loadWorkout();
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    setNewWorkout(workout?.id ? false : true);
-    setTargetArea(workout?.target_area || "full-body");
-  }, [workout]);
+  console.log("workout info", workout);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(targetArea);
-    setWorkout({ ...workout, target_area: targetArea });
-    if (newWorkout) {
-      await postWorkout(user.sub, videoInfo.videoId, targetArea, exercises);
-    } else {
-      await updateWorkout(workoutId, targetArea, exercises);
-    }
-
+  const handleClickDelete = async () => {
+    await deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 
-  //this works
-  const handleClickDelete = () => {
-    deleteWorkout(workoutId);
+  // workout form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (workoutId) {
+      console.log("updating workout...");
+      await updateWorkout(workoutId, workout.target_area, workout.exercises);
+    } else {
+      console.log("adding workout");
+      await postWorkout(
+        user.sub,
+        videoInfo.videoId,
+        workout.target_area,
+        workout.exercises
+      );
+    }
     navigate("/dashboard");
   };
 
@@ -68,17 +81,17 @@ const CreateWorkout = () => {
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
         <div className="w-3/4">
           <h2 className=" my-0 truncate font-bold tracking-wide">
-            {newWorkout ? "Add Workout" : videoInfo.title}
+            {workoutId ? videoInfo.title : "Add Workout"}
           </h2>
         </div>
-        {newWorkout || (
+        {workoutId ? (
           <button
             onClick={handleClickDelete}
             className="btn btn-actions bg-rose-600 hover:bg-rose-700  "
           >
             Delete workout
           </button>
-        )}
+        ) : null}
       </div>
 
       <div className="border border-solid border-gray-500"></div>
@@ -91,8 +104,8 @@ const CreateWorkout = () => {
                 className="input-field"
                 name="target-area"
                 id="target-area"
-                value={targetArea}
-                onChange={(e) => setTargetArea(e.target.value)}
+                value={workout.target_area}
+                onChange={handleChange}
                 required
               >
                 <option value="full-body">Full Body</option>
@@ -110,9 +123,9 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {exercises.length !== 0 && (
+            {workout.exercises?.length !== 0 && (
               <button type="submit" className=" btn-actions order-3">
-                {newWorkout ? "Add Workout" : "Save Workout"}
+                {workoutId ? "Save Workout" : "Add Workout"}
               </button>
             )}
           </form>
@@ -127,7 +140,7 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises />
+          <ListExercises workout={workout} setWorkout={setWorkout} />
         </div>
       </div>
     </div>

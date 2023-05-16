@@ -1,14 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
-import WorkoutContext from "@client/src/contexts/workout";
 
-const ListExercises = () => {
+const ListExercises = ({ workout, setWorkout }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
-
-  const { exercises, setExercises } = useContext(WorkoutContext);
 
   const handleAddClick = () => {
     setShowAddForm(true);
@@ -20,20 +17,37 @@ const ListExercises = () => {
     setShowEditForm(null);
   };
 
-  const handleEditExercise = (exerciseNumber) => {
+  const handleAddExercise = (newExercise) => {
+    console.log("adding exercise...");
+    const exercises = [...workout.exercises, newExercise];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
+  const handleEditExercise = (exercise, exerciseNumber) => {
     setShowEditForm(exerciseNumber);
     setShowAddForm(false);
+
+    console.log("editing exercise...");
+    const currentExerciseIndex = workout.exercises.findIndex(
+      (exercise, index) => index + 1 === exerciseNumber
+    );
+    const exercises = [
+      ...workout.exercises.slice(0, currentExerciseIndex),
+      exercise,
+      ...workout.exercises.slice(currentExerciseIndex + 1),
+    ];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
   const handleDeleteExercise = (exerciseNumber) => {
-    console.log("i was clicked");
-    let newExercises = exercises.filter(
+    console.log("deleting exercise...");
+    let exercises = workout.exercises.filter(
       (exercise, index) => index + 1 !== exerciseNumber
     );
-    setExercises(newExercises);
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
-  const exerciseCards = exercises.map((exercise, index) => {
+  const exerciseCards = workout.exercises.map((exercise, index) => {
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
@@ -48,6 +62,8 @@ const ListExercises = () => {
             exerciseNumber={index + 1}
             exerciseToEdit={exercise}
             handleCloseForm={handleCloseForm}
+            handleAddExercise={handleAddExercise}
+            handleEditExercise={handleEditExercise}
           />
         )}
       </div>
@@ -58,7 +74,7 @@ const ListExercises = () => {
     <div className="flex w-full grow flex-col items-center gap-3">
       {" "}
       {exerciseCards}
-      {showAddForm || (
+      {showAddForm ? null : (
         <div
           onClick={handleAddClick}
           className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5"
@@ -71,7 +87,13 @@ const ListExercises = () => {
           </div>
         </div>
       )}
-      {showAddForm && <ExerciseForm handleCloseForm={handleCloseForm} />}
+      {showAddForm ? (
+        <ExerciseForm
+          handleCloseForm={handleCloseForm}
+          handleAddExercise={handleAddExercise}
+          handleEditExercise={handleEditExercise}
+        />
+      ) : null}
     </div>
   );
 };

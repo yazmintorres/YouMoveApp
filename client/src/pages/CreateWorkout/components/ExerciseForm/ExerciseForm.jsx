@@ -1,10 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { MdHighlightOff } from "react-icons/md";
-import WorkoutContext from "@client/src/contexts/workout";
 import { useState } from "react";
 
-const ExerciseForm = ({ handleCloseForm, exerciseToEdit, exerciseNumber }) => {
-  const { exercises, setExercises } = useContext(WorkoutContext);
+const ExerciseForm = ({
+  handleCloseForm,
+  exerciseToEdit,
+  exerciseNumber,
+  handleAddExercise,
+  handleEditExercise,
+}) => {
+  console.log(handleAddExercise);
 
   const [exercise, setExercise] = useState(
     exerciseToEdit || {
@@ -18,22 +23,18 @@ const ExerciseForm = ({ handleCloseForm, exerciseToEdit, exerciseNumber }) => {
   );
 
   const handleChange = (e) => {
-    setExercise({ ...exercise, [e.target.name]: e.target.value });
+    setExercise((prevExercise) => ({
+      ...prevExercise,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (exerciseToEdit) {
-      const currentExerciseIndex = exercises.findIndex(
-        (exercise, index) => index + 1 === exerciseNumber
-      );
-      setExercises((exercises) => [
-        ...exercises.slice(0, currentExerciseIndex),
-        exercise,
-        ...exercises.slice(currentExerciseIndex + 1),
-      ]);
+      handleEditExercise(exercise, exerciseNumber);
     } else {
-      setExercises((prevExercises) => [...prevExercises, exercise]);
+      handleAddExercise(exercise);
     }
     setExercise({
       name: "",
