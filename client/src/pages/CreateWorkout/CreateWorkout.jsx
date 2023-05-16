@@ -26,7 +26,7 @@ const CreateWorkout = () => {
     exercises: [],
   });
 
-  const handleChange = (e) => {
+  const handleTargetAreaChange = (e) => {
     setWorkout((prevWorkout) => ({
       ...prevWorkout,
       target_area: e.target.value,
@@ -105,7 +105,7 @@ const CreateWorkout = () => {
                 name="target-area"
                 id="target-area"
                 value={workout.target_area}
-                onChange={handleChange}
+                onChange={handleTargetAreaChange}
                 required
               >
                 <option value="full-body">Full Body</option>
