@@ -10,6 +10,19 @@ YouMove app is a fitness app that allows users to create customized workouts tha
 
 **Server:** Node, Express, PostgreSQL
 
+## API Reference
+
+[YouTube API](https://developers.google.com/youtube/v3)
+
+[Auth0 API](https://auth0.com/docs/api)
+
+## Wireframe 
+
+![Wireframe](images/wireframe.png)
+
+## Database Tables
+
+![Tables](images/DBSchema.png)
 
 ## Installation
 
@@ -46,15 +59,3 @@ Step 5: Start the program!
 ```
 
 Note: Client server will be running on http://localhost:5173 and server will be running on http://localhost:8080.
-
-## API Reference
-
-[YouTube API](https://developers.google.com/youtube/v3)
-
-[Auth0 API](https://auth0.com/docs/api)
-
-## Wireframe 
-
-
-## Database Tables
-
