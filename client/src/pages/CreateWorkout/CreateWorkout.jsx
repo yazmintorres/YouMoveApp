@@ -64,6 +64,46 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
+  // CALLBACK FUNCTIONS TO BE PASSED AS PROPS
+
+  const addExercise = (newExercise) => {
+    console.log("adding exercise...");
+    const exerciseId = workout.exercises.length + 1;
+    newExercise = { ...newExercise, id: exerciseId };
+    const exercises = [...workout.exercises, newExercise];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
+  const editExercise = (exerciseToEdit) => {
+    console.log("editing exercise...");
+    const currentExerciseIndex = workout.exercises.findIndex(
+      (exercise) => exerciseToEdit.id === exercise.id
+    );
+    console.log(currentExerciseIndex);
+    const exercises = [
+      ...workout.exercises.slice(0, currentExerciseIndex),
+      exerciseToEdit,
+      ...workout.exercises.slice(currentExerciseIndex + 1),
+    ];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
+  const deleteExercise = (exerciseId) => {
+    console.log("deleting exercise...");
+
+    // filter out deleted exercise
+    let filteredExercises = workout.exercises.filter(
+      (exercise) => exercise.id !== exerciseId
+    );
+
+    // need to update the id for every exercise after deletion because the exercise number in the exercises sequence has changed
+    const exercises = filteredExercises.map((exercise, index) => {
+      return { ...exercise, id: index + 1 };
+    });
+
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
@@ -128,7 +168,12 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises workout={workout} setWorkout={setWorkout} />
+          <ListExercises
+            exercises={workout.exercises}
+            addExercise={addExercise}
+            editExercise={editExercise}
+            deleteExercise={deleteExercise}
+          />
         </div>
       </div>
     </div>
