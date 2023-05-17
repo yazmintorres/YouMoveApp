@@ -41,7 +41,7 @@ const ListExercises = ({
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
-          key={index + 1}
+          // key={index + 1}
           exercise={exercise}
           handleEditExercise={handleEditExercise}
           handleDeleteExercise={handleDeleteExercise}

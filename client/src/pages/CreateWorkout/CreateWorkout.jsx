@@ -65,7 +65,6 @@ const CreateWorkout = () => {
   };
 
   // CALLBACK FUNCTIONS TO BE PASSED AS PROPS
-  // should i make a generic function called handleExercisesChange?
 
   const addExercise = (newExercise) => {
     console.log("adding exercise...");
