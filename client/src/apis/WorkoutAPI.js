@@ -10,10 +10,12 @@ export default {
     }
   },
 
-  getWorkout: async function (workoutId) {
+  getWorkout: async function (userId, videoId) {
     try {
       console.log("fetching workouts...");
-      const response = await fetch(`/api/workout/${workoutId}`);
+      const response = await fetch(
+        `/api/workout?userId=${userId}&videoId=${videoId}`
+      );
       const workout = await response.json();
       return workout;
     } catch (error) {

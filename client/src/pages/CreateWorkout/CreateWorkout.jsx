@@ -29,17 +29,12 @@ const CreateWorkout = () => {
 
   useEffect(() => {
     const loadWorkout = async () => {
-      if (workoutId) {
-        const workout = await WorkoutAPI.getWorkout(workoutId);
-        setWorkout(workout);
-      } else if (user) {
-        // create another endpoint
-        // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
-        const workouts = await WorkoutAPI.getWorkouts(user.sub);
-        const workout = workouts.find(
-          (workout) => workout.video_id === videoInfo.videoId
+      if (user) {
+        const workout = await WorkoutAPI.getWorkout(
+          user.sub,
+          videoInfo.videoId
         );
-        if (workout) setWorkout(workout);
+        if (workout?.id) setWorkout(workout);
       }
     };
     loadWorkout();

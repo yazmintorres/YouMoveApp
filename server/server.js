@@ -54,7 +54,7 @@ app.post("/api/addWorkout", async (req, res) => {
 // UPDATE WORKOUT BY WORKOUTID
 app.put("/api/updateWorkout/:workoutId", async (req, res) => {
   try {
-    console.log("update a workout request made");
+    console.log("update a workout request ... ");
     const { workoutId } = req.params;
     const { targetArea, exercises } = req.body;
     console.log(req.body);
@@ -71,6 +71,7 @@ app.put("/api/updateWorkout/:workoutId", async (req, res) => {
 // GET SAVED WORKOUTS FOR A USER BY USERID
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
+    console.log("get workouts request ...");
     const { userId } = req.params;
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(
@@ -83,24 +84,11 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
   }
 });
 
-// GET WORKOUT BY WORKOUTID
-app.get("/api/workout/:workoutId", async (req, res) => {
-  try {
-    console.log("getting workout information...");
-    const { workoutId } = req.params;
-    const { rows: workout } = await db.query(
-      "SELECT * FROM workouts WHERE id = $1 ",
-      [workoutId]
-    );
-    res.status(200).json(workout.length === 0 ? {} : workout[0]);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
-// GET WORKOUT BY USERID AND VIDEOID IF WORKOUT ID NOT AVAILABLE
+// GET WORKOUT BY USERID AND VIDEOID
+// DOING THIS INSTEAD OF WORKOUT ID BECAUSE SOMETIMES THIS IS NOT AVAILABLE
 app.get("/api/workout", async (req, res) => {
   try {
+    console.log("get a workout request ...");
     const { userId, videoId } = req.query;
     const { rows: workout } = await db.query(
       "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
