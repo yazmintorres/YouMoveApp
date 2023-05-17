@@ -42,14 +42,12 @@ const ListExercises = ({
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
           key={index + 1}
-          exerciseNumber={index + 1}
           exercise={exercise}
           handleEditExercise={handleEditExercise}
           handleDeleteExercise={handleDeleteExercise}
         />
-        {showEditForm === index + 1 && (
+        {showEditForm === exercise.id && (
           <ExerciseForm
-            // exerciseNumber={index + 1}
             exerciseToEdit={exercise}
             handleCloseForm={handleCloseForm}
             handleAddExercise={handleAddExercise}

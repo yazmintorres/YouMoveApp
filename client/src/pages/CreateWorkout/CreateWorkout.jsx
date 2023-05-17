@@ -91,9 +91,17 @@ const CreateWorkout = () => {
 
   const deleteExercise = (exerciseId) => {
     console.log("deleting exercise...");
-    let exercises = workout.exercises.filter(
-      (exercise, index) => exercise.id !== exerciseId
+
+    // filter out deleted exercise
+    let filteredExercises = workout.exercises.filter(
+      (exercise) => exercise.id !== exerciseId
     );
+
+    // need to update the id for every exercise after deletion because the exercise number in the exercises sequence has changed
+    const exercises = filteredExercises.map((exercise, index) => {
+      return { ...exercise, id: index + 1 };
+    });
+
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
@@ -166,8 +174,6 @@ const CreateWorkout = () => {
             addExercise={addExercise}
             editExercise={editExercise}
             deleteExercise={deleteExercise}
-            workout={workout}
-            setWorkout={setWorkout}
           />
         </div>
       </div>
