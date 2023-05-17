@@ -46,6 +46,7 @@ export default {
 
   updateWorkout: async function (workoutId, targetArea, exercises) {
     try {
+      console.log("updating workout...");
       const newWorkoutInfo = {
         exercises,
         targetArea,
@@ -64,6 +65,7 @@ export default {
 
   deleteWorkout: async function (workoutId) {
     try {
+      console.log("deleting workout...");
       const response = await fetch(`/api/delete/${workoutId}`, {
         method: "DELETE",
       });
