@@ -11,8 +11,9 @@ const CreateWorkout = () => {
   const navigate = useNavigate();
   const videoInfo = location.state;
   const { workoutId } = location.state;
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
+  // MANAGE WORKOUT STATE
   const [workout, setWorkout] = useState({
     user_id: "",
     video_id: "",
@@ -20,6 +21,7 @@ const CreateWorkout = () => {
     exercises: [],
   });
 
+  // MANAGE WHEN TARGET AREA IS UPDATED
   const handleTargetAreaChange = (e) => {
     setWorkout((prevWorkout) => ({
       ...prevWorkout,
@@ -27,39 +29,31 @@ const CreateWorkout = () => {
     }));
   };
 
+  // LOAD WORKOUT ON INITIAL RENDER
   useEffect(() => {
     const loadWorkout = async () => {
-      if (user) {
-        const workout = await WorkoutAPI.getWorkout(
-          user.sub,
-          videoInfo.videoId
-        );
-        if (workout?.id) setWorkout(workout);
-      }
+      const workout = await WorkoutAPI.getWorkout(user.sub, videoInfo.videoId);
+      if (workout?.id) setWorkout(workout);
     };
     loadWorkout();
-  }, [isAuthenticated]);
+  }, []);
 
-  console.log("workout info", workout);
-
+  // DELETE WORKOUT WHEN USER PRESSES BUTTON DELTE
   const handleClickDelete = async () => {
     await WorkoutAPI.deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 
-  // workout form submission
+  // UPDATE OR ADD WORKOUT DEPEDNING ON IF WORKOUT ID EXISTS
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (workoutId) {
-      console.log("updating workout...");
       await WorkoutAPI.updateWorkout(
         workoutId,
         workout.target_area,
         workout.exercises
       );
     } else {
-      console.log("adding workout");
       await WorkoutAPI.postWorkout(
         user.sub,
         videoInfo.videoId,
@@ -89,6 +83,7 @@ const CreateWorkout = () => {
       </div>
 
       <div className="border border-solid border-gray-500"></div>
+
       <div className="mt-2 md:flex">
         <div className="flex w-full grow flex-col gap-3">
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
@@ -117,7 +112,7 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {workout.exercises?.length !== 0 && (
+            {workout.exercises.length > 0 && (
               <button type="submit" className=" btn-actions order-3">
                 {workoutId ? "Save Workout" : "Add Workout"}
               </button>
@@ -129,7 +124,6 @@ const CreateWorkout = () => {
             channelTitle={videoInfo.channelTitle}
             title={videoInfo.title}
           />
-          {/* if workout exercises is not empty, show add workout button */}
         </div>
 
         <div className="flex w-full grow flex-col items-center gap-3">
