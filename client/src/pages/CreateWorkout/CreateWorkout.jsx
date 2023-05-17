@@ -89,6 +89,14 @@ const CreateWorkout = () => {
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
+  const deleteExercise = (exerciseId) => {
+    console.log("deleting exercise...");
+    let exercises = workout.exercises.filter(
+      (exercise, index) => exercise.id !== exerciseId
+    );
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
@@ -157,6 +165,7 @@ const CreateWorkout = () => {
             exercises={workout.exercises}
             addExercise={addExercise}
             editExercise={editExercise}
+            deleteExercise={deleteExercise}
             workout={workout}
             setWorkout={setWorkout}
           />

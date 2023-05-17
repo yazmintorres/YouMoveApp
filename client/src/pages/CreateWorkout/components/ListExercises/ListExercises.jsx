@@ -5,10 +5,9 @@ import ExerciseCard from "../ExerciseCard/ExerciseCard";
 
 const ListExercises = ({
   exercises,
-  workout,
-  setWorkout,
   addExercise,
   editExercise,
+  deleteExercise,
 }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
@@ -27,22 +26,18 @@ const ListExercises = ({
     addExercise(newExercise);
   };
 
-  const handleEditExercise = (exercise, exerciseNumber) => {
-    setShowEditForm(exerciseNumber);
+  const handleEditExercise = (exercise) => {
+    setShowEditForm(exercise.id);
     setShowAddForm(false);
+
     editExercise(exercise);
   };
 
-  const handleDeleteExercise = (exerciseNumber) => {
-    console.log("deleting exercise...");
-    let exercises = workout.exercises.filter(
-      (exercise, index) => index + 1 !== exerciseNumber
-    );
-    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  const handleDeleteExercise = (exerciseId) => {
+    deleteExercise(exerciseId);
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
-    // console.log(exercise);
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
