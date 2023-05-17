@@ -3,7 +3,7 @@ import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 
-const ListExercises = ({ workout, setWorkout }) => {
+const ListExercises = ({ exercises, workout, setWorkout, addExercise }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
 
@@ -18,9 +18,7 @@ const ListExercises = ({ workout, setWorkout }) => {
   };
 
   const handleAddExercise = (newExercise) => {
-    console.log("adding exercise...");
-    const exercises = [...workout.exercises, newExercise];
-    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+    addExercise(newExercise);
   };
 
   const handleEditExercise = (exercise, exerciseNumber) => {
@@ -47,7 +45,7 @@ const ListExercises = ({ workout, setWorkout }) => {
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
-  const exerciseCards = workout.exercises.map((exercise, index) => {
+  const exerciseCards = exercises.map((exercise, index) => {
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard

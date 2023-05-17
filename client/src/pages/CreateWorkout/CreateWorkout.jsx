@@ -64,6 +64,17 @@ const CreateWorkout = () => {
     navigate("/dashboard");
   };
 
+  // CALLBACK FUNCTIONS TO BE PASSED AS PROPS
+  // should i make a generic function called handleExercisesChange?
+
+  const addExercise = (newExercise) => {
+    console.log("adding exercise...");
+    const exerciseId = workout.exercises.length + 1;
+    newExercise = { ...newExercise, id: exerciseId };
+    const exercises = [...workout.exercises, newExercise];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
@@ -128,7 +139,12 @@ const CreateWorkout = () => {
 
         <div className="flex w-full grow flex-col items-center gap-3">
           {" "}
-          <ListExercises workout={workout} setWorkout={setWorkout} />
+          <ListExercises
+            exercises={workout.exercises}
+            addExercise={addExercise}
+            workout={workout}
+            setWorkout={setWorkout}
+          />
         </div>
       </div>
     </div>

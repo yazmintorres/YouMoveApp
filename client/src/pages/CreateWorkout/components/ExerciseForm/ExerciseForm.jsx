@@ -9,8 +9,6 @@ const ExerciseForm = ({
   handleAddExercise,
   handleEditExercise,
 }) => {
-  console.log(handleAddExercise);
-
   const [exercise, setExercise] = useState(
     exerciseToEdit || {
       name: "",
