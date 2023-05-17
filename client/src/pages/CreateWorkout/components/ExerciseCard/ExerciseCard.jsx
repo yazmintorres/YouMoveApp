@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
-import WorkoutContext from "@client/src/contexts/workout";
+import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
 const ExerciseCard = ({
   exercise,
@@ -57,9 +57,17 @@ const ExerciseCard = ({
     }
   };
 
+  const [showForm, setShowForm] = useState(false);
+
   const handleEditClick = () => {
     console.log("edit exercise requested ...");
     handleEditExercise(exercise, exerciseNumber);
+
+    // setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
   };
 
   const handleDeleteClick = () => {
@@ -78,7 +86,12 @@ const ExerciseCard = ({
           </h3>
 
           <div className=" flex gap-2">
-            <MdModeEdit onClick={handleEditClick} className="text-xl" />
+            <MdModeEdit
+              role="button"
+              aria-label="edit"
+              onClick={handleEditClick}
+              className="text-xl"
+            />
             <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
           </div>
         </div>
@@ -99,6 +112,13 @@ const ExerciseCard = ({
           )}
         </p>
       </div>
+      {/* {showForm && (
+        <ExerciseForm
+          exerciseToEdit={exercise}
+          handleEditExercise={handleEditExercise}
+          handleCloseForm={handleCloseForm}
+        />
+      )} */}
     </div>
   );
 };

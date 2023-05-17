@@ -63,7 +63,11 @@ const ExerciseForm = ({
             className="absolute right-1 top-1 text-3xl"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <form
+          aria-label="exercise-form"
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2"
+        >
           <div className="flex flex-wrap items-center justify-between gap-3  ">
             <label
               htmlFor="exercise-name"
