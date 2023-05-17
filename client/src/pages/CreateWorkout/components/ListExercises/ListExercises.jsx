@@ -3,7 +3,13 @@ import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 
-const ListExercises = ({ exercises, workout, setWorkout, addExercise }) => {
+const ListExercises = ({
+  exercises,
+  workout,
+  setWorkout,
+  addExercise,
+  editExercise,
+}) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(null);
 
@@ -24,17 +30,7 @@ const ListExercises = ({ exercises, workout, setWorkout, addExercise }) => {
   const handleEditExercise = (exercise, exerciseNumber) => {
     setShowEditForm(exerciseNumber);
     setShowAddForm(false);
-
-    console.log("editing exercise...");
-    const currentExerciseIndex = workout.exercises.findIndex(
-      (exercise, index) => index + 1 === exerciseNumber
-    );
-    const exercises = [
-      ...workout.exercises.slice(0, currentExerciseIndex),
-      exercise,
-      ...workout.exercises.slice(currentExerciseIndex + 1),
-    ];
-    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+    editExercise(exercise);
   };
 
   const handleDeleteExercise = (exerciseNumber) => {
@@ -46,6 +42,7 @@ const ListExercises = ({ exercises, workout, setWorkout, addExercise }) => {
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
+    // console.log(exercise);
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseCard
@@ -57,7 +54,7 @@ const ListExercises = ({ exercises, workout, setWorkout, addExercise }) => {
         />
         {showEditForm === index + 1 && (
           <ExerciseForm
-            exerciseNumber={index + 1}
+            // exerciseNumber={index + 1}
             exerciseToEdit={exercise}
             handleCloseForm={handleCloseForm}
             handleAddExercise={handleAddExercise}

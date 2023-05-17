@@ -75,6 +75,20 @@ const CreateWorkout = () => {
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
+  const editExercise = (exerciseToEdit) => {
+    console.log("editing exercise...");
+    const currentExerciseIndex = workout.exercises.findIndex(
+      (exercise) => exerciseToEdit.id === exercise.id
+    );
+    console.log(currentExerciseIndex);
+    const exercises = [
+      ...workout.exercises.slice(0, currentExerciseIndex),
+      exerciseToEdit,
+      ...workout.exercises.slice(currentExerciseIndex + 1),
+    ];
+    setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
@@ -142,6 +156,7 @@ const CreateWorkout = () => {
           <ListExercises
             exercises={workout.exercises}
             addExercise={addExercise}
+            editExercise={editExercise}
             workout={workout}
             setWorkout={setWorkout}
           />

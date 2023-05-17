@@ -5,7 +5,6 @@ import { useState } from "react";
 const ExerciseForm = ({
   handleCloseForm,
   exerciseToEdit,
-  exerciseNumber,
   handleAddExercise,
   handleEditExercise,
 }) => {
@@ -30,7 +29,7 @@ const ExerciseForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (exerciseToEdit) {
-      handleEditExercise(exercise, exerciseNumber);
+      handleEditExercise(exercise);
     } else {
       handleAddExercise(exercise);
     }
