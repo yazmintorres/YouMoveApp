@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import { getWorkouts } from "@client/src/apis/WorkoutAPI";
+import WorkoutAPI from "@client/src/apis/WorkoutAPI";
 import { addUser } from "@client/src/apis/UserAPI";
 import { getSearchVideos } from "@client/src/apis/YouTubeAPI";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ const UserLanding = () => {
     try {
       if (user) {
         const userId = user.sub;
-        const savedWorkouts = await getWorkouts(userId);
+        const savedWorkouts = await WorkoutAPI.getWorkouts(userId);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {

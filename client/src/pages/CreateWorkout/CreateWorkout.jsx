@@ -3,13 +3,7 @@ import VideoCard from "@client/src/components/VideoCard/VideoCard";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import {
-  postWorkout,
-  updateWorkout,
-  deleteWorkout,
-  getWorkout,
-  getWorkouts,
-} from "@client/src/apis/WorkoutAPI";
+import WorkoutAPI from "@client/src/apis/WorkoutAPI";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
@@ -36,11 +30,12 @@ const CreateWorkout = () => {
   useEffect(() => {
     const loadWorkout = async () => {
       if (workoutId) {
-        const workout = await getWorkout(workoutId);
+        const workout = await WorkoutAPI.getWorkout(workoutId);
         setWorkout(workout);
       } else if (user) {
+        // create another endpoint
         // need to check if the videoId clicked on is associated with a workout by the user, if so get workout info with that if
-        const workouts = await getWorkouts(user.sub);
+        const workouts = await WorkoutAPI.getWorkouts(user.sub);
         const workout = workouts.find(
           (workout) => workout.video_id === videoInfo.videoId
         );
@@ -53,7 +48,7 @@ const CreateWorkout = () => {
   console.log("workout info", workout);
 
   const handleClickDelete = async () => {
-    await deleteWorkout(workoutId);
+    await WorkoutAPI.deleteWorkout(workoutId);
     navigate("/dashboard");
   };
 
@@ -63,10 +58,14 @@ const CreateWorkout = () => {
 
     if (workoutId) {
       console.log("updating workout...");
-      await updateWorkout(workoutId, workout.target_area, workout.exercises);
+      await WorkoutAPI.updateWorkout(
+        workoutId,
+        workout.target_area,
+        workout.exercises
+      );
     } else {
       console.log("adding workout");
-      await postWorkout(
+      await WorkoutAPI.postWorkout(
         user.sub,
         videoInfo.videoId,
         workout.target_area,

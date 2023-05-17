@@ -98,6 +98,20 @@ app.get("/api/workout/:workoutId", async (req, res) => {
   }
 });
 
+// GET WORKOUT BY USERID AND VIDEOID IF WORKOUT ID NOT AVAILABLE
+app.get("/api/workout", async (req, res) => {
+  try {
+    const { userId, videoId } = req.query;
+    const { rows: workout } = await db.query(
+      "SELECT * FROM workouts WHERE user_id = $1 AND video_id = $2 ",
+      [userId, videoId]
+    );
+    res.status(200).json(workout.length === 0 ? {} : workout[0]);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 // DELETE WORKOUT BY WORKOUT ID
 app.delete("/api/delete/:workoutId", async (req, res) => {
   try {
