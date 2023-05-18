@@ -30,35 +30,30 @@ const ExerciseAccordion = ({
   return (
     <>
       <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-        <div className="m-auto p-3">
-          <div className=" flex items-center justify-between">
-            <h3 className="my-0 w-12 basis-auto font-bold ">{exercise.id}</h3>
+        <div className=" m-auto flex items-center justify-between p-3">
+          <h3 className="my-0 w-12 basis-auto font-bold ">{exercise.id}</h3>
 
-            <h3 className=" my-0 grow font-bold">
-              {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
-            </h3>
+          <h3 className=" my-0 grow font-bold">
+            {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
+          </h3>
 
-            <div className=" flex gap-2">
-              <MdModeEdit
-                role="button"
-                aria-label="edit"
-                onClick={handleEditClick}
-                className="text-xl"
-              />
-              <MdDeleteForever
-                onClick={handleDeleteClick}
-                className="text-xl"
-              />
-            </div>
+          <div className=" flex gap-2">
+            <MdModeEdit
+              role="button"
+              aria-label="edit"
+              onClick={handleEditClick}
+              className="text-xl"
+            />
+            <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
           </div>
-          <p>{weightString}</p>
-          <p>
-            {setsString && minutesString
-              ? `${setsString} x ${repsString}`
-              : `${setsString} ${repsString}`}
-          </p>
-          <p>{`${minutesString} ${secondsString}`}</p>
         </div>
+        <p>{weightString}</p>
+        <p>
+          {setsString && minutesString
+            ? `${setsString} x ${repsString}`
+            : `${setsString} ${repsString}`}
+        </p>
+        <p>{`${minutesString} ${secondsString}`}</p>
       </div>
       {showForm && (
         <ExerciseForm

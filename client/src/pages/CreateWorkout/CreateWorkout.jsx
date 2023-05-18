@@ -166,7 +166,7 @@ const CreateWorkout = () => {
           />
         </div>
 
-        <div className="flex w-full grow flex-col items-center gap-3">
+        <div className="w-full grow">
           {" "}
           <ListExercises
             exercises={workout.exercises}
