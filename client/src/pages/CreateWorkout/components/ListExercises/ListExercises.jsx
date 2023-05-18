@@ -38,8 +38,6 @@ const ListExercises = ({
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
-    // const [showForm, setShowForm] = useState(false);
-    // if (showEditForm === exercise.id) setShowForm(true);
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseAccordion
