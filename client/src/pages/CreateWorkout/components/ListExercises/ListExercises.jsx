@@ -10,16 +10,16 @@ const ListExercises = ({
   deleteExercise,
 }) => {
   const [showAddForm, setShowAddForm] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(-1);
 
   const handleAddClick = () => {
     setShowAddForm(true);
-    setShowEditForm(null);
+    setShowEditForm(-1);
   };
 
   const handleCloseForm = () => {
     setShowAddForm(false);
-    setShowEditForm(null);
+    setShowEditForm(-1);
   };
 
   const handleAddExercise = (newExercise) => {
@@ -45,6 +45,7 @@ const ListExercises = ({
           showForm={showEditForm === exercise.id}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
+          handleDeleteExercise={handleDeleteExercise}
         />
       </div>
     );
