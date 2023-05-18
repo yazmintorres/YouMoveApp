@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
-import ExerciseCard from "../ExerciseCard/ExerciseCard";
+import ExerciseAccordion from "../ExerciseAccordion/ExerciseAccordion";
 
 const ListExercises = ({
   exercises,
@@ -10,16 +10,16 @@ const ListExercises = ({
   deleteExercise,
 }) => {
   const [showAddForm, setShowAddForm] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(-1);
 
   const handleAddClick = () => {
     setShowAddForm(true);
-    setShowEditForm(null);
+    setShowEditForm(-1);
   };
 
   const handleCloseForm = () => {
     setShowAddForm(false);
-    setShowEditForm(null);
+    setShowEditForm(-1);
   };
 
   const handleAddExercise = (newExercise) => {
@@ -40,19 +40,13 @@ const ListExercises = ({
   const exerciseCards = exercises.map((exercise, index) => {
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
-        <ExerciseCard
+        <ExerciseAccordion
           exercise={exercise}
+          showForm={showEditForm === exercise.id}
           handleEditExercise={handleEditExercise}
+          handleCloseForm={handleCloseForm}
           handleDeleteExercise={handleDeleteExercise}
         />
-        {showEditForm === exercise.id && (
-          <ExerciseForm
-            exerciseToEdit={exercise}
-            handleCloseForm={handleCloseForm}
-            handleAddExercise={handleAddExercise}
-            handleEditExercise={handleEditExercise}
-          />
-        )}
       </div>
     );
   });

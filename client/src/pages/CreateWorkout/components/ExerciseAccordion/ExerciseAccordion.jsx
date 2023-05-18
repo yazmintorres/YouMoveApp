@@ -4,10 +4,12 @@ import { MdModeEdit } from "react-icons/md";
 import { singularPluralOrEmpty } from "./SingularPluralOrEmpty";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
-const ExerciseCard = ({
+const ExerciseAccordion = ({
   exercise,
+  showForm,
   handleEditExercise,
   handleDeleteExercise,
+  handleCloseForm,
 }) => {
   const setsString = singularPluralOrEmpty(exercise.sets, "sets");
   const repsString = singularPluralOrEmpty(exercise.reps, "reps");
@@ -15,17 +17,9 @@ const ExerciseCard = ({
   const secondsString = singularPluralOrEmpty(exercise.durationSeconds, "secs");
   const weightString = singularPluralOrEmpty(exercise.weight, "lbs");
 
-  const [showForm, setShowForm] = useState(false);
-
   const handleEditClick = () => {
     console.log("edit exercise requested ...");
     handleEditExercise(exercise);
-
-    // setShowForm(true);
-  };
-
-  const handleCloseForm = () => {
-    setShowForm(false);
   };
 
   const handleDeleteClick = () => {
@@ -34,9 +28,9 @@ const ExerciseCard = ({
   };
 
   return (
-    <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-      <div className="m-auto p-3">
-        <div className=" flex items-center justify-between">
+    <>
+      <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
+        <div className=" m-auto flex items-center justify-between p-3">
           <h3 className="my-0 w-12 basis-auto font-bold ">{exercise.id}</h3>
 
           <h3 className=" my-0 grow font-bold">
@@ -61,15 +55,15 @@ const ExerciseCard = ({
         </p>
         <p>{`${minutesString} ${secondsString}`}</p>
       </div>
-      {/* {showForm && (
+      {showForm && (
         <ExerciseForm
           exerciseToEdit={exercise}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
         />
-      )} */}
-    </div>
+      )}
+    </>
   );
 };
 
-export default ExerciseCard;
+export default ExerciseAccordion;
