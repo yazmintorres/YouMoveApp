@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
+import Accordion from "../Accordion";
 
 const ListExercises = ({
   exercises,
@@ -38,9 +39,17 @@ const ListExercises = ({
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
+    // const [showForm, setShowForm] = useState(false);
+    // if (showEditForm === exercise.id) setShowForm(true);
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
-        <ExerciseCard
+        <Accordion
+          exercise={exercise}
+          showForm={showEditForm === exercise.id}
+          handleEditExercise={handleEditExercise}
+          handleCloseForm={handleCloseForm}
+        />
+        {/* <ExerciseCard
           exercise={exercise}
           handleEditExercise={handleEditExercise}
           handleDeleteExercise={handleDeleteExercise}
@@ -52,10 +61,30 @@ const ListExercises = ({
             handleAddExercise={handleAddExercise}
             handleEditExercise={handleEditExercise}
           />
-        )}
+        )} */}
       </div>
     );
   });
+
+  // const exerciseCards = exercises.map((exercise, index) => {
+  //   return (
+  //     <div key={index} className="flex w-full flex-col items-center gap-3">
+  //       <ExerciseCard
+  //         exercise={exercise}
+  //         handleEditExercise={handleEditExercise}
+  //         handleDeleteExercise={handleDeleteExercise}
+  //       />
+  //       {showEditForm === exercise.id && (
+  //         <ExerciseForm
+  //           exerciseToEdit={exercise}
+  //           handleCloseForm={handleCloseForm}
+  //           handleAddExercise={handleAddExercise}
+  //           handleEditExercise={handleEditExercise}
+  //         />
+  //       )}
+  //     </div>
+  //   );
+  // });
 
   return (
     <div className="flex w-full grow flex-col items-center gap-3">
