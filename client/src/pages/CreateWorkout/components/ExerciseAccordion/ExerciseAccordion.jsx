@@ -4,10 +4,12 @@ import { MdModeEdit } from "react-icons/md";
 import { singularPluralOrEmpty } from "./SingularPluralOrEmpty";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
-const ExerciseCard = ({
+const ExerciseAccordion = ({
   exercise,
+  showForm,
   handleEditExercise,
   handleDeleteExercise,
+  handleCloseForm,
 }) => {
   const setsString = singularPluralOrEmpty(exercise.sets, "sets");
   const repsString = singularPluralOrEmpty(exercise.reps, "reps");
@@ -15,17 +17,9 @@ const ExerciseCard = ({
   const secondsString = singularPluralOrEmpty(exercise.durationSeconds, "secs");
   const weightString = singularPluralOrEmpty(exercise.weight, "lbs");
 
-  const [showForm, setShowForm] = useState(false);
-
   const handleEditClick = () => {
     console.log("edit exercise requested ...");
     handleEditExercise(exercise);
-
-    // setShowForm(true);
-  };
-
-  const handleCloseForm = () => {
-    setShowForm(false);
   };
 
   const handleDeleteClick = () => {
@@ -61,15 +55,15 @@ const ExerciseCard = ({
         </p>
         <p>{`${minutesString} ${secondsString}`}</p>
       </div>
-      {/* {showForm && (
+      {showForm && (
         <ExerciseForm
           exerciseToEdit={exercise}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
         />
-      )} */}
+      )}
     </div>
   );
 };
 
-export default ExerciseCard;
+export default ExerciseAccordion;

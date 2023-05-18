@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import ExerciseForm from "./ExerciseForm/ExerciseForm";
-import { singularPluralOrEmpty } from "./ExerciseCard/SingularPluralOrEmpty";
+import { singularPluralOrEmpty } from "./ExerciseAccordion/SingularPluralOrEmpty";
 
 // my accordion will display the exercise card (title)
 // and the exerciseForm for the content
