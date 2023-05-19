@@ -3,6 +3,7 @@ import { MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
 
 const ExerciseForm = ({
+  exerciseNumber,
   handleCloseForm,
   exerciseToEdit,
   handleAddExercise,
@@ -29,7 +30,7 @@ const ExerciseForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (exerciseToEdit) {
-      handleEditExercise(exercise);
+      handleEditExercise(exercise, exerciseNumber);
     } else {
       handleAddExercise(exercise);
     }

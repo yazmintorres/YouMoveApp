@@ -26,23 +26,24 @@ const ListExercises = ({
     addExercise(newExercise);
   };
 
-  const handleEditExercise = (exercise) => {
-    setShowEditForm(exercise.id);
+  const handleEditExercise = (exercise, exerciseNumber) => {
+    setShowEditForm(exerciseNumber);
     setShowAddForm(false);
 
-    editExercise(exercise);
+    editExercise(exercise, exerciseNumber);
   };
 
-  const handleDeleteExercise = (exerciseId) => {
-    deleteExercise(exerciseId);
+  const handleDeleteExercise = (exerciseNumber) => {
+    deleteExercise(exerciseNumber);
   };
 
   const exerciseCards = exercises.map((exercise, index) => {
     return (
       <div key={index} className="flex w-full flex-col items-center gap-3">
         <ExerciseAccordion
+          exerciseNumber={index + 1}
           exercise={exercise}
-          showForm={showEditForm === exercise.id}
+          showForm={showEditForm === index + 1}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
           handleDeleteExercise={handleDeleteExercise}
@@ -59,7 +60,6 @@ const ListExercises = ({
         <ExerciseForm
           handleCloseForm={handleCloseForm}
           handleAddExercise={handleAddExercise}
-          handleEditExercise={handleEditExercise}
         />
       ) : (
         <div
