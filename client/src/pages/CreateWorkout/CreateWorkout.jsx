@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import VideoCard from "@client/src/components/VideoCard/VideoCard";
+import React, { useEffect } from "react";
+import VideoCard from "../../components/VideoCard/VideoCard";
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import WorkoutAPI from "@client/src/apis/WorkoutAPI";
+import WorkoutAPI from "../../apis/WorkoutAPI";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
@@ -31,12 +32,17 @@ const CreateWorkout = () => {
 
   // LOAD WORKOUT ON INITIAL RENDER
   useEffect(() => {
-    const loadWorkout = async () => {
-      const workout = await WorkoutAPI.getWorkout(user.sub, videoInfo.videoId);
-      if (workout?.id) setWorkout(workout);
-    };
-    loadWorkout();
-  }, []);
+    if (user) {
+      const loadWorkout = async () => {
+        const workout = await WorkoutAPI.getWorkout(
+          user.sub,
+          videoInfo.videoId
+        );
+        if (workout?.id) setWorkout(workout);
+      };
+      loadWorkout();
+    }
+  }, [user]);
 
   // DELETE WORKOUT WHEN USER PRESSES BUTTON DELTE
   const handleClickDelete = async () => {

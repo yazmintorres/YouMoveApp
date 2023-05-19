@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import LoginButton from "../LoginButton/LoginButton";
 import { LogoutButton } from "../LogoutButton/LogoutButton";
@@ -8,7 +8,6 @@ const Navbar = () => {
   const { isAuthenticated } = useAuth0();
   // get path
   const location = useLocation();
-  // console.log(location);
 
   return (
     <nav className=" bg-gradient-to-r from-blue-600 to-violet-600  py-4 tracking-wider text-white ">

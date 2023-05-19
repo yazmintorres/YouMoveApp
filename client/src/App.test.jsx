@@ -1,15 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
-import Navbar from "./Navbar";
+import App from "./App";
 import { expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-// TEST THAT MY NAVBAR RENDERS CORRECTLY
-test("Navbar renders correctly", () => {
+// TEST THAT MY APP RENDERS CORRECTLY
+test("App renders", () => {
   render(
     <BrowserRouter>
-      <Navbar />
+      <App />
     </BrowserRouter>
   );
-  const navbarElement = screen.getByRole("navigation");
+  const navbarElement = screen.getByTestId("app");
   expect(navbarElement).toBeDefined();
 });

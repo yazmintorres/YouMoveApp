@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import SignupButton from "@client/src/components/SignUpButton/SignUpButton";
+import SignupButton from "../../components/SignUpButton/SignUpButton.jsx";
 
 const Home = () => {
   return (
-    <div className="m-auto flex h-96 max-w-md flex-col items-center justify-center gap-6">
+    <div
+      data-testid="home"
+      className="m-auto flex h-96 max-w-md flex-col items-center justify-center gap-6"
+    >
       <h2 className="text-center">
         Curate a workout playlist just for you to make hittin' the gym next time
         that much easier 💯
