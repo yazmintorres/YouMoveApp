@@ -3,6 +3,7 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import WorkoutAPI from "../../apis/WorkoutAPI";
 import { addUser } from "../../apis/UserAPI";
 import { getSearchVideos } from "../../apis/YouTubeAPI";
+import searchResponse from "../../data/search-response";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -16,6 +17,7 @@ const UserLanding = () => {
   const addUserToDB = async () => {
     try {
       if (user) {
+        console.log("i am running");
         const userAdded = await addUser(user.sub, user.email);
         console.log("userAdded:", userAdded);
       }
@@ -45,10 +47,10 @@ const UserLanding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const includesStrings = /workout|women/.test(userSearchTerm);
-    const searchQuery = userSearchTerm + "workout" + "women";
-    const searchResults = await getSearchVideos(searchQuery);
+    // const searchQuery = userSearchTerm + "workout" + "women";
+    // const searchResults = await getSearchVideos(searchQuery);
     // working with mock data
-    // const searchResults = searchResponse;
+    const searchResults = searchResponse;
     setSearchedVideos(searchResults.items);
   };
 
