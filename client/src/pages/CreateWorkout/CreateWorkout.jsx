@@ -74,16 +74,19 @@ const CreateWorkout = () => {
 
   const addExercise = (newExercise) => {
     console.log("adding exercise...");
-    const exerciseId = workout.exercises.length + 1;
-    newExercise = { ...newExercise, id: exerciseId };
+    // const exerciseId = workout.exercises.length + 1;
+    // newExercise = { ...newExercise, id: exerciseId };
     const exercises = [...workout.exercises, newExercise];
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
-  const editExercise = (exerciseToEdit) => {
+  const editExercise = (exerciseToEdit, exerciseNumber) => {
+    console.log(
+      "called when i just clicked the edit button even though i have not updated the exercise"
+    );
     console.log("editing exercise...");
     const currentExerciseIndex = workout.exercises.findIndex(
-      (exercise) => exerciseToEdit.id === exercise.id
+      (exercise, index) => index + 1 === exerciseNumber
     );
     console.log(currentExerciseIndex);
     const exercises = [
@@ -94,18 +97,18 @@ const CreateWorkout = () => {
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
-  const deleteExercise = (exerciseId) => {
+  const deleteExercise = (exerciseNumber) => {
     console.log("deleting exercise...");
 
     // filter out deleted exercise
-    let filteredExercises = workout.exercises.filter(
-      (exercise) => exercise.id !== exerciseId
+    let exercises = workout.exercises.filter(
+      (exercise, index) => index + 1 !== exerciseNumber
     );
 
-    // need to update the id for every exercise after deletion because the exercise number in the exercises sequence has changed
-    const exercises = filteredExercises.map((exercise, index) => {
-      return { ...exercise, id: index + 1 };
-    });
+    // // need to update the id for every exercise after deletion because the exercise number in the exercises sequence has changed
+    // const exercises = filteredExercises.map((exercise, index) => {
+    //   return { ...exercise, id: index + 1 };
+    // });
 
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };

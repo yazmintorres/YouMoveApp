@@ -6,6 +6,7 @@ import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
 const ExerciseAccordion = ({
   exercise,
+  exerciseNumber,
   showForm,
   handleEditExercise,
   handleDeleteExercise,
@@ -21,19 +22,19 @@ const ExerciseAccordion = ({
 
   const handleEditClick = () => {
     console.log("edit exercise requested ...");
-    handleEditExercise(exercise);
+    handleEditExercise(exercise, exerciseNumber);
   };
 
   const handleDeleteClick = () => {
     console.log("delete exercise requested ...");
-    handleDeleteExercise(exercise.id);
+    handleDeleteExercise(exerciseNumber);
   };
 
   return (
     <>
       <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
         <div className=" m-auto flex items-center justify-between p-3">
-          <h3 className="my-0 w-12 basis-auto font-bold ">{exercise.id}</h3>
+          <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
 
           <h3 className=" my-0 grow font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
@@ -59,6 +60,7 @@ const ExerciseAccordion = ({
       </div>
       {showForm && (
         <ExerciseForm
+          exerciseNumber={exerciseNumber}
           exerciseToEdit={exercise}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
