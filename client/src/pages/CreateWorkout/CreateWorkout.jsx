@@ -105,11 +105,6 @@ const CreateWorkout = () => {
       (exercise, index) => index + 1 !== exerciseNumber
     );
 
-    // // need to update the id for every exercise after deletion because the exercise number in the exercises sequence has changed
-    // const exercises = filteredExercises.map((exercise, index) => {
-    //   return { ...exercise, id: index + 1 };
-    // });
-
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 

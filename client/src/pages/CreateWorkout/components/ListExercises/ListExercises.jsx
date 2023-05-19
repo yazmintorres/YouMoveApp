@@ -30,6 +30,8 @@ const ListExercises = ({
     setShowEditForm(exerciseNumber);
     setShowAddForm(false);
 
+    // this is still being called even when the user just clicks the edit button
+    // it is working, but can keep this in mind an extra call
     editExercise(exercise, exerciseNumber);
   };
 
