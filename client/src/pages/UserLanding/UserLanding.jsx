@@ -97,7 +97,7 @@ const UserLanding = () => {
   ));
 
   return (
-    <div>
+    <div data-testid="landing">
       <div className="mb-7  gap-11 sm:flex">
         <div className="flex w-full grow flex-col gap-3">
           <h2 className="mb-1   font-bold tracking-wide">Find A New Workout</h2>

@@ -4,7 +4,7 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import WorkoutAPI from "/Users/yazmintorres/Desktop/GitHub/Techtonica-GitRepos/YouMoveApp/client/src/apis/WorkoutAPI.js";
+import WorkoutAPI from "../../apis/WorkoutAPI";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
@@ -111,7 +111,7 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div data-testid="create-workout" className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
         <div className="w-3/4">
           <h2 className=" my-0 truncate font-bold tracking-wide">
