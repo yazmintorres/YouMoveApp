@@ -1,5 +1,5 @@
 const db = require("./db/db-connection.js");
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 async function addVideo(videoId) {
   const API_KEY = process.env.YOUTUBE_API_KEY;
