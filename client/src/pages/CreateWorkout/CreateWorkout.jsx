@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import VideoCard from "@client/src/components/VideoCard/VideoCard";
+import React, { useEffect } from "react";
+import VideoCard from "../../components/VideoCard/VideoCard";
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import WorkoutAPI from "@client/src/apis/WorkoutAPI";
+import WorkoutAPI from "/Users/yazmintorres/Desktop/GitHub/Techtonica-GitRepos/YouMoveApp/client/src/apis/WorkoutAPI.js";
 import ListExercises from "./components/ListExercises/ListExercises";
 
 const CreateWorkout = () => {
@@ -31,12 +32,17 @@ const CreateWorkout = () => {
 
   // LOAD WORKOUT ON INITIAL RENDER
   useEffect(() => {
-    const loadWorkout = async () => {
-      const workout = await WorkoutAPI.getWorkout(user.sub, videoInfo.videoId);
-      if (workout?.id) setWorkout(workout);
-    };
-    loadWorkout();
-  }, []);
+    if (user) {
+      const loadWorkout = async () => {
+        const workout = await WorkoutAPI.getWorkout(
+          user.sub,
+          videoInfo.videoId
+        );
+        if (workout?.id) setWorkout(workout);
+      };
+      loadWorkout();
+    }
+  }, [user]);
 
   // DELETE WORKOUT WHEN USER PRESSES BUTTON DELTE
   const handleClickDelete = async () => {
@@ -105,7 +111,7 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div data-testid="create-workout" className="flex flex-col gap-2">
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
         <div className="w-3/4">
           <h2 className=" my-0 truncate font-bold tracking-wide">

@@ -64,7 +64,6 @@ const ExerciseForm = ({
             className="absolute right-1 top-1 text-3xl"
           />
         </div>
-
         <div className="flex flex-wrap items-center justify-between gap-3  ">
           <label htmlFor="exercise-name" className="w-1/5 basis-auto text-left">
             Name*
@@ -111,7 +110,6 @@ const ExerciseForm = ({
             max={60}
           ></input>
         </div>
-
         <div className="flex flex-wrap items-center justify-between gap-3  ">
           <label htmlFor="weight" className="w-1/5 basis-auto  text-left">
             Weight
@@ -127,7 +125,6 @@ const ExerciseForm = ({
             placeholder="Pounds"
           ></input>
         </div>
-
         <div className="flex flex-wrap items-center justify-between gap-3  ">
           <label htmlFor="sets" className=" w-1/5 basis-auto  text-left">
             Sets

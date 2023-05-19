@@ -1,13 +1,13 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 // pages
 import Navbar from "./components/Navbar/Navbar";
-import Home from "@pages/Home/Home";
+import Home from "./pages/Home/Home";
 import CreateWorkout from "./pages/CreateWorkout/CreateWorkout";
 import UserLanding from "./pages/UserLanding/UserLanding";
 
 const Layout = () => {
   return (
-    <div className="layout">
+    <div data-testid="app" className="layout">
       <header>
         <Navbar />
       </header>

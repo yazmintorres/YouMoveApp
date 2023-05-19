@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import VideoCard from "@client/src/components/VideoCard/VideoCard";
-import WorkoutAPI from "@client/src/apis/WorkoutAPI";
-import { addUser } from "@client/src/apis/UserAPI";
-import { getSearchVideos } from "@client/src/apis/YouTubeAPI";
+import VideoCard from "../../components/VideoCard/VideoCard";
+import WorkoutAPI from "../../apis/WorkoutAPI";
+import { addUser } from "../../apis/UserAPI";
+import { getSearchVideos } from "../../apis/YouTubeAPI";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
