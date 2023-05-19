@@ -135,9 +135,11 @@ const UserLanding = () => {
           </form>
           <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
-            <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
-              Load More
-            </button>
+            {searchVideos.length > 0 && (
+              <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
+                Load More
+              </button>
+            )}
           </div>
         </div>
         <div className="items-left flex w-full grow flex-col gap-3 ">
