@@ -7,6 +7,8 @@ async function addVideo(videoId) {
   );
   const data = await youtubeResponse.json();
   const videoInfo = data.items[0];
+  // const if there is not the max res url use the high res
+
   const {
     id,
     etag,

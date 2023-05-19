@@ -1,9 +1,12 @@
-export async function getSearchVideos(searchQuery) {
+export async function getSearchVideos(userSearchTerm, pageToken) {
   try {
+    const searchQuery = userSearchTerm + "workouts women";
     const youtubeKey = import.meta.env.VITE_YOUTUBE_KEY;
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchQuery}&type=video&maxResults=5`
-    );
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${youtubeKey}&part=snippet&q=${searchQuery}&type=video&chart=mostPopular&maxResults=4`;
+    if (pageToken) {
+      url = `${url}&pageToken=${pageToken}`;
+    }
+    const response = await fetch(url);
     const searchResults = await response.json();
     return searchResults;
   } catch (error) {

@@ -10,6 +10,7 @@ const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [searchedVideos, setSearchedVideos] = useState([]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
+  const [nextPageToken, setNextPageToken] = useState("");
   const { user } = useAuth0();
 
   // add new user to DB
@@ -30,6 +31,7 @@ const UserLanding = () => {
       if (user) {
         const userId = user.sub;
         const savedWorkouts = await WorkoutAPI.getWorkouts(userId);
+        console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -45,12 +47,20 @@ const UserLanding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const includesStrings = /workout|women/.test(userSearchTerm);
-    const searchQuery = userSearchTerm + "workout" + "women";
-    const searchResults = await getSearchVideos(searchQuery);
+    const searchResults = await getSearchVideos(userSearchTerm);
+    setNextPageToken(searchResults.nextPageToken);
     // working with mock data
     // const searchResults = searchResponse;
     setSearchedVideos(searchResults.items);
   };
+
+  const loadMoreSearch = async () => {
+    const searchResults = await getSearchVideos(userSearchTerm, nextPageToken);
+    setNextPageToken(searchResults.nextPageToken);
+    setSearchedVideos((prevVideos) => [...prevVideos, ...searchResults.items]);
+  };
+
+  console.log(searchedVideos);
 
   const workoutVideos = savedWorkouts.map((obj) => (
     <VideoCard
@@ -123,8 +133,11 @@ const UserLanding = () => {
               Search
             </button>
           </form>
-          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
+            <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
+              Load More
+            </button>
           </div>
         </div>
         <div className="items-left flex w-full grow flex-col gap-3 ">
