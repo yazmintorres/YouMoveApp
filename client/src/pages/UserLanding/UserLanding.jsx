@@ -9,7 +9,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [searchedVideos, setSearchedVideos] = useState([]);
+
+  const [workoutsToShow, setWorkoutsToShow] = useState(2);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
+
   const [nextPageToken, setNextPageToken] = useState("");
   const { user } = useAuth0();
 
@@ -46,11 +49,9 @@ const UserLanding = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const includesStrings = /workout|women/.test(userSearchTerm);
+
     const searchResults = await getSearchVideos(userSearchTerm);
     setNextPageToken(searchResults.nextPageToken);
-    // working with mock data
-    // const searchResults = searchResponse;
     setSearchedVideos(searchResults.items);
   };
 
@@ -60,9 +61,13 @@ const UserLanding = () => {
     setSearchedVideos((prevVideos) => [...prevVideos, ...searchResults.items]);
   };
 
-  console.log(searchedVideos);
+  const loadMoreWorkouts = () => {
+    setWorkoutsToShow((prevValue) => prevValue + 2);
+  };
 
-  const workoutVideos = savedWorkouts.map((obj) => (
+  console.log(workoutsToShow);
+
+  const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
       key={obj.video_id}
       thumbnailUrl={obj.thumbnail_url}
@@ -148,9 +153,11 @@ const UserLanding = () => {
           <div className="h-9"></div>
           <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
-            <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
-              Load More
-            </button>
+            {workoutsToShow < savedWorkouts.length && (
+              <button onClick={loadMoreWorkouts} className="btn order-3 w-1/2 ">
+                Load More
+              </button>
+            )}
           </div>
         </div>
       </div>
