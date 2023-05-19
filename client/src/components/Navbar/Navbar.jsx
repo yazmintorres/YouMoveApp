@@ -11,7 +11,10 @@ const Navbar = () => {
   // console.log(location);
 
   return (
-    <nav className=" bg-gradient-to-r from-blue-600 to-violet-600  py-4 tracking-wider text-white ">
+    <nav
+      data-testid="navbar"
+      className=" bg-gradient-to-r from-blue-600 to-violet-600  py-4 tracking-wider text-white "
+    >
       <div className="m-auto flex w-11/12 flex-wrap items-center gap-3 sm:gap-0 ">
         <h1 className="my-0 grow-[1] text-center text-3xl font-bold sm:text-left">
           <span className="">YouMove</span>

@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "@pages/Home/Home";
 import CreateWorkout from "./pages/CreateWorkout/CreateWorkout";
 import UserLanding from "./pages/UserLanding/UserLanding";
-import { Provider } from "./contexts/workout";
 
 const Layout = () => {
   return (

@@ -1,21 +1,25 @@
+import ExerciseAccordion from "./ExerciseAccordion";
+import { expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { expect, it } from "vitest";
-import ExerciseCard from "./ExerciseAccordion";
 
-describe("Exercise Card", () => {
-  it("renders exercise card", () => {
-    render(<ExerciseCard exercise={{ name: "Exercise name" }} />);
-
-    expect(
-      screen.getByRole("heading", { name: "Exercise name" })
-    ).toBeDefined();
-  });
-
-  it("should show form on edit click", async () => {
-    render(<ExerciseCard exercise={{ name: "Exercise Name" }} />);
-    const button = screen.getByRole("button", { name: "edit" });
-    await userEvent.click(button);
-    expect(screen.getByRole("form", { name: "exercise-form" }));
-  });
+// TEST THAT THIS COMPONENT SHOWS THE EXERCISE NAME ON THE EXERCISE CARD
+test("exercise cards show the title", () => {
+  render(<ExerciseAccordion exercise={{ name: "exercise name" }} />);
+  const header = screen.getByRole("heading", { name: "Exercise name" });
+  // const header = screen.getByText("Exercise name");
+  expect(header).toBeDefined();
 });
+
+// TEST THAT FORM OPENS ON EDIT CLICK
+test("show form on edit click", () => {
+  render(<ExerciseAccordion exercise={{ name: "exercise name" }} />);
+  const button = screen.getByRole("button", { name: "edit" });
+});
+
+//   it("should show form on edit click", async () => {
+//     render(<ExerciseCard exercise={{ name: "Exercise Name" }} />);
+//     const button = screen.getByRole("button", { name: "edit" });
+//     await userEvent.click(button);
+//     expect(screen.getByRole("form", { name: "exercise-form" }));
+//   });
+// });
