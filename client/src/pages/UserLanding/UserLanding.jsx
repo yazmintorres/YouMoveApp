@@ -146,8 +146,11 @@ const UserLanding = () => {
           <h2 className="mb-1">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
           <div className="h-9"></div>
-          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
+            <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
+              Load More
+            </button>
           </div>
         </div>
       </div>
