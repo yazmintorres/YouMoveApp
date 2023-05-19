@@ -7,7 +7,7 @@ services:
     buildCommand: cd client && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && node server.js
     envVars:
-      - key: DATABASE_URL
+      - key: DB_URI
         fromDatabase:
           name: db
           property: connectionString
