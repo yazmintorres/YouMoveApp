@@ -21,6 +21,7 @@ const UserLanding = () => {
   const addUserToDB = async () => {
     try {
       if (user) {
+        console.log("i am running");
         const userAdded = await addUser(user.sub, user.email);
         console.log("userAdded:", userAdded);
       }
@@ -52,8 +53,10 @@ const UserLanding = () => {
     e.preventDefault();
 
     // const searchResults = await getSearchVideos(userSearchTerm);
+    
     // working with mock data
     const searchResults = searchResponse;
+    
     setNextPageToken(searchResults.nextPageToken);
     setSearchedVideos(searchResults.items);
   };
