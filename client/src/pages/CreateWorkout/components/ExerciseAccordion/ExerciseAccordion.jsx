@@ -32,8 +32,8 @@ const ExerciseAccordion = ({
 
   return (
     <>
-      <div className=" w-11/12 rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5">
-        <div className=" m-auto flex items-center justify-between p-3">
+      <div className=" w-11/12 rounded-lg border-2 border-solid border-black pb-2 text-center sm:mt-0 sm:w-4/5">
+        <div className=" m-auto flex items-center justify-between p-3 pb-1">
           <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
 
           <h3 className=" my-0 grow font-bold">

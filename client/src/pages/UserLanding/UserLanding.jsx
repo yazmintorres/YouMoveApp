@@ -10,7 +10,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [searchedVideos, setSearchedVideos] = useState([]);
+
+  const [workoutsToShow, setWorkoutsToShow] = useState(2);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
+
+  const [nextPageToken, setNextPageToken] = useState("");
   const { user } = useAuth0();
 
   // add new user to DB
@@ -32,6 +36,7 @@ const UserLanding = () => {
       if (user) {
         const userId = user.sub;
         const savedWorkouts = await WorkoutAPI.getWorkouts(userId);
+        console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -46,15 +51,29 @@ const UserLanding = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const includesStrings = /workout|women/.test(userSearchTerm);
-    // const searchQuery = userSearchTerm + "workout" + "women";
-    // const searchResults = await getSearchVideos(searchQuery);
+
+    // const searchResults = await getSearchVideos(userSearchTerm);
+    
     // working with mock data
     const searchResults = searchResponse;
+    
+    setNextPageToken(searchResults.nextPageToken);
     setSearchedVideos(searchResults.items);
   };
 
-  const workoutVideos = savedWorkouts.map((obj) => (
+  const loadMoreSearch = async () => {
+    const searchResults = await getSearchVideos(userSearchTerm, nextPageToken);
+    setNextPageToken(searchResults.nextPageToken);
+    setSearchedVideos((prevVideos) => [...prevVideos, ...searchResults.items]);
+  };
+
+  const loadMoreWorkouts = () => {
+    setWorkoutsToShow((prevValue) => prevValue + 2);
+  };
+
+  console.log(workoutsToShow);
+
+  const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
       key={obj.video_id}
       thumbnailUrl={obj.thumbnail_url}
@@ -125,16 +144,26 @@ const UserLanding = () => {
               Search
             </button>
           </form>
-          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
+            {searchVideos.length > 0 && (
+              <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
+                Load More
+              </button>
+            )}
           </div>
         </div>
         <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
           <div className="h-9"></div>
-          <div className="order-2 flex flex-col gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
+            {workoutsToShow < savedWorkouts.length && (
+              <button onClick={loadMoreWorkouts} className="btn order-3 w-1/2 ">
+                Load More
+              </button>
+            )}
           </div>
         </div>
       </div>
