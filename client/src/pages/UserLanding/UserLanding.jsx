@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
-  const [filterBy, setFilterBy] = useState("default");
+  const [targetAreaFilter, setTargetAreaFilter] = useState("default");
   const [searchedVideos, setSearchedVideos] = useState([]);
 
   const [workoutsToShow, setWorkoutsToShow] = useState(2);
@@ -32,11 +32,14 @@ const UserLanding = () => {
   };
 
   // get saved workouts from DB
-  const getSavedWorkouts = async () => {
+  const getSavedWorkouts = async (targetAreaFilter) => {
     try {
       if (user) {
         const userId = user.sub;
-        const savedWorkouts = await WorkoutAPI.getWorkouts(userId);
+        const savedWorkouts = await WorkoutAPI.getWorkouts(
+          userId,
+          targetAreaFilter
+        );
         console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
@@ -72,12 +75,16 @@ const UserLanding = () => {
     setWorkoutsToShow((prevValue) => prevValue + 2);
   };
 
-  // MANAGE WHEN FILTER BY IS UPDATED
-  const handleFilterByChange = (e) => {
-    setFilterBy(e.target.value);
+  // MANAGE WHEN TARGET AREA FILTER  IS UPDATED
+  const handleTargetAreaFilterChange = (e) => {
+    setTargetAreaFilter(e.target.value);
   };
 
-  console.log(filterBy);
+  useEffect(() => {
+    getSavedWorkouts(targetAreaFilter);
+  }, [targetAreaFilter]);
+
+  console.log(targetAreaFilter);
 
   const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
@@ -173,8 +180,8 @@ const UserLanding = () => {
               name="filter-by"
               id="filter-by"
               // defaultValue="default"
-              value={filterBy}
-              onChange={handleFilterByChange}
+              value={targetAreaFilter}
+              onChange={handleTargetAreaFilterChange}
               required
             >
               <option value="default" disabled>
