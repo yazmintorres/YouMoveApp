@@ -2,16 +2,14 @@ export default {
   getWorkouts: async function (userId, targetArea) {
     try {
       console.log("getting workouts...");
-      console.log(targetArea);
+      console.log("from workout api", targetArea);
 
       let url = `/api/savedWorkouts/${userId}`;
 
-      if (targetArea && targetArea !== "default" && targetArea !== "all") {
-        console.log(targetArea);
+      if (targetArea) {
         url += `?targetArea=${targetArea}`;
       }
 
-      console.log(url);
       const response = await fetch(url);
 
       const savedWorkouts = await response.json();

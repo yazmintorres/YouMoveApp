@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
-  const [targetAreaFilter, setTargetAreaFilter] = useState("default");
+  const [targetAreaFilter, setTargetAreaFilter] = useState("");
   const [searchedVideos, setSearchedVideos] = useState([]);
 
   const [workoutsToShow, setWorkoutsToShow] = useState(2);
@@ -157,7 +157,7 @@ const UserLanding = () => {
               Search
             </button>
           </form>
-          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-start gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
             {searchVideos.length > 0 && (
               <button
@@ -184,10 +184,7 @@ const UserLanding = () => {
               onChange={handleTargetAreaFilterChange}
               required
             >
-              <option value="default" disabled>
-                Select an option
-              </option>
-              <option value="all">All</option>
+              <option value="">Filter Off</option>
               <option value="full-body">Full Body</option>
               <option value="upper-body">Upper Body</option>
               <option value="lower-body">Lower Body</option>
@@ -203,7 +200,7 @@ const UserLanding = () => {
             </select>
           </div>
 
-          <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
+          <div className="order-2 flex flex-col items-start gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
             {workoutsToShow < savedWorkouts.length && (
               <button
