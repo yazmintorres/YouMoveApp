@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
-  const [filterBy, setFilterBy] = useState("");
+  const [filterBy, setFilterBy] = useState("default");
   const [searchedVideos, setSearchedVideos] = useState([]);
 
   const [workoutsToShow, setWorkoutsToShow] = useState(2);
@@ -74,10 +74,10 @@ const UserLanding = () => {
 
   // MANAGE WHEN FILTER BY IS UPDATED
   const handleFilterByChange = (e) => {
-    console.log(e.target.value);
+    setFilterBy(e.target.value);
   };
 
-  console.log(workoutsToShow);
+  console.log(filterBy);
 
   const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
@@ -167,13 +167,13 @@ const UserLanding = () => {
           <div className="border border-solid border-gray-500"></div>
           {/* <div className="h-9"></div> */}
           <div className="flex items-center gap-2 text-base font-medium">
-            <label htmlFor="target-area">Filter By Target Area:</label>
+            <label htmlFor="filter-by">Filter By Target Area:</label>
             <select
               className="input-field grow focus:border-transparent focus:ring-transparent "
-              name="target-area"
-              id="target-area"
-              defaultValue="default"
-              // value={targetArea}
+              name="filter-by"
+              id="filter-by"
+              // defaultValue="default"
+              value={filterBy}
               onChange={handleFilterByChange}
               required
             >

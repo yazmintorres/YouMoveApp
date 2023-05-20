@@ -22,8 +22,6 @@ const CreateWorkout = () => {
     exercises: [],
   });
 
-  console.log(workout);
-
   // MANAGE WHEN TARGET AREA IS UPDATED
   const handleTargetAreaChange = (e) => {
     setWorkout((prevWorkout) => ({
