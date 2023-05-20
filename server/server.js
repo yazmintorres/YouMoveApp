@@ -68,16 +68,25 @@ app.put("/api/updateWorkout/:workoutId", async (req, res) => {
   }
 });
 
-// GET SAVED WORKOUTS FOR A USER BY USERID
+// GET SAVED WORKOUTS FOR A USER BY USERID (AND FILTER BY TARGET AREA IF PROVIDED, IF NOT DEFAULT IS ALL WORKOUTS)
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
     console.log("get workouts request ...");
-    const { userId } = req.params;
+    const userId = req.params.userId;
+    const targetArea = req.query?.targetArea;
+
+    let query =
+      "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1";
+    const values = [userId];
+
+    if (targetArea) {
+      query += " AND workouts.target_area = $2";
+      values.push(targetArea);
+    }
+
     // all saved workouts for a specific user
-    const { rows: savedWorkouts } = await db.query(
-      "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1",
-      [userId]
-    );
+    const { rows: savedWorkouts } = await db.query(query, values);
+
     res.json(savedWorkouts);
   } catch (error) {
     console.log(error.message);

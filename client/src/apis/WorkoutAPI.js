@@ -1,8 +1,16 @@
 export default {
-  getWorkouts: async function (userId) {
+  getWorkouts: async function (userId, targetArea) {
     try {
       console.log("getting workouts...");
-      const response = await fetch(`/api/savedWorkouts/${userId}`);
+
+      let url = `/api/savedWorkouts/${userId}`;
+
+      if (targetArea) {
+        url += `?targetArea=${targetArea}`;
+      }
+
+      const response = await fetch(url);
+
       const savedWorkouts = await response.json();
       return savedWorkouts;
     } catch (error) {
