@@ -95,25 +95,34 @@ ALTER TABLE ONLY public.workouts ALTER COLUMN id SET DEFAULT nextval('public.wor
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: yazmintorres
 --
 
+INSERT INTO public.users (id, email) VALUES ('google-oauth2|105689678130160470190', 'yazspam98@gmail.com');
+INSERT INTO public.users (id, email) VALUES ('google-oauth2|101810540722720199599', 'yazminmoniquetorres@gmail.com');
+INSERT INTO public.users (id, email) VALUES ('google-oauth2|106328801478292141139', 'ytorres@alumni.scu.edu');
 
 
 --
 -- Data for Name: videos; Type: TABLE DATA; Schema: public; Owner: yazmintorres
 --
 
+INSERT INTO public.videos (id, etag, title, channel_title, thumbnail_url) VALUES ('w8cSjkXkYRc', 'i5A-YMnelXDcJuInHO9njb1AYAA', '20 Minute Shoulder Workout with Dumbbells | Caroline Girvan', 'Caroline Girvan', 'https://i.ytimg.com/vi/w8cSjkXkYRc/maxresdefault.jpg');
+INSERT INTO public.videos (id, etag, title, channel_title, thumbnail_url) VALUES ('ME0cj3FTbms', 'rCehHx1atEa4Wg0c-vlBFwNXz7I', '20 MIN SOLID ARMS & SHOULDER WORKOUT with Dumbbells', 'Caroline Girvan', 'https://i.ytimg.com/vi/ME0cj3FTbms/maxresdefault.jpg');
+INSERT INTO public.videos (id, etag, title, channel_title, thumbnail_url) VALUES ('wH-YPotqDlg', 'vUiyAi6QLYpgZya5j7KLe_1wJ_c', '20 Min INTENSE DUMBBELL SHOULDER WORKOUT at Home | Supersets', 'Caroline Girvan', 'https://i.ytimg.com/vi/wH-YPotqDlg/maxresdefault.jpg');
 
 
 --
 -- Data for Name: workouts; Type: TABLE DATA; Schema: public; Owner: yazmintorres
 --
 
+INSERT INTO public.workouts (id, user_id, video_id, target_area, exercises) VALUES (77, 'google-oauth2|105689678130160470190', 'w8cSjkXkYRc', 'shoulders', '{"{\"name\":\"Exercise 1\",\"durationMinutes\":\"\",\"durationSeconds\":\"\",\"weight\":\"\",\"reps\":\"\",\"sets\":\"\"}"}');
+INSERT INTO public.workouts (id, user_id, video_id, target_area, exercises) VALUES (78, 'google-oauth2|105689678130160470190', 'ME0cj3FTbms', 'arms', '{"{\"name\":\"ARMS\",\"durationMinutes\":\"\",\"durationSeconds\":\"\",\"weight\":\"\",\"reps\":\"\",\"sets\":\"\"}"}');
+INSERT INTO public.workouts (id, user_id, video_id, target_area, exercises) VALUES (79, 'google-oauth2|105689678130160470190', 'wH-YPotqDlg', 'other', '{"{\"name\":\"OtHER\",\"durationMinutes\":\"\",\"durationSeconds\":\"\",\"weight\":\"\",\"reps\":\"\",\"sets\":\"\"}"}');
 
 
 --
 -- Name: workouts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yazmintorres
 --
 
-SELECT pg_catalog.setval('public.workouts_id_seq', 74, true);
+SELECT pg_catalog.setval('public.workouts_id_seq', 79, true);
 
 
 --
