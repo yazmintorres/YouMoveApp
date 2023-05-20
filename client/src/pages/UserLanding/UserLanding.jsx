@@ -10,6 +10,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [targetAreaFilter, setTargetAreaFilter] = useState("");
+
+  const [searchVideosToShow, setSearchVideosToShow] = useState(2);
   const [searchedVideos, setSearchedVideos] = useState([]);
 
   const [workoutsToShow, setWorkoutsToShow] = useState(2);
@@ -59,14 +61,30 @@ const UserLanding = () => {
     const searchResults = searchResponse;
 
     setNextPageToken(searchResults.nextPageToken);
+
+    // 50 items
     setSearchedVideos(searchResults.items);
   };
 
   const loadMoreSearch = async () => {
-    const searchResults = await getSearchVideos(userSearchTerm, nextPageToken);
-    setNextPageToken(searchResults.nextPageToken);
-    setSearchedVideos((prevVideos) => [...prevVideos, ...searchResults.items]);
+    setSearchVideosToShow((prevValue) => prevValue + 2);
   };
+
+  if (searchVideosToShow % 50 === 0) {
+    const getMoreSearchVideos = async () => {
+      const searchResults = await getSearchVideos(
+        userSearchTerm,
+        nextPageToken
+      );
+      setSearchVideosToShow((prevValue) => prevValue + 2);
+      setNextPageToken(searchResults.nextPageToken);
+      setSearchedVideos((prevVideos) => [
+        ...prevVideos,
+        ...searchResults.items,
+      ]);
+    };
+    getMoreSearchVideos();
+  }
 
   const loadMoreWorkouts = () => {
     setWorkoutsToShow((prevValue) => prevValue + 2);
@@ -104,26 +122,28 @@ const UserLanding = () => {
     </VideoCard>
   ));
 
-  const searchVideos = searchedVideos.map((obj) => (
-    <VideoCard
-      key={obj.id.videoId}
-      videoId={obj.id.videoId}
-      title={obj.snippet.title}
-      channelTitle={obj.snippet.channelTitle}
-    >
-      <Link
-        to="/workout?add=true"
-        state={{
-          videoId: obj.id.videoId,
-          channelTitle: obj.snippet.channelTitle,
-          title: obj.snippet.title,
-        }}
-        className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
+  const searchVideos = searchedVideos
+    .slice(0, searchVideosToShow)
+    .map((obj) => (
+      <VideoCard
+        key={obj.id.videoId}
+        videoId={obj.id.videoId}
+        title={obj.snippet.title}
+        channelTitle={obj.snippet.channelTitle}
       >
-        Add
-      </Link>
-    </VideoCard>
-  ));
+        <Link
+          to="/workout?add=true"
+          state={{
+            videoId: obj.id.videoId,
+            channelTitle: obj.snippet.channelTitle,
+            title: obj.snippet.title,
+          }}
+          className=" border-t-2 border-solid border-white bg-blue-500 px-4 py-1 font-bold text-white hover:bg-blue-700"
+        >
+          Add
+        </Link>
+      </VideoCard>
+    ));
 
   return (
     <div data-testid="landing">
@@ -154,7 +174,7 @@ const UserLanding = () => {
           </form>
           <div className="order-2 flex flex-col items-start gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
-            {searchVideos.length > 0 && (
+            {searchVideosToShow < searchedVideos.length && (
               <button
                 onClick={loadMoreSearch}
                 className="btn order-3 w-1/2 xl:col-span-full xl:m-auto "
