@@ -3,6 +3,7 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import WorkoutAPI from "../../apis/WorkoutAPI";
 import { addUser } from "../../apis/UserAPI";
 import { getSearchVideos } from "../../apis/YouTubeAPI";
+import searchResponse from "../../data/search-response";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -50,7 +51,9 @@ const UserLanding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const searchResults = await getSearchVideos(userSearchTerm);
+    // const searchResults = await getSearchVideos(userSearchTerm);
+    // working with mock data
+    const searchResults = searchResponse;
     setNextPageToken(searchResults.nextPageToken);
     setSearchedVideos(searchResults.items);
   };
