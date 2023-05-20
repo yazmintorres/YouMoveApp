@@ -18,9 +18,11 @@ const CreateWorkout = () => {
   const [workout, setWorkout] = useState({
     user_id: "",
     video_id: "",
-    target_area: "full-body",
+    target_area: "default",
     exercises: [],
   });
+
+  console.log(workout);
 
   // MANAGE WHEN TARGET AREA IS UPDATED
   const handleTargetAreaChange = (e) => {
@@ -141,6 +143,9 @@ const CreateWorkout = () => {
                 onChange={handleTargetAreaChange}
                 required
               >
+                <option value="default" disabled>
+                  Select an option
+                </option>
                 <option value="full-body">Full Body</option>
                 <option value="upper-body">Upper Body</option>
                 <option value="lower-body">Lower Body</option>
@@ -156,11 +161,12 @@ const CreateWorkout = () => {
               </select>
             </div>
 
-            {workout.exercises.length > 0 && (
-              <button type="submit" className=" btn-actions order-3">
-                {workoutId ? "Save Workout" : "Add Workout"}
-              </button>
-            )}
+            {workout.exercises.length > 0 &&
+              workout.target_area !== "default" && (
+                <button type="submit" className=" btn-actions order-3">
+                  {workoutId ? "Save Workout" : "Add Workout"}
+                </button>
+              )}
           </form>
           <VideoCard
             width="full"

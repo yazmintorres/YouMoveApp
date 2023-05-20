@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
+  const [filterBy, setFilterBy] = useState("");
   const [searchedVideos, setSearchedVideos] = useState([]);
 
   const [workoutsToShow, setWorkoutsToShow] = useState(2);
@@ -69,6 +70,11 @@ const UserLanding = () => {
 
   const loadMoreWorkouts = () => {
     setWorkoutsToShow((prevValue) => prevValue + 2);
+  };
+
+  // MANAGE WHEN FILTER BY IS UPDATED
+  const handleFilterByChange = (e) => {
+    console.log(e.target.value);
   };
 
   console.log(workoutsToShow);
@@ -159,7 +165,37 @@ const UserLanding = () => {
         <div className="items-left flex w-full grow flex-col gap-3 ">
           <h2 className="mb-1">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
-          <div className="h-9"></div>
+          {/* <div className="h-9"></div> */}
+          <div className="flex items-center gap-2 text-base font-medium">
+            <label htmlFor="target-area">Filter By Target Area:</label>
+            <select
+              className="input-field grow focus:border-transparent focus:ring-transparent "
+              name="target-area"
+              id="target-area"
+              defaultValue="default"
+              // value={targetArea}
+              onChange={handleFilterByChange}
+              required
+            >
+              <option value="default" disabled>
+                Select an option
+              </option>
+              <option value="all">All</option>
+              <option value="full-body">Full Body</option>
+              <option value="upper-body">Upper Body</option>
+              <option value="lower-body">Lower Body</option>
+              <option value="arms">Arms</option>
+              <option value="abs">Abs</option>
+              <option value="back">Back</option>
+              <option value="chest">Chest</option>
+              <option value="shoulders">Shoulders</option>
+              <option value="legs">Legs</option>
+              <option value="glutes">Glutes</option>
+              <option value="calves">Calves</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
           <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
             {workoutsToShow < savedWorkouts.length && (
