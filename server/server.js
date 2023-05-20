@@ -72,7 +72,6 @@ app.put("/api/updateWorkout/:workoutId", async (req, res) => {
 app.get("/api/savedWorkouts/:userId", async (req, res) => {
   try {
     console.log("get workouts request ...");
-
     const userId = req.params.userId;
     const targetArea = req.query?.targetArea;
 
@@ -84,8 +83,6 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
       query += " AND workouts.target_area = $2";
       values.push(targetArea);
     }
-
-    console.log(query, values);
 
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(query, values);

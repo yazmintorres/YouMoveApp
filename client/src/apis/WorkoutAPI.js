@@ -2,7 +2,6 @@ export default {
   getWorkouts: async function (userId, targetArea) {
     try {
       console.log("getting workouts...");
-      console.log("from workout api", targetArea);
 
       let url = `/api/savedWorkouts/${userId}`;
 

@@ -22,9 +22,7 @@ const UserLanding = () => {
   const addUserToDB = async () => {
     try {
       if (user) {
-        console.log("i am running");
         const userAdded = await addUser(user.sub, user.email);
-        console.log("userAdded:", userAdded);
       }
     } catch (error) {
       console.log(error.message);
@@ -40,7 +38,6 @@ const UserLanding = () => {
           userId,
           targetAreaFilter
         );
-        console.log(savedWorkouts);
         setSavedWorkouts(savedWorkouts.reverse());
       }
     } catch (error) {
@@ -83,8 +80,6 @@ const UserLanding = () => {
   useEffect(() => {
     getSavedWorkouts(targetAreaFilter);
   }, [targetAreaFilter]);
-
-  console.log(targetAreaFilter);
 
   const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
