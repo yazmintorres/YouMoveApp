@@ -53,10 +53,10 @@ const UserLanding = () => {
     e.preventDefault();
 
     // const searchResults = await getSearchVideos(userSearchTerm);
-    
+
     // working with mock data
     const searchResults = searchResponse;
-    
+
     setNextPageToken(searchResults.nextPageToken);
     setSearchedVideos(searchResults.items);
   };
@@ -147,7 +147,10 @@ const UserLanding = () => {
           <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {searchVideos}
             {searchVideos.length > 0 && (
-              <button onClick={loadMoreSearch} className="btn order-3 w-1/2 ">
+              <button
+                onClick={loadMoreSearch}
+                className="btn order-3 w-1/2 xl:col-span-full xl:m-auto "
+              >
                 Load More
               </button>
             )}
@@ -160,7 +163,10 @@ const UserLanding = () => {
           <div className="order-2 flex flex-col items-center gap-3 xl:grid xl:grid-cols-2 xl:gap-5">
             {workoutVideos}
             {workoutsToShow < savedWorkouts.length && (
-              <button onClick={loadMoreWorkouts} className="btn order-3 w-1/2 ">
+              <button
+                onClick={loadMoreWorkouts}
+                className="btn order-3 w-1/2 xl:col-span-full xl:m-auto"
+              >
                 Load More
               </button>
             )}
