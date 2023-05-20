@@ -55,10 +55,10 @@ const UserLanding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const searchResults = await getSearchVideos(userSearchTerm);
+    const searchResults = await getSearchVideos(userSearchTerm);
 
     // working with mock data
-    const searchResults = searchResponse;
+    // const searchResults = searchResponse;
 
     setNextPageToken(searchResults.nextPageToken);
 
