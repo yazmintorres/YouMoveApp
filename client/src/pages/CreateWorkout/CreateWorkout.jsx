@@ -73,7 +73,7 @@ const CreateWorkout = () => {
   // CALLBACK FUNCTIONS TO BE PASSED AS PROPS
 
   const addExercise = (newExercise) => {
-    console.log("adding exercise...");
+    // console.log("adding exercise...");
     // const exerciseId = workout.exercises.length + 1;
     // newExercise = { ...newExercise, id: exerciseId };
     const exercises = [...workout.exercises, newExercise];
@@ -81,14 +81,14 @@ const CreateWorkout = () => {
   };
 
   const editExercise = (exerciseToEdit, exerciseNumber) => {
-    console.log(
-      "called when i just clicked the edit button even though i have not updated the exercise"
-    );
-    console.log("editing exercise...");
+    // console.log(
+    //   "called when i just clicked the edit button even though i have not updated the exercise"
+    // );
+    // console.log("editing exercise...");
     const currentExerciseIndex = workout.exercises.findIndex(
       (exercise, index) => index + 1 === exerciseNumber
     );
-    console.log(currentExerciseIndex);
+    // console.log(currentExerciseIndex);
     const exercises = [
       ...workout.exercises.slice(0, currentExerciseIndex),
       exerciseToEdit,
@@ -98,7 +98,7 @@ const CreateWorkout = () => {
   };
 
   const deleteExercise = (exerciseNumber) => {
-    console.log("deleting exercise...");
+    // console.log("deleting exercise...");
 
     // filter out deleted exercise
     let exercises = workout.exercises.filter(

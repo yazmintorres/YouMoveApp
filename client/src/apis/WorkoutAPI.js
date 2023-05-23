@@ -1,7 +1,7 @@
 export default {
   getWorkouts: async function (userId, targetArea) {
     try {
-      console.log("getting workouts...");
+      // console.log("getting workouts...");
 
       let url = `/api/savedWorkouts/${userId}`;
 
@@ -20,7 +20,7 @@ export default {
 
   getWorkout: async function (userId, videoId) {
     try {
-      console.log("fetching workouts...");
+      // console.log("fetching workouts...");
       const response = await fetch(
         `/api/workout?userId=${userId}&videoId=${videoId}`
       );
@@ -33,7 +33,7 @@ export default {
 
   postWorkout: async function (userId, videoId, targetArea, exercises) {
     try {
-      console.log("adding workout...");
+      // console.log("adding workout...");
       const workoutInfo = {
         userId,
         videoId,
@@ -54,7 +54,7 @@ export default {
 
   updateWorkout: async function (workoutId, targetArea, exercises) {
     try {
-      console.log("updating workout...");
+      // console.log("updating workout...");
       const newWorkoutInfo = {
         exercises,
         targetArea,
@@ -73,7 +73,7 @@ export default {
 
   deleteWorkout: async function (workoutId) {
     try {
-      console.log("deleting workout...");
+      // console.log("deleting workout...");
       const response = await fetch(`/api/delete/${workoutId}`, {
         method: "DELETE",
       });

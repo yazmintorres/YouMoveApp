@@ -1,6 +1,6 @@
 export async function getSearchVideos(userSearchTerm, pageToken) {
   try {
-    console.log("calling youtube search api");
+    // console.log("calling youtube search api");
     const containsWorkout = /\bworkout\b|\bworkouts\b/i.test(userSearchTerm);
     const containsWomen = /\bwomen\b|\bwomens\b/i.test(userSearchTerm);
 

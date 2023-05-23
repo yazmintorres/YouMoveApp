@@ -18,15 +18,15 @@ const ExerciseAccordion = ({
   const secondsString = singularPluralOrEmpty(exercise.durationSeconds, "secs");
   const weightString = singularPluralOrEmpty(exercise.weight, "lbs");
 
-  console.log(exercise);
+  // console.log(exercise);
 
   const handleEditClick = () => {
-    console.log("edit exercise requested ...");
+    // console.log("edit exercise requested ...");
     handleEditExercise(exercise, exerciseNumber);
   };
 
   const handleDeleteClick = () => {
-    console.log("delete exercise requested ...");
+    // console.log("delete exercise requested ...");
     handleDeleteExercise(exerciseNumber);
   };
 

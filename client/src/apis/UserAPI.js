@@ -1,6 +1,6 @@
 export async function addUser(userId, userEmail) {
   try {
-    console.log("adding user...");
+    // console.log("adding user...");
     const userInfo = { userId, userEmail };
     const response = await fetch(`/api/addUser`, {
       method: "POST",
