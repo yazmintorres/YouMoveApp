@@ -148,8 +148,8 @@ const UserLanding = () => {
   return (
     <div data-testid="landing">
       <div className="mb-7  gap-11 sm:flex">
-        <div className="flex w-full grow flex-col gap-3">
-          <h2 className="mb-1   font-bold tracking-wide">Find A New Workout</h2>
+        <div className="flex w-full grow flex-col gap-4">
+          <h2 className="mb-0   font-bold tracking-wide">Find A New Workout</h2>
           <div className="border border-solid border-gray-500"></div>
           <form onSubmit={handleSubmit} className="order-1 flex sm:order-1 ">
             <label htmlFor="video-search" className="sr-only">
@@ -184,8 +184,8 @@ const UserLanding = () => {
             )}
           </div>
         </div>
-        <div className="items-left flex w-full grow flex-col gap-3 ">
-          <h2 className="mb-1">Your Workout Playlist</h2>
+        <div className="items-left flex w-full grow flex-col gap-4 ">
+          <h2 className="mb-0">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
           {/* <div className="h-9"></div> */}
           <div className="flex items-center gap-2 text-base font-medium">
