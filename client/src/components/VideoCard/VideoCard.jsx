@@ -1,23 +1,15 @@
 import React from "react";
 
 const VideoCard = ({
-  width,
   videoId,
   title,
   channelTitle,
   children,
   thumbnailUrl,
 }) => {
-  let videoWidthOfParent;
-  if (width === "full") {
-    videoWidthOfParent = "order-2  flex  flex-col  md:m-auto";
-  } else {
-    videoWidthOfParent = "order-2  flex  flex-col  md:m-auto md:w-11/12";
-  }
-
   return (
     <div className="order-2 shadow-sm">
-      <div className={videoWidthOfParent}>
+      <div className="order-2  flex  flex-col ">
         {videoId && (
           <iframe
             className="border-2 border-solid border-black 
