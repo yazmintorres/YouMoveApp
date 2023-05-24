@@ -128,7 +128,7 @@ const CreateWorkout = () => {
 
       <div className="border border-solid border-gray-500"></div>
 
-      <div className="mt-2 md:flex">
+      <div className="mt-2 flex flex-col gap-3 md:flex md:flex-row">
         <div className="flex w-full grow flex-col gap-3">
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-3">
@@ -174,15 +174,12 @@ const CreateWorkout = () => {
           />
         </div>
 
-        <div className="w-full grow">
-          {" "}
-          <ListExercises
-            exercises={workout.exercises}
-            addExercise={addExercise}
-            editExercise={editExercise}
-            deleteExercise={deleteExercise}
-          />
-        </div>
+        <ListExercises
+          exercises={workout.exercises}
+          addExercise={addExercise}
+          editExercise={editExercise}
+          deleteExercise={deleteExercise}
+        />
       </div>
     </div>
   );

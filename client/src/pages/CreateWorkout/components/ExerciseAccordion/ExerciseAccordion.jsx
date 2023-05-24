@@ -32,7 +32,7 @@ const ExerciseAccordion = ({
 
   return (
     <>
-      <div className="rounded-lg border-2 border-solid border-black pb-2 text-center sm:mt-0 sm:w-4/5">
+      <div className="w-full rounded-lg border-2 border-solid border-black pb-2 text-center md:mt-0 md:w-4/5">
         <div className=" m-auto flex items-center justify-between p-3 pb-1">
           <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
 

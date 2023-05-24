@@ -49,7 +49,7 @@ const ExerciseForm = ({
     <form
       aria-label="exercise-form"
       onSubmit={handleSubmit}
-      className=" rounded-lg border-2 border-solid border-black text-center sm:mt-0 sm:w-4/5 "
+      className=" w-full rounded-lg border-2 border-solid border-black text-center md:mt-0 md:w-4/5 "
     >
       <div className="m-auto flex w-11/12 flex-col gap-2">
         <div className="relative my-4">

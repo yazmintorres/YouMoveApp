@@ -215,12 +215,12 @@ const UserLanding = () => {
             </select>
           </div>
 
-          <div className="order-2 flex flex-col items-start gap-3 lg:grid lg:grid-cols-2 lg:gap-5">
+          <div className="order-2 flex flex-col items-center gap-3 lg:grid lg:grid-cols-2 lg:gap-5">
             {workoutVideos}
             {workoutsToShow < savedWorkouts.length && (
               <button
                 onClick={loadMoreWorkouts}
-                className="btn order-3 w-1/2 xl:col-span-full xl:m-auto"
+                className="btn order-3 w-full md:w-1/2 lg:col-span-full lg:m-auto"
               >
                 Load More
               </button>
