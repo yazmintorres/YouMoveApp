@@ -35,12 +35,17 @@ const ExerciseAccordion = ({
   };
 
   const checkboxes = [];
-  for (let i = 0; i < exercise.sets; i++) {
+  for (let i = 0; i < exercise.sets - 1; i++) {
     checkboxes.push(
-      <div key={i}>
-        <label htmlFor={i + 1}>{i}</label>
-        <input id={i + 1} type="checkbox" />
-      </div>
+      <React.Fragment key={i}>
+        <label
+          htmlFor={i + 1}
+          className="inline-block  bg-red-500 text-sm font-bold"
+        >
+          {/* {i + 1} */}
+        </label>
+        <input id={i + 1} type="checkbox" className="" />
+      </React.Fragment>
 
       // <div className="border-2 border-solid border-blue-900" key={i}>
       //   {i + 1}
@@ -51,31 +56,34 @@ const ExerciseAccordion = ({
 
   return (
     <>
-      <div className="w-full rounded-lg border-2 border-solid border-black pb-2 text-center md:mt-0 md:w-4/5">
-        <div className=" m-auto flex items-center justify-between p-3 pb-1">
-          <h3 className="my-0 w-12 basis-auto font-bold ">{exerciseNumber}</h3>
+      <div className="relative flex w-full flex-col items-center rounded-lg border-2 border-solid border-black text-center md:mt-0 md:w-4/5">
+        {/* <div className=" relative m-auto flex w-full items-center justify-center p-3 pb-1"> */}
+        <h3 className="absolute left-0 my-0 w-12 basis-auto font-bold">
+          {exerciseNumber}
+        </h3>
 
-          <h3 className=" my-0 grow font-bold">
-            {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
-          </h3>
+        <h3 className=" my-0 grow font-bold">
+          {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
+        </h3>
 
-          <div className=" flex gap-3">
-            <MdModeEdit
-              role="button"
-              aria-label="edit"
-              onClick={handleEditClick}
-              className="text-xl"
-            />
-            <IoDuplicate
-              role="button"
-              aria-label="duplicated"
-              className="text-xl"
-              onClick={() => handleAddExercise(exercise)}
-            />
+        <div className="absolute right-0 flex gap-2">
+          <MdModeEdit
+            role="button"
+            aria-label="edit"
+            onClick={handleEditClick}
+            className="text-xl"
+          />
+          <IoDuplicate
+            role="button"
+            aria-label="duplicated"
+            className="text-xl"
+            onClick={() => handleAddExercise(exercise)}
+          />
 
-            <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
-          </div>
+          <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
         </div>
+        {/* </div> */}
+
         <p>{weightString}</p>
         <p>
           {setsString && repsString
@@ -83,10 +91,10 @@ const ExerciseAccordion = ({
             : `${setsString} ${repsString}`}
         </p>
         <p>{`${minutesString} ${secondsString}`}</p>
-        <div className="flex">
+        <div className="my-1 flex w-full justify-center gap-1">
           {exercise.sets > 0 && <p>Set:</p>}
           {checkboxes}
-          <button className="flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1  text-sm hover:bg-yellow-500 ">
+          <button className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 ">
             Done <MdStar />
           </button>
         </div>
