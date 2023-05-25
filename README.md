@@ -3,6 +3,18 @@
 
 YouMove app is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
 
+## User story 
+- User can see their saved workouts upon login 
+- User can make a search for workout videos 
+- User can select a video and create a workout for it 
+- User can add the target area and corresponding exercises for a workout
+- User can edit, duplicate or delete exercises
+
+## Future Development 
+- Drag and drop exercises 
+- User can share workouts with others 
+- User can check off exercises as they go with the option to restart the workout
+- User can start a timer, if an exercise is dependent on time
 
 ## Tech Stack
 
