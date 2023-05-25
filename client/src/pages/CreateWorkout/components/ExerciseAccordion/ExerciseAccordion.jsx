@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { MdStar } from "react-icons/md";
@@ -22,7 +22,6 @@ const ExerciseAccordion = ({
   if (done) {
     opacity = "opacity-30";
   }
-  console.log("opacity:", opacity);
 
   const setsString = singularPluralOrEmpty(exercise.sets, "sets");
   const repsString = singularPluralOrEmpty(exercise.reps, "reps");
@@ -42,6 +41,27 @@ const ExerciseAccordion = ({
     handleDeleteExercise(exerciseNumber);
   };
 
+  let checked = [];
+  const handleChange = (e, i) => {
+    console.log("checked: ", e.target.checked);
+    console.log("index", i);
+
+    checked[i] = e.target.checked;
+
+    exercise = {
+      ...exercise,
+      checked: [
+        ...checked.slice(0, i),
+        e.target.checked,
+        ...checked.slice(i + 1),
+      ],
+    };
+    console.log("new exercise", exercise);
+    console.log("exercise number", exerciseNumber);
+
+    // handleEditExercise(exercise, exerciseNumber);
+  };
+
   const checkboxes = [];
   for (let i = 0; i < exercise.sets - 1; i++) {
     checkboxes.push(
@@ -52,7 +72,13 @@ const ExerciseAccordion = ({
         >
           {/* {i + 1} */}
         </label>
-        <input id={i + 1} type="checkbox" className="" />
+        <input
+          id={i + 1}
+          // checked={checked[i]}
+          onClick={(e) => handleChange(e, i)}
+          type="checkbox"
+          className=""
+        />
       </React.Fragment>
     );
   }
