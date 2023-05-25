@@ -46,6 +46,7 @@ const ListExercises = ({
           exerciseNumber={index + 1}
           exercise={exercise}
           showForm={showEditForm === index + 1}
+          handleAddExercise={handleAddExercise}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
           handleDeleteExercise={handleDeleteExercise}

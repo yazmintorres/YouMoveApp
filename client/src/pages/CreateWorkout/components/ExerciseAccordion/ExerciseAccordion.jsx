@@ -3,12 +3,15 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { MdStar } from "react-icons/md";
 import { singularPluralOrEmpty } from "./SingularPluralOrEmpty";
+import { IoDuplicate } from "react-icons/io5";
+
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
 const ExerciseAccordion = ({
   exercise,
   exerciseNumber,
   showForm,
+  handleAddExercise,
   handleEditExercise,
   handleDeleteExercise,
   handleCloseForm,
@@ -56,13 +59,20 @@ const ExerciseAccordion = ({
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
           </h3>
 
-          <div className=" flex gap-2">
+          <div className=" flex gap-3">
             <MdModeEdit
               role="button"
               aria-label="edit"
               onClick={handleEditClick}
               className="text-xl"
             />
+            <IoDuplicate
+              role="button"
+              aria-label="duplicated"
+              className="text-xl"
+              onClick={() => handleAddExercise(exercise)}
+            />
+
             <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
           </div>
         </div>
