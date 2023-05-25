@@ -13,10 +13,11 @@ const ExerciseAccordion = ({
   showForm,
   handleAddExercise,
   handleEditExercise,
+  handleShowEditForm,
   handleDeleteExercise,
   handleCloseForm,
 }) => {
-  const [done, setDone] = useState(false);
+  const [exerciseComplete, setExerciseComplete] = useState(false);
 
   let opacity = "";
   if (done) {
@@ -29,11 +30,8 @@ const ExerciseAccordion = ({
   const secondsString = singularPluralOrEmpty(exercise.durationSeconds, "secs");
   const weightString = singularPluralOrEmpty(exercise.weight, "lbs");
 
-  // console.log(exercise);
-
   const handleEditClick = () => {
-    // console.log("edit exercise requested ...");
-    handleEditExercise(exercise, exerciseNumber);
+    handleShowEditForm(exerciseNumber);
   };
 
   const handleDeleteClick = () => {
@@ -41,25 +39,27 @@ const ExerciseAccordion = ({
     handleDeleteExercise(exerciseNumber);
   };
 
-  let checked = [];
   const handleChange = (e, i) => {
-    console.log("checked: ", e.target.checked);
-    console.log("index", i);
+    let setsCompleted = [];
 
-    checked[i] = e.target.checked;
+    if (exercise.setsCompleted) {
+      // console.log("this one has an exercise");
+      setsCompleted = [
+        ...exercise.setsCompleted.slice(0, i),
+        e.target.checked,
+        ...exercise.setsCompleted.slice(i + 1),
+      ];
+    } else {
+      console.log("logging");
+      setsCompleted[i] = [e.target.value];
+    }
 
     exercise = {
       ...exercise,
-      checked: [
-        ...checked.slice(0, i),
-        e.target.checked,
-        ...checked.slice(i + 1),
-      ],
+      setsCompleted,
     };
-    console.log("new exercise", exercise);
-    console.log("exercise number", exerciseNumber);
 
-    // handleEditExercise(exercise, exerciseNumber);
+    handleEditExercise(exercise, exerciseNumber);
   };
 
   const checkboxes = [];
@@ -69,19 +69,19 @@ const ExerciseAccordion = ({
         <label
           htmlFor={i + 1}
           className="inline-block  bg-red-500 text-sm font-bold"
-        >
-          {/* {i + 1} */}
-        </label>
+        ></label>
         <input
           id={i + 1}
-          // checked={checked[i]}
-          onClick={(e) => handleChange(e, i)}
+          checked={exercise.setsCompleted ? exercise.setsCompleted[i] : false}
+          onChange={(e) => handleChange(e, i)}
           type="checkbox"
           className=""
         />
       </React.Fragment>
     );
   }
+
+  const handleCompleteExercise = () => {};
 
   return (
     <>
@@ -127,7 +127,7 @@ const ExerciseAccordion = ({
             {exercise.sets > 0 && <p>Set:</p>}
             {checkboxes}
             <button
-              onClick={() => setDone(!done)}
+              onClick={handleCompleteExercise}
               className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
             >
               Done <MdStar />

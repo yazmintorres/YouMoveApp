@@ -26,12 +26,12 @@ const ListExercises = ({
     addExercise(newExercise);
   };
 
-  const handleEditExercise = (exercise, exerciseNumber) => {
+  const handleShowEditForm = (exerciseNumber) => {
     setShowEditForm(exerciseNumber);
     setShowAddForm(false);
+  };
 
-    // this is still being called even when the user just clicks the edit button
-    // it is working, but can keep this in mind an extra call
+  const handleEditExercise = (exercise, exerciseNumber) => {
     editExercise(exercise, exerciseNumber);
   };
 
@@ -47,6 +47,7 @@ const ListExercises = ({
           exercise={exercise}
           showForm={showEditForm === index + 1}
           handleAddExercise={handleAddExercise}
+          handleShowEditForm={handleShowEditForm}
           handleEditExercise={handleEditExercise}
           handleCloseForm={handleCloseForm}
           handleDeleteExercise={handleDeleteExercise}

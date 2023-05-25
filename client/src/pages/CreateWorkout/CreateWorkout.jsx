@@ -81,10 +81,7 @@ const CreateWorkout = () => {
   };
 
   const editExercise = (exerciseToEdit, exerciseNumber) => {
-    // console.log(
-    //   "called when i just clicked the edit button even though i have not updated the exercise"
-    // );
-    // console.log("editing exercise...");
+    console.log("set information updated");
     const currentExerciseIndex = workout.exercises.findIndex(
       (exercise, index) => index + 1 === exerciseNumber
     );
@@ -107,6 +104,8 @@ const CreateWorkout = () => {
 
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
+
+  console.log("workout", workout);
 
   return (
     <div className="flex flex-col gap-2">
