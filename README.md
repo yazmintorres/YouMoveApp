@@ -1,6 +1,8 @@
 
 # YouMove - A Fitness App
 
+[YouMove Website](https://server-mxft.onrender.com/)
+
 YouMove app is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
 
 ## User story 
@@ -16,11 +18,19 @@ YouMove app is a fitness app that allows users to create customized workouts tha
 - User can check off exercises as they go with the option to restart the workout
 - User can start a timer, if an exercise is dependent on time
 
+## Demo 
+[Video soon to come]
+
+
 ## Tech Stack
 
 **Client:** React, TailwindCSS
 
-**Server:** Node, Express, PostgreSQL
+**Server:** Node, Express, 
+
+**Database:** PostgreSQL
+
+**Design:** Figma, dbdiagram.io
 
 ## API Reference
 
