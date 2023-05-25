@@ -81,3 +81,8 @@ Step 5: Start the program!
 ```
 
 Note: Client server will be running on http://localhost:5173 and server will be running on http://localhost:8080.
+
+## Acknowledgement
+
+I'm extremely grateful to my mentor, Vivian Yu, the Techtonica team and my cohort for their support on this project.
+
