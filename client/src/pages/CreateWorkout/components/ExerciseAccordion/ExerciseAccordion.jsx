@@ -46,13 +46,8 @@ const ExerciseAccordion = ({
         </label>
         <input id={i + 1} type="checkbox" className="" />
       </React.Fragment>
-
-      // <div className="border-2 border-solid border-blue-900" key={i}>
-      //   {i + 1}
-      // </div>
     );
   }
-  // const checkboxes = [...Array(exercise.sets)].map((set, i) => i + 1);
 
   return (
     <>
