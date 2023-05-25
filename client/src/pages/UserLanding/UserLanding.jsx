@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const UserLanding = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
-  const [targetAreaFilter, setTargetAreaFilter] = useState("");
+  // const [targetAreaFilter, setTargetAreaFilter] = useState("");
 
   const [searchVideosToShow, setSearchVideosToShow] = useState(2);
   const [searchedVideos, setSearchedVideos] = useState([]);
@@ -92,12 +92,13 @@ const UserLanding = () => {
 
   // MANAGE WHEN TARGET AREA FILTER  IS UPDATED
   const handleTargetAreaFilterChange = (e) => {
-    setTargetAreaFilter(e.target.value);
+    getSavedWorkouts(e.target.value);
+    // setTargetAreaFilter(e.target.value);
   };
 
-  useEffect(() => {
-    getSavedWorkouts(targetAreaFilter);
-  }, [targetAreaFilter]);
+  // useEffect(() => {
+  //   getSavedWorkouts(targetAreaFilter);
+  // }, [targetAreaFilter]);
 
   const workoutVideos = savedWorkouts.slice(0, workoutsToShow).map((obj) => (
     <VideoCard
@@ -195,9 +196,8 @@ const UserLanding = () => {
               name="filter-by"
               id="filter-by"
               // defaultValue="default"
-              value={targetAreaFilter}
+              // value={targetAreaFilter}
               onChange={handleTargetAreaFilterChange}
-              required
             >
               <option value="">Filter Off</option>
               <option value="full-body">Full Body</option>
