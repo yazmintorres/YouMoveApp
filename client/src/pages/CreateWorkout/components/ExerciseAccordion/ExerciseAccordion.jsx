@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
+import { MdStar } from "react-icons/md";
 import { singularPluralOrEmpty } from "./SingularPluralOrEmpty";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 
@@ -30,6 +31,21 @@ const ExerciseAccordion = ({
     handleDeleteExercise(exerciseNumber);
   };
 
+  const checkboxes = [];
+  for (let i = 0; i < exercise.sets; i++) {
+    checkboxes.push(
+      <div key={i}>
+        <label htmlFor={i + 1}>{i}</label>
+        <input id={i + 1} type="checkbox" />
+      </div>
+
+      // <div className="border-2 border-solid border-blue-900" key={i}>
+      //   {i + 1}
+      // </div>
+    );
+  }
+  // const checkboxes = [...Array(exercise.sets)].map((set, i) => i + 1);
+
   return (
     <>
       <div className="w-full rounded-lg border-2 border-solid border-black pb-2 text-center md:mt-0 md:w-4/5">
@@ -52,11 +68,18 @@ const ExerciseAccordion = ({
         </div>
         <p>{weightString}</p>
         <p>
-          {setsString && minutesString
+          {setsString && repsString
             ? `${setsString} x ${repsString}`
             : `${setsString} ${repsString}`}
         </p>
         <p>{`${minutesString} ${secondsString}`}</p>
+        <div className="flex">
+          {exercise.sets > 0 && <p>Set:</p>}
+          {checkboxes}
+          <button className="flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1  text-sm hover:bg-yellow-500 ">
+            Done <MdStar />
+          </button>
+        </div>
       </div>
       {showForm && (
         <ExerciseForm
