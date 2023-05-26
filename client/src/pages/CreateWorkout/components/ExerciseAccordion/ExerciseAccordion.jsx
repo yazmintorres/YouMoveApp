@@ -103,35 +103,34 @@ const ExerciseAccordion = ({
         <h3 className="absolute left-0 my-1 w-12 basis-auto font-bold">
           {exerciseNumber}
         </h3>
-        <div className="absolute right-0 my-1 flex gap-2">
-          <button
-            onClick={handleExerciseCompleted}
-            className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
-          >
-            Done <MdStar />
-          </button>
-          <MdModeEdit
-            role="button"
-            aria-label="edit"
-            onClick={handleEditClick}
-            className="text-xl"
-          />
-          <IoDuplicate
-            role="button"
-            aria-label="duplicated"
-            className="text-xl"
-            onClick={() => handleAddExercise(exercise)}
-          />
-
-          <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
-        </div>
 
         <div className="flex flex-col items-center gap-1">
           <h3 className=" m-0 mt-1 grow font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
           </h3>
 
-          {/* </div> */}
+          <div className="my-1 flex gap-2 xl:absolute xl:right-0">
+            <button
+              onClick={handleExerciseCompleted}
+              className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
+            >
+              Done <MdStar />
+            </button>
+            <MdModeEdit
+              role="button"
+              aria-label="edit"
+              onClick={handleEditClick}
+              className="text-xl"
+            />
+            <IoDuplicate
+              role="button"
+              aria-label="duplicated"
+              className="text-xl"
+              onClick={() => handleAddExercise(exercise)}
+            />
+
+            <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
+          </div>
 
           <p>{weightString}</p>
           <p>
