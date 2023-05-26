@@ -3,11 +3,11 @@
 
 [YouMove Website](https://server-mxft.onrender.com/)
 
+YouMove app is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
+
 Test User: 
 - Email: test@gmail.com
 - Password: Test1234
-
-YouMove app is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
 
 ## User story 
 - User can see their saved workouts upon login 
