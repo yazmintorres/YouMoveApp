@@ -77,13 +77,17 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
     const targetArea = req.query?.targetArea;
 
     let query =
-      "SELECT workouts.id as workout_id, workouts.updated_at, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1 ORDER BY workouts.updated_at DESC";
+      "SELECT workouts.id as workout_id, workouts.updated_at, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1 ";
     const values = [userId];
 
     if (targetArea) {
-      query += " AND workouts.target_area = $2";
+      query += "AND workouts.target_area = $2 ";
       values.push(targetArea);
     }
+
+    query += "ORDER BY workouts.updated_at DESC";
+
+    // console.log(query);
 
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(query, values);
