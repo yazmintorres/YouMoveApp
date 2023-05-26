@@ -153,11 +153,11 @@ const UserLanding = () => {
           <h2 className="mb-0   font-bold tracking-wide">Find A New Workout</h2>
           <div className="border border-solid border-gray-500"></div>
           <form onSubmit={handleSubmit} className="order-1 flex sm:order-1 ">
-            <label htmlFor="video-search" className="sr-only">
+            <label htmlFor="video-search" className="sr-only text-lg">
               Search
             </label>
             <input
-              className=" grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              className="input-field grow rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
               type="search"
               placeholder="Search for a workout"
               id="video-search"
@@ -168,7 +168,7 @@ const UserLanding = () => {
             ></input>
             <button
               type="submit"
-              className=" rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              className=" rounded-lg bg-blue-700 px-4 text-base font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               Search
             </button>
@@ -189,8 +189,10 @@ const UserLanding = () => {
           <h2 className="mb-0">Your Workout Playlist</h2>
           <div className="border border-solid border-gray-500"></div>
           {/* <div className="h-9"></div> */}
-          <div className="flex items-center gap-2 text-base font-medium">
-            <label htmlFor="filter-by">Filter By Target Area:</label>
+          <div className="flex items-center gap-2 font-medium">
+            <label htmlFor="filter-by" className="text-lg">
+              Filter By Target Area:
+            </label>
             <select
               className="input-field grow focus:border-transparent focus:ring-transparent "
               name="filter-by"
