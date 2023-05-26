@@ -41,17 +41,22 @@ const ExerciseAccordion = ({
 
     // i'm doing if else becuase if setsCompleted key does not exist will get an error because of slice
     if (exercise?.setsCompleted) {
+      setsCompleted = [...exercise.setsCompleted];
+      setsCompleted[i] = e.target.checked;
+
+      // console.log("sets completed", setsCompleted);
+
       setsCompleted = [
-        ...exercise.setsCompleted.slice(0, i),
+        ...setsCompleted.slice(0, i),
         e.target.checked,
-        ...exercise.setsCompleted.slice(i + 1),
+        ...setsCompleted.slice(i + 1),
       ];
+      // console.log("sets completed final:", setsCompleted);
     } else {
-      // console.log("logging");
+      // console.log("setsCompleted does not exist");
       setsCompleted[i] = e.target.value;
     }
 
-    console.log("sets completed:", setsCompleted);
     exercise = {
       ...exercise,
       setsCompleted,

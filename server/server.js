@@ -58,7 +58,7 @@ app.put("/api/updateWorkout/:workoutId", async (req, res) => {
     const { workoutId } = req.params;
     const { targetArea, exercises } = req.body;
     const currentTime = new Date();
-    console.log(currentTime);
+    // console.log(currentTime);
     const { rows: workout } = await db.query(
       "UPDATE workouts SET target_area=$1, exercises=$2, updated_at=$3 WHERE id = $4 RETURNING*",
       [targetArea, exercises, currentTime, workoutId]

@@ -18,7 +18,7 @@ const CreateWorkout = () => {
   const [workout, setWorkout] = useState({
     user_id: "",
     video_id: "",
-    target_area: "default",
+    target_area: "",
     exercises: [],
   });
 
@@ -104,7 +104,7 @@ const CreateWorkout = () => {
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
 
-  console.log("workout", workout);
+  // console.log("workout", workout);
 
   return (
     <div className="flex flex-col gap-2">
@@ -139,7 +139,7 @@ const CreateWorkout = () => {
                 onChange={handleTargetAreaChange}
                 required
               >
-                <option value="default" disabled>
+                <option value="" disabled>
                   Select an option
                 </option>
                 <option value="full-body">Full Body</option>
