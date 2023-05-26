@@ -69,7 +69,7 @@ const ExerciseAccordion = ({
   for (let i = 0; i < exercise.sets; i++) {
     checkboxes.push(
       <div className="flex items-center gap-1" key={i}>
-        <label htmlFor={i + 1} className="text-sm">
+        <label htmlFor={i + 1} className="text-base">
           {i + 1}
         </label>
         <input
@@ -100,16 +100,16 @@ const ExerciseAccordion = ({
         className={`relative flex w-full flex-col items-center rounded-lg border-2 border-solid border-black text-center md:mt-0 md:w-4/5 ${opacity}`}
       >
         {/* <div className=" relative m-auto flex w-full items-center justify-center p-3 pb-1"> */}
-        <h3 className="absolute left-0 my-1 w-12 basis-auto font-bold">
+        <h3 className="absolute left-0 my-1 w-12 basis-auto text-xl font-bold">
           {exerciseNumber}
         </h3>
 
-        <div className="flex flex-col items-center gap-1">
-          <h3 className=" m-0 mt-1 grow font-bold">
+        <div className="flex flex-col items-center gap-1 text-lg">
+          <h3 className=" m-0 mt-1 grow text-xl font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
           </h3>
 
-          <div className="my-1 flex gap-2 xl:absolute xl:right-0">
+          <div className="my-1 flex items-center gap-2 text-base xl:absolute xl:right-0">
             <button
               onClick={handleExerciseCompleted}
               className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
@@ -140,7 +140,7 @@ const ExerciseAccordion = ({
           </p>
           <p>{`${minutesString} ${secondsString}`}</p>
           <div className="mb-1 flex w-full justify-center gap-1">
-            {exercise.sets > 0 ? <p className="text-sm">Set:</p> : null}
+            {exercise.sets > 0 ? <p className="text-base">Set:</p> : null}
             {checkboxes}
             {/* <button
               onClick={handleExerciseCompleted}

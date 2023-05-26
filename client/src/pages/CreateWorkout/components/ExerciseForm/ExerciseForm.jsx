@@ -51,14 +51,14 @@ const ExerciseForm = ({
     <form
       aria-label="exercise-form"
       onSubmit={handleSubmit}
-      className=" w-full rounded-lg border-2 border-solid border-black text-center md:mt-0 md:w-4/5 "
+      className=" w-full rounded-lg border-2 border-solid border-black text-center text-lg md:mt-0 md:w-4/5 "
     >
       <div className="m-auto flex w-11/12 flex-col gap-2">
         <div className="relative my-4">
-          <h3 className=" my-0 text-lg font-bold ">
+          <h3 className=" my-0 text-xl font-bold ">
             {exerciseToEdit ? "Edit Exercise" : "Add Exercise"}
           </h3>
-          <p className="text-xs font-bold">
+          <p className="text-sm font-bold">
             {" "}
             {exerciseToEdit ? "(or rest interval)" : "(or a rest interval)"}
           </p>
