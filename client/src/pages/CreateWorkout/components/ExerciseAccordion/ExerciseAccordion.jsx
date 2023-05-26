@@ -17,10 +17,6 @@ const ExerciseAccordion = ({
   handleDeleteExercise,
   handleCloseForm,
 }) => {
-  const [exerciseCompleted, setExerciseCompleted] = useState(
-    exercise.exerciseCompleted ? exercise.exerciseCompleted : false
-  );
-
   let opacity = "";
   if (exercise.exerciseCompleted) {
     opacity = "opacity-30";
@@ -42,9 +38,10 @@ const ExerciseAccordion = ({
 
   const handleChange = (e, i) => {
     let setsCompleted = [];
+    console.log(setsCompleted);
 
     // i'm doing if else becuase if setsCompleted key does not exist will get an error because of slice
-    if (exercise.setsCompleted) {
+    if (exercise?.setsCompleted) {
       setsCompleted = [
         ...exercise.setsCompleted.slice(0, i),
         e.target.checked,
@@ -52,9 +49,10 @@ const ExerciseAccordion = ({
       ];
     } else {
       console.log("logging");
-      setsCompleted[i] = [e.target.value];
+      setsCompleted[0] = e.target.value;
     }
 
+    console.log("sets completed:", setsCompleted);
     exercise = {
       ...exercise,
       setsCompleted,
@@ -73,7 +71,7 @@ const ExerciseAccordion = ({
         ></label>
         <input
           id={i + 1}
-          checked={exercise.setsCompleted ? exercise.setsCompleted[i] : false}
+          checked={exercise?.setsCompleted ? exercise.setsCompleted[i] : false}
           onChange={(e) => handleChange(e, i)}
           type="checkbox"
           className=""
