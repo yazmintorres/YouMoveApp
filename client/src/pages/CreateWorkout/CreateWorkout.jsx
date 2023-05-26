@@ -81,7 +81,6 @@ const CreateWorkout = () => {
   };
 
   const editExercise = (exerciseToEdit, exerciseNumber) => {
-    console.log("set information updated");
     const currentExerciseIndex = workout.exercises.findIndex(
       (exercise, index) => index + 1 === exerciseNumber
     );

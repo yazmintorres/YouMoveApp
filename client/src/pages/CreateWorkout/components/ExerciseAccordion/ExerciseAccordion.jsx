@@ -22,7 +22,7 @@ const ExerciseAccordion = ({
   );
 
   let opacity = "";
-  if (exerciseCompleted) {
+  if (exercise.exerciseCompleted) {
     opacity = "opacity-30";
   }
 
@@ -37,15 +37,14 @@ const ExerciseAccordion = ({
   };
 
   const handleDeleteClick = () => {
-    // console.log("delete exercise requested ...");
     handleDeleteExercise(exerciseNumber);
   };
 
   const handleChange = (e, i) => {
     let setsCompleted = [];
 
+    // i'm doing if else becuase if setsCompleted key does not exist will get an error because of slice
     if (exercise.setsCompleted) {
-      // console.log("this one has an exercise");
       setsCompleted = [
         ...exercise.setsCompleted.slice(0, i),
         e.target.checked,
@@ -83,19 +82,14 @@ const ExerciseAccordion = ({
     );
   }
 
-  // let exerciseCompleted = false;
   const handleExerciseCompleted = () => {
-    setExerciseCompleted((prev) => !prev);
-  };
-
-  useEffect(() => {
     exercise = {
       ...exercise,
-      exerciseCompleted,
+      exerciseCompleted: !exercise.exerciseCompleted,
     };
 
     handleEditExercise(exercise, exerciseNumber);
-  }, [exerciseCompleted]);
+  };
 
   return (
     <>
