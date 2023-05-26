@@ -38,7 +38,6 @@ const ExerciseAccordion = ({
 
   const handleChange = (e, i) => {
     let setsCompleted = [];
-    console.log(setsCompleted);
 
     // i'm doing if else becuase if setsCompleted key does not exist will get an error because of slice
     if (exercise?.setsCompleted) {
@@ -48,8 +47,8 @@ const ExerciseAccordion = ({
         ...exercise.setsCompleted.slice(i + 1),
       ];
     } else {
-      console.log("logging");
-      setsCompleted[0] = e.target.value;
+      // console.log("logging");
+      setsCompleted[i] = e.target.value;
     }
 
     console.log("sets completed:", setsCompleted);
