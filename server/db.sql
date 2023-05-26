@@ -53,6 +53,8 @@ ALTER TABLE public.videos OWNER TO yazmintorres;
 
 CREATE TABLE public.workouts (
     id integer NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     user_id text NOT NULL,
     video_id text NOT NULL,
     target_area text NOT NULL,
