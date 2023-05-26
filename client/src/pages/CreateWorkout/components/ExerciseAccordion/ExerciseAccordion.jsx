@@ -61,13 +61,12 @@ const ExerciseAccordion = ({
   };
 
   const checkboxes = [];
-  for (let i = 0; i < exercise.sets - 1; i++) {
+  for (let i = 0; i < exercise.sets; i++) {
     checkboxes.push(
-      <React.Fragment key={i}>
-        <label
-          htmlFor={i + 1}
-          className="inline-block  bg-red-500 text-sm font-bold"
-        ></label>
+      <div className="flex items-center gap-1" key={i}>
+        <label htmlFor={i + 1} className="text-sm">
+          {i + 1}
+        </label>
         <input
           id={i + 1}
           checked={
@@ -77,7 +76,7 @@ const ExerciseAccordion = ({
           type="checkbox"
           className=""
         />
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -100,6 +99,12 @@ const ExerciseAccordion = ({
           {exerciseNumber}
         </h3>
         <div className="absolute right-0 my-1 flex gap-2">
+          <button
+            onClick={handleExerciseCompleted}
+            className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
+          >
+            Done <MdStar />
+          </button>
           <MdModeEdit
             role="button"
             aria-label="edit"
@@ -116,8 +121,8 @@ const ExerciseAccordion = ({
           <MdDeleteForever onClick={handleDeleteClick} className="text-xl" />
         </div>
 
-        <div className="flex flex-col items-center">
-          <h3 className=" my-1 grow font-bold">
+        <div className="flex flex-col items-center gap-1">
+          <h3 className=" m-0 mt-1 grow font-bold">
             {exercise.name[0].toUpperCase() + exercise.name.slice(1)}
           </h3>
 
@@ -130,15 +135,15 @@ const ExerciseAccordion = ({
               : `${setsString} ${repsString}`}
           </p>
           <p>{`${minutesString} ${secondsString}`}</p>
-          <div className="my-1 flex w-full justify-center gap-1">
-            {exercise.sets > 0 && <p>Set:</p>}
+          <div className="mb-1 flex w-full justify-center gap-1">
+            {exercise.sets > 0 ? <p className="text-sm">Set:</p> : null}
             {checkboxes}
-            <button
+            {/* <button
               onClick={handleExerciseCompleted}
               className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
             >
               Done <MdStar />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
