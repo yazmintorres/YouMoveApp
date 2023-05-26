@@ -11,7 +11,6 @@ const CreateWorkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const videoInfo = location.state;
-  const { workoutId } = location.state;
   const { user } = useAuth0();
 
   // MANAGE WORKOUT STATE
@@ -46,16 +45,16 @@ const CreateWorkout = () => {
 
   // DELETE WORKOUT WHEN USER PRESSES BUTTON DELTE
   const handleClickDelete = async () => {
-    await WorkoutAPI.deleteWorkout(workoutId);
+    await WorkoutAPI.deleteWorkout(workout.id);
     navigate("/dashboard");
   };
 
   // UPDATE OR ADD WORKOUT DEPEDNING ON IF WORKOUT ID EXISTS
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (workoutId) {
+    if (workout?.id) {
       await WorkoutAPI.updateWorkout(
-        workoutId,
+        workout.id,
         workout.target_area,
         workout.exercises
       );
@@ -111,10 +110,10 @@ const CreateWorkout = () => {
       <div className=" mt-4 flex flex-wrap justify-center sm:justify-between md:mr-11 ">
         <div className="w-3/4">
           <h2 className=" my-0 truncate font-bold tracking-wide">
-            {workoutId ? videoInfo.title : "Add Workout"}
+            {workout?.id ? videoInfo.title : "Add Workout"}
           </h2>
         </div>
-        {workoutId ? (
+        {workout?.id ? (
           <button
             onClick={handleClickDelete}
             className="btn btn-actions bg-rose-600 hover:bg-rose-700  "
@@ -160,7 +159,7 @@ const CreateWorkout = () => {
             {workout.exercises.length > 0 &&
               workout.target_area !== "default" && (
                 <button type="submit" className=" btn-actions order-3">
-                  {workoutId ? "Save Workout" : "Add Workout"}
+                  {workout?.id ? "Save Workout" : "Add Workout"}
                 </button>
               )}
           </form>
