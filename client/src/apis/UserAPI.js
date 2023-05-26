@@ -8,7 +8,7 @@ export async function addUser(userId, userEmail) {
       body: JSON.stringify(userInfo),
     });
     const userAdded = await response.json();
-    console.log("user added:", userAdded);
+    // console.log("user added:", userAdded);
     return userAdded;
   } catch (error) {
     console.log(error.message);
