@@ -17,6 +17,8 @@ const ExerciseForm = ({
       weight: "",
       reps: "",
       sets: "",
+      // setsCompleted: [],
+      // exerciseCompleted: [],
     }
   );
 

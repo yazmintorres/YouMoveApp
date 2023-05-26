@@ -40,7 +40,7 @@ const UserLanding = () => {
           userId,
           targetAreaFilter
         );
-        setSavedWorkouts(savedWorkouts.reverse());
+        setSavedWorkouts(savedWorkouts);
       }
     } catch (error) {
       console.log(error.message);

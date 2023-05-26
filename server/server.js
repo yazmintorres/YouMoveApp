@@ -57,10 +57,11 @@ app.put("/api/updateWorkout/:workoutId", async (req, res) => {
     console.log("update a workout request ... ");
     const { workoutId } = req.params;
     const { targetArea, exercises } = req.body;
-    console.log(req.body);
+    const currentTime = new Date();
+    // console.log(currentTime);
     const { rows: workout } = await db.query(
-      "UPDATE workouts SET target_area=$1, exercises=$2 WHERE id = $3 RETURNING*",
-      [targetArea, exercises, workoutId]
+      "UPDATE workouts SET target_area=$1, exercises=$2, updated_at=$3 WHERE id = $4 RETURNING*",
+      [targetArea, exercises, currentTime, workoutId]
     );
     res.json(workout[0]);
   } catch (error) {
@@ -76,13 +77,17 @@ app.get("/api/savedWorkouts/:userId", async (req, res) => {
     const targetArea = req.query?.targetArea;
 
     let query =
-      "SELECT workouts.id as workout_id, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1";
+      "SELECT workouts.id as workout_id, workouts.updated_at, workouts.user_id, videos.id as video_id, videos.title, videos.channel_title, videos.thumbnail_url, workouts.exercises FROM workouts INNER JOIN videos ON workouts.video_id = videos.id WHERE workouts.user_id = $1 ";
     const values = [userId];
 
     if (targetArea) {
-      query += " AND workouts.target_area = $2";
+      query += "AND workouts.target_area = $2 ";
       values.push(targetArea);
     }
+
+    query += "ORDER BY workouts.updated_at DESC";
+
+    // console.log(query);
 
     // all saved workouts for a specific user
     const { rows: savedWorkouts } = await db.query(query, values);

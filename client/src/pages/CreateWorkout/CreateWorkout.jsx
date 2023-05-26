@@ -18,7 +18,7 @@ const CreateWorkout = () => {
   const [workout, setWorkout] = useState({
     user_id: "",
     video_id: "",
-    target_area: "default",
+    target_area: "",
     exercises: [],
   });
 
@@ -81,10 +81,6 @@ const CreateWorkout = () => {
   };
 
   const editExercise = (exerciseToEdit, exerciseNumber) => {
-    // console.log(
-    //   "called when i just clicked the edit button even though i have not updated the exercise"
-    // );
-    // console.log("editing exercise...");
     const currentExerciseIndex = workout.exercises.findIndex(
       (exercise, index) => index + 1 === exerciseNumber
     );
@@ -107,6 +103,8 @@ const CreateWorkout = () => {
 
     setWorkout((prevWorkout) => ({ ...prevWorkout, exercises }));
   };
+
+  // console.log("workout", workout);
 
   return (
     <div className="flex flex-col gap-2">
@@ -141,7 +139,7 @@ const CreateWorkout = () => {
                 onChange={handleTargetAreaChange}
                 required
               >
-                <option value="default" disabled>
+                <option value="" disabled>
                   Select an option
                 </option>
                 <option value="full-body">Full Body</option>
