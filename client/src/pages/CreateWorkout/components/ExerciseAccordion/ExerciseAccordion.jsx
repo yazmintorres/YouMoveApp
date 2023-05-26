@@ -17,10 +17,12 @@ const ExerciseAccordion = ({
   handleDeleteExercise,
   handleCloseForm,
 }) => {
-  const [exerciseComplete, setExerciseComplete] = useState(false);
+  const [exerciseCompleted, setExerciseCompleted] = useState(
+    exercise.exerciseCompleted ? exercise.exerciseCompleted : false
+  );
 
   let opacity = "";
-  if (done) {
+  if (exerciseCompleted) {
     opacity = "opacity-30";
   }
 
@@ -81,7 +83,19 @@ const ExerciseAccordion = ({
     );
   }
 
-  const handleCompleteExercise = () => {};
+  // let exerciseCompleted = false;
+  const handleExerciseCompleted = () => {
+    setExerciseCompleted((prev) => !prev);
+  };
+
+  useEffect(() => {
+    exercise = {
+      ...exercise,
+      exerciseCompleted,
+    };
+
+    handleEditExercise(exercise, exerciseNumber);
+  }, [exerciseCompleted]);
 
   return (
     <>
@@ -127,7 +141,7 @@ const ExerciseAccordion = ({
             {exercise.sets > 0 && <p>Set:</p>}
             {checkboxes}
             <button
-              onClick={handleCompleteExercise}
+              onClick={handleExerciseCompleted}
               className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
             >
               Done <MdStar />
