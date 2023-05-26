@@ -70,7 +70,9 @@ const ExerciseAccordion = ({
         ></label>
         <input
           id={i + 1}
-          checked={exercise?.setsCompleted ? exercise.setsCompleted[i] : false}
+          checked={
+            exercise?.setsCompleted ? exercise.setsCompleted[i] ?? false : false
+          }
           onChange={(e) => handleChange(e, i)}
           type="checkbox"
           className=""
