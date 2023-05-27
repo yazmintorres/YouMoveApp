@@ -15,6 +15,8 @@ Test User:
 - User can select a video and create a workout for it 
 - User can add the target area and corresponding exercises for a workout
 - User can edit, duplicate or delete exercises
+- User can keep track of the set number on they are on for a workout
+- User can mark a workout as complete
 
 ## Future Development 
 - Drag and drop exercises 
