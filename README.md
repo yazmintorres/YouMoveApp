@@ -1,5 +1,7 @@
 
 # YouMove - A Fitness App
+<img src= https://img.shields.io/github/issues-pr-closed/yazmintorres/youmoveapp />
+
 
 [YouMove Website](https://server-mxft.onrender.com/)
 
