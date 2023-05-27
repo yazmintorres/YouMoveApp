@@ -1,5 +1,5 @@
 # YouMove - A Fitness App
-<img src="https://img.shields.io/github/issues-pr-closed/yazmintorres/youmoveapp?style=for-the-badge" />    [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/yazminmtorres/)
+[<img src="https://img.shields.io/github/issues-pr-closed/yazmintorres/youmoveapp?style=for-the-badge" />](https://github.com/yazmintorres/YouMoveApp/pulls?q=is%3Apr+is%3Aclosed) [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/yazminmtorres/)
 
 Hi, I'm Yazmin. This is my first full-stack app and I appreciate you taking the time to stop by and look at it!
 
