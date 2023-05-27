@@ -21,11 +21,8 @@ Test User:
 ## Future Development 
 - Drag and drop exercises 
 - User can share workouts with others 
-- User can check off exercises as they go with the option to restart the workout
+- User can restart the workout and ell exercise cards will be cleared
 - User can start a timer, if an exercise is dependent on time
-
-## Demo 
-[Video soon to come]
 
 
 ## Tech Stack
@@ -51,6 +48,9 @@ Test User:
 ## Database Tables
 
 ![Tables](images/DBSchema.png)
+
+## Demo 
+https://github.com/yazmintorres/YouMoveApp/assets/119457543/421a3802-c67e-419f-884d-a7817382c92f
 
 ## Installation
 
