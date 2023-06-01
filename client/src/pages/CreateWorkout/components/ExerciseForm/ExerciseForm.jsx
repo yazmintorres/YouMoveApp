@@ -42,6 +42,7 @@ const ExerciseForm = ({
       weight: "",
       reps: "",
       sets: "",
+      exerciseCompleted: false,
     });
     handleCloseForm();
   };
