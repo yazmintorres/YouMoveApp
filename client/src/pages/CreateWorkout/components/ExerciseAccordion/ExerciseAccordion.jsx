@@ -97,8 +97,6 @@ const ExerciseAccordion = ({
     handleEditExercise(exercise, exerciseNumber);
   };
 
-  // console.log("exercise", exercise);
-
   return (
     <>
       <div
