@@ -102,7 +102,6 @@ const ExerciseAccordion = ({
       <div
         className={`relative flex w-full flex-col items-center rounded-lg border-2 border-solid border-black text-center md:mt-0 md:w-4/5 ${opacity}`}
       >
-        {/* <div className=" relative m-auto flex w-full items-center justify-center p-3 pb-1"> */}
         <h3 className="absolute left-0 my-1 w-12 basis-auto text-xl font-bold">
           {exerciseNumber}
         </h3>
@@ -145,12 +144,6 @@ const ExerciseAccordion = ({
           <div className="mb-1 flex w-full justify-center gap-1">
             {exercise.sets > 0 ? <p className="text-base">Set:</p> : null}
             {checkboxes}
-            {/* <button
-              onClick={handleExerciseCompleted}
-              className="ml-1 flex items-center rounded  border-2 border-solid border-blue-900 bg-yellow-300 px-1 text-sm hover:bg-yellow-500 "
-            >
-              Done <MdStar />
-            </button> */}
           </div>
         </div>
       </div>
