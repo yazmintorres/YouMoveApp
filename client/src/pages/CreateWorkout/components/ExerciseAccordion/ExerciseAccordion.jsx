@@ -69,11 +69,14 @@ const ExerciseAccordion = ({
   for (let i = 0; i < exercise.sets; i++) {
     checkboxes.push(
       <div className="flex items-center gap-1" key={i}>
-        <label htmlFor={i + 1} className="text-base">
+        <label
+          htmlFor={`exercise ${exerciseNumber} set ${i + 1}`}
+          className="text-base"
+        >
           {i + 1}
         </label>
         <input
-          id={i + 1}
+          id={`exercise ${exerciseNumber} set ${i + 1}`}
           checked={
             exercise?.setsCompleted ? exercise.setsCompleted[i] ?? false : false
           }
