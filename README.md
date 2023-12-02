@@ -6,6 +6,8 @@ Hi, I'm Yazmin. This is my first full-stack app and I appreciate you taking the 
 YouMove is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
 
 [YouMove Website](https://server-mxft.onrender.com/)
+- Need to update YouTube API key.
+
 
 Test User: 
 - Email: test@gmail.com
