@@ -8,12 +8,12 @@ async function addVideo(videoId) {
   );
   const data = await youtubeResponse.json();
   const videoInfo = data.items[0];
-  console.log(videoInfo)
+  // console.log(videoInfo)
 
   // const if there is not the max res url use the standard res
   const maxresUrl = videoInfo.snippet.thumbnails?.maxres?.url;
   let thumbnailUrl = "";
-  console.log(maxresUrl);
+  // console.log(maxresUrl);
 
   if (maxresUrl) {
     thumbnailUrl = maxresUrl;
