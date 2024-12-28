@@ -1,8 +1,6 @@
 # YouMove - A Fitness App
 [<img src="https://img.shields.io/github/issues-pr-closed/yazmintorres/youmoveapp?style=for-the-badge" />](https://github.com/yazmintorres/YouMoveApp/pulls?q=is%3Apr+is%3Aclosed) [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/yazminmtorres/)
 
-Hi, I'm Yazmin. This is my first full-stack app and I appreciate you taking the time to stop by and look at it!
-
 YouMove is a fitness app that allows users to create customized workouts that are associated with a specific workout video from YouTube. The purpose of the app is for users to be able to have all their favorite workout videos in one place and to easily take notes on their favorite workout videos!
 
 [YouMove Website](https://server-mxft.onrender.com/)
